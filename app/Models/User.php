@@ -12,6 +12,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +24,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'level',
+        'total_xp',
+        'is_online',
+        'last_online'
     ];
 
     /**
@@ -45,4 +52,46 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function senders()
+    {
+        return $this->hasMany(FriendRequest::class, 'sender_id');
+    }
+
+    public function receivers()
+    {
+        return $this->hasMany(FriendRequest::class, 'receiver_id');
+    }
+
+    public function blockers()
+    {
+        return $this->hasMany(BlockedUser::class);
+    }
+
+    public function blockedUsers()
+    {
+        return $this->hasMany(BlockedUser::class, 'blocked_user_id');
+    }
+
+    public function completedLessons()
+    {
+        return $this->hasMany(CompletedLesson::class);
+    }
+
+    public function completedAssignments()
+    {
+        return $this->hasMany(CompletedAssignment::class);
+    }
+
+    public function friend()
+    {
+        return $this->belongsToMany(Friendship::class, 'party1');
+    }
+
+    public function friends()
+    {
+        return $this->hasMany(Friendship::class, 'party2');
+    }
+
+
 }
