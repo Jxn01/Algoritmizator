@@ -7,7 +7,8 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-<div id="login-form"></div>asd
+
+<div id="login-form"></div>
 <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-// resources/js/components/NotFound.js
+// resources/js/components/NotFound.jsx
 
 import React from 'react';
 

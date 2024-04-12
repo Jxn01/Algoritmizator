@@ -28,10 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LoginForm from './components/LoginForm';
-import NotFound from "./components/NotFound.js";
+import LoginForm from './components/LoginForm.jsx';
+import NotFound from "./components/NotFound.jsx";
 
-    ReactDOM.render(<LoginForm />, document.getElementById('login-form'));
+if(document.getElementById('login-form')) {
+    ReactDOM.render(<LoginForm/>, document.getElementById('login-form'));
+}
 
 if (document.getElementById('not-found')) {
     ReactDOM.render(<NotFound />, document.getElementById('not-found'));
