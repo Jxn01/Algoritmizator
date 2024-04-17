@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Friendship extends Model
 {
@@ -17,12 +18,12 @@ class Friendship extends Model
         'date'
     ];
 
-    public function user1()
+    public function user1(): BelongsTo
     {
         return $this->belongsTo(User::class, 'party1');
     }
 
-    public function user2()
+    public function user2(): BelongsTo
     {
         return $this->belongsTo(User::class, 'party2');
     }

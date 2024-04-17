@@ -12,12 +12,12 @@ class ListBladeViews extends Command
     protected $signature = 'view:list';
     protected $description = 'Lists all Blade view files';
 
-    public function handle()
+    public function handle(): void
     {
         $files = File::allFiles(resource_path('views'));
 
         foreach ($files as $file) {
-            if (strpos($file, '.blade.php') !== false) {
+            if (str_contains($file, '.blade.php')) {
                 $this->info($file);
             }
         }

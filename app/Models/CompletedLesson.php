@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CompletedLesson extends Model
 {
@@ -17,12 +19,12 @@ class CompletedLesson extends Model
         'date'
     ];
 
-    public function lesson()
+    public function lesson(): HasOne
     {
         return $this->hasOne(Lesson::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

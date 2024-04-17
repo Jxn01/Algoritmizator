@@ -1,3 +1,5 @@
-<div>
-    <!-- An unexamined life is not worth living. - Socrates -->
-</div>
+@extends('layouts.app')
+@section('title', 'Leckék')
+@section('content')
+    <div id="lessons"></div>
+@endsection

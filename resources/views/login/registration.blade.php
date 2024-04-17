@@ -1,4 +1,5 @@
-<div>
-    <!-- When there is no desire, all things are at peace. - Laozi -->
-</div>
-asdsss
+@extends('layouts.auth')
+@section('title', 'Regisztráció')
+@section('content')
+    <div id="registration"></div>
+@endsection

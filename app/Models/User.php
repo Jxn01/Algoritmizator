@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -22,6 +24,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
         'level',
@@ -53,42 +56,42 @@ class User extends Authenticatable
         ];
     }
 
-    public function senders()
+    public function senders(): HasMany
     {
         return $this->hasMany(FriendRequest::class, 'sender_id');
     }
 
-    public function receivers()
+    public function receivers(): HasMany
     {
         return $this->hasMany(FriendRequest::class, 'receiver_id');
     }
 
-    public function blockers()
+    public function blockers(): HasMany
     {
         return $this->hasMany(BlockedUser::class);
     }
 
-    public function blockedUsers()
+    public function blockedUsers(): HasMany
     {
         return $this->hasMany(BlockedUser::class, 'blocked_user_id');
     }
 
-    public function completedLessons()
+    public function completedLessons(): HasMany
     {
         return $this->hasMany(CompletedLesson::class);
     }
 
-    public function completedAssignments()
+    public function completedAssignments(): HasMany
     {
         return $this->hasMany(CompletedAssignment::class);
     }
 
-    public function friend()
+    public function friendTo(): BelongsToMany
     {
         return $this->belongsToMany(Friendship::class, 'party1');
     }
 
-    public function friends()
+    public function friends(): HasMany
     {
         return $this->hasMany(Friendship::class, 'party2');
     }

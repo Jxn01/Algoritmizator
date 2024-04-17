@@ -1,3 +1,5 @@
-<div>
-    <!-- When there is no desire, all things are at peace. - Laozi -->
-</div>
+@extends('layouts.auth')
+@section('title', 'Elfelejtett Jelszó')
+@section('content')
+    <div id="forgot-password"></div>
+@endsection

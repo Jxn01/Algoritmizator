@@ -2,19 +2,6 @@
 
 return [
 
-    //Laravel Passport
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-
-        'api' => [
-            'driver' => 'passport',
-            'provider' => 'users',
-        ],
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -53,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -77,11 +69,6 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
@@ -125,4 +112,6 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    'private_key' => env('PASSPORT_PRIVATE_KEY_PATH', storage_path('oauth-keys/oauth-private.key')),
+    'public_key' => env('PASSPORT_PUBLIC_KEY_PATH', storage_path('oauth-keys/oauth-public.key')),
 ];
