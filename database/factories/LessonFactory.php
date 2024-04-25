@@ -13,7 +13,7 @@ class LessonFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'description' => $this->faker->text
+            'description' => $this->faker->text,
         ];
     }
 }

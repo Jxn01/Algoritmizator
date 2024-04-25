@@ -14,7 +14,7 @@ class BlockedUserFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween(1, 10),
             'blocked_user_id' => $this->faker->numberBetween(1, 10),
-            'date' => $this->faker->dateTimeThisYear()
+            'date' => $this->faker->dateTimeThisYear(),
         ];
     }
 }

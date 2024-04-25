@@ -13,7 +13,7 @@ class AnswerFactory extends Factory
     {
         return [
             'description' => $this->faker->sentence,
-            'is_correct' => $this->faker->boolean
+            'is_correct' => $this->faker->boolean,
         ];
     }
 }

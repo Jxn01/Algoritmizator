@@ -11,12 +11,14 @@ class FriendRequest extends Model
     use HasFactory;
 
     protected $table = 'friend_requests';
+
     protected $primaryKey = 'id';
+
     protected $fillable = [
         'sender_id',
         'receiver_id',
         'status',
-        'date'
+        'date',
     ];
 
     public function sender(): BelongsTo

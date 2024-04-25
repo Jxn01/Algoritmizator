@@ -14,7 +14,7 @@ class FriendshipFactory extends Factory
         return [
             'party1' => $this->faker->uuid,
             'party2' => $this->faker->uuid,
-            'date' => $this->faker->dateTime
+            'date' => $this->faker->dateTime,
         ];
     }
 }

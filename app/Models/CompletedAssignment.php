@@ -11,12 +11,14 @@ class CompletedAssignment extends Model
 {
     use HasFactory;
 
-    protected $table = "completed_assignments";
-    protected $primaryKey = "id";
+    protected $table = 'completed_assignments';
+
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'user_id',
         'assignment_id',
-        'date'
+        'date',
     ];
 
     public function assignment(): HasOne

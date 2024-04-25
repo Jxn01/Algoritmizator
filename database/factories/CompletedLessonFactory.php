@@ -14,7 +14,7 @@ class CompletedLessonFactory extends Factory
         return [
             'user_id' => 1,
             'lesson_id' => 1,
-            'date' => $this->faker->dateTimeThisYear()
+            'date' => $this->faker->dateTimeThisYear(),
         ];
     }
 }

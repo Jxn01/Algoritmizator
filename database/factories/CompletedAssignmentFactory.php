@@ -14,7 +14,7 @@ class CompletedAssignmentFactory extends Factory
         return [
             'user_id' => $this->faker->uuid,
             'assignment_id' => $this->faker->uuid,
-            'date' => $this->faker->dateTimeThisYear()
+            'date' => $this->faker->dateTimeThisYear(),
         ];
     }
 }

@@ -11,11 +11,13 @@ class Lesson extends Model
 {
     use HasFactory;
 
-    protected $table = "lessons";
-    protected $primaryKey = "id";
+    protected $table = 'lessons';
+
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'name',
-        'description'
+        'description',
     ];
 
     public function assignments(): HasOne

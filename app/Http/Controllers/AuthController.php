@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Http\Request;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 use Psr\Http\Message\ServerRequestInterface;
 
-
 class AuthController extends Controller
 {
-
     /**
      * @throws BindingResolutionException
      */
@@ -20,13 +18,14 @@ class AuthController extends Controller
     {
         //append grant_type to the request
         $request = $request->withParsedBody($request->getParsedBody() + [
-                'grant_type' => 'password',
-                'client_id' => env('PASSPORT_PASSWORD_GRANT_CLIENT_ID'),
-                'client_secret' => env('PASSPORT_PASSWORD_GRANT_CLIENT_SECRET'),
-                'scope' => '*'
-            ]);
+            'grant_type' => 'password',
+            'client_id' => env('PASSPORT_PASSWORD_GRANT_CLIENT_ID'),
+            'client_secret' => env('PASSPORT_PASSWORD_GRANT_CLIENT_SECRET'),
+            'scope' => '*',
+        ]);
 
         $tokenController = app()->make(AccessTokenController::class);
+
         return $tokenController->issueToken($request);
     }
 
@@ -38,7 +37,7 @@ class AuthController extends Controller
             'username' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string',
-            'confirmPassword' => 'required|string|same:password'
+            'confirmPassword' => 'required|string|same:password',
         ]);
 
         $user = new User([
@@ -50,33 +49,33 @@ class AuthController extends Controller
             'level' => 1,
             'total_xp' => 0,
             'is_online' => false,
-            'last_online' => Carbon::now()
+            'last_online' => Carbon::now(),
         ]);
 
         $user->save();
 
-
         return response()->json([
-            'message' => 'Successfully created user!'
+            'message' => 'Successfully created user!',
         ], 201);
     }
 
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
+
         return response()->json([
-            'message' => 'Successfully logged out'
+            'message' => 'Successfully logged out',
         ]);
     }
 
     private function generateUUID()
     {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0x0fff) | 0x4000,
-            mt_rand(0, 0x3fff) | 0x8000,
-            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+            mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF),
+            mt_rand(0, 0xFFFF),
+            mt_rand(0, 0x0FFF) | 0x4000,
+            mt_rand(0, 0x3FFF) | 0x8000,
+            mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF)
         );
     }
 

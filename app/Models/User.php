@@ -15,6 +15,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'users';
+
     protected $primaryKey = 'id';
 
     /**
@@ -30,7 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'level',
         'total_xp',
         'is_online',
-        'last_online'
+        'last_online',
     ];
 
     /**
@@ -95,6 +96,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Friendship::class, 'party2');
     }
-
-
 }

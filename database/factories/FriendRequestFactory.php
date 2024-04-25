@@ -15,7 +15,7 @@ class FriendRequestFactory extends Factory
             'sender_id' => 1,
             'receiver_id' => 2,
             'status' => 0,
-            'date' => now()
+            'date' => now(),
         ];
     }
 }

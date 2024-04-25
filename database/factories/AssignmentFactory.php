@@ -14,7 +14,7 @@ class AssignmentFactory extends Factory
         return [
             'lesson_id' => $this->faker->uuid,
             'task_id' => $this->faker->uuid,
-            'assignment_xp' => $this->faker->numberBetween(1, 100)
+            'assignment_xp' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

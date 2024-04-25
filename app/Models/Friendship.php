@@ -11,11 +11,13 @@ class Friendship extends Model
     use HasFactory;
 
     protected $table = 'friendships';
+
     protected $primaryKey = 'id';
+
     protected $fillable = [
         'party1',
         'party2',
-        'date'
+        'date',
     ];
 
     public function user1(): BelongsTo

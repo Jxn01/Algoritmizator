@@ -11,12 +11,14 @@ class Assignment extends Model
 {
     use HasFactory;
 
-    protected $table = "assignments";
-    protected $primaryKey = "id";
+    protected $table = 'assignments';
+
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'lesson_id',
         'task_id',
-        'assignment_xp'
+        'assignment_xp',
     ];
 
     public function lesson(): BelongsTo

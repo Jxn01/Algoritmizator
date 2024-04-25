@@ -10,11 +10,13 @@ class BlockedUser extends Model
     use HasFactory;
 
     protected $table = 'blocked_users';
+
     protected $primaryKey = 'id';
+
     protected $fillable = [
         'user_id',
         'blocked_user_id',
-        'date'
+        'date',
     ];
 
     public function user()

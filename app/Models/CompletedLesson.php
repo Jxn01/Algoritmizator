@@ -12,11 +12,13 @@ class CompletedLesson extends Model
     use HasFactory;
 
     protected $table = 'completed_lessons';
+
     protected $primaryKey = 'id';
+
     protected $fillable = [
         'user_id',
         'lesson_id',
-        'date'
+        'date',
     ];
 
     public function lesson(): HasOne
