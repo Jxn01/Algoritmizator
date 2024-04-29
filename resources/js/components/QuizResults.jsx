@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {memo} from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
-const QuizResults = ({ score, totalQuestions }) => {
+const QuizResults = memo(({title, activeTab, user, score, totalQuestions }) => {
     return (
         <div>
-            <Navbar />
+            <Navbar title={title} activeTab={activeTab} user={user}/>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-md text-center">
                     <div className="flex flex-col items-center mb-8">
@@ -28,6 +28,6 @@ const QuizResults = ({ score, totalQuestions }) => {
             <Footer />
         </div>
     );
-};
+});
 
 export default QuizResults;

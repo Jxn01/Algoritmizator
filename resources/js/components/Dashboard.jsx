@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {memo} from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
-const Dashboard = () => {
+const Dashboard = memo(({title, activeTab, user}) => {
     return (
         <div>
-            <Navbar />
+            <Navbar title={title} activeTab={activeTab} user={user}/>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-2xl text-center">
                     <div className="flex flex-col items-center mb-8">
@@ -22,6 +22,6 @@ const Dashboard = () => {
             <Footer />
         </div>
     );
-};
+});
 
 export default Dashboard;

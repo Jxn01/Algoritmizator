@@ -9,13 +9,16 @@ import {cpp} from "@codemirror/lang-cpp"
 
 import React from 'react';
 import { createInertiaApp } from '@inertiajs/inertia-react';
-import { createRoot } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
+console.log('[inertia.js] Creating Inertia app...');
 createInertiaApp({
     resolve: (name) => import(`./components/${name}.jsx`),
-    setup({ el, App, props }) {
+    setup({el, App, props}) {
         createRoot(el).render(<App {...props} />)
     },
+}).then(r => {
+    console.log('[inertia.js] Inertia app created successfully');
 })
 
 /*

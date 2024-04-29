@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {memo, useState} from 'react';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +8,7 @@ import Navbar from "./Navbar.jsx";
 
 Modal.setAppElement('body');
 
-const Profile = () => {
+const Profile = memo(({title, activeTab, navUser}) => {
         const initialUser = {
             fullName: "Példa Béla",
             username: "pldbla",
@@ -89,7 +89,7 @@ const Profile = () => {
 
     return (
         <div>
-            <Navbar />
+            <Navbar title={title} activeTab={activeTab} user={navUser}/>
             <div className="flex flex-col justify-between min-h-screen p-10 text-white" style={{ background: 'linear-gradient(#363291, #4742be)' }}>
                 <div className="flex justify-between items-start gap-8">
                     <div className="bg-gray-800 p-6 rounded-lg">
@@ -248,6 +248,6 @@ const Profile = () => {
             <Footer />
         </div>
     );
-};
+});
 
 export default Profile;

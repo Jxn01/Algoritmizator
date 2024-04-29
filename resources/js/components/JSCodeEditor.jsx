@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, {memo, useEffect, useRef} from 'react';
 import { EditorState } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
 import { defaultKeymap } from '@codemirror/commands';
@@ -6,7 +6,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { lineNumbers } from '@codemirror/view';
 
-const JSCodeEditor = () => {
+const JSCodeEditor = memo(() => {
     const editor = useRef(null);
     const editorContainer = useRef(null);
 
@@ -50,6 +50,6 @@ const JSCodeEditor = () => {
     }, []); // Dependency array is empty to ensure setup only runs once
 
     return <div ref={editorContainer} className="editor-container" />;
-};
+});
 
 export default JSCodeEditor;

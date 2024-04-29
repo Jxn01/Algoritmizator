@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, {memo, useState} from 'react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import Footer from "./Footer.jsx";
 import Navbar from "./Navbar.jsx";
 
-const Registration = () => {
+const Registration = memo(({title, activeTab, user}) => {
     const [formData, setFormData] = useState({
         name: '',
         username: '',
@@ -30,15 +30,12 @@ const Registration = () => {
         const errors = validateForm();
         setFormErrors(errors);
         if (Object.keys(errors).length === 0) {
-            console.log('Form submitted:', formData);
-
-            // Send the form data to the server
-
-            axios.post('/api/register', formData)
+            const { confirmPassword, ...data } = formData;
+            axios.post('/algoritmizator/api/register', data)
                 .then(response => {
                     console.log('Registration successful:', response.data);
                     // Redirect to the login page
-                    window.location.href = '/registration/confirm-email';
+                    window.location.href = '/algoritmizator/auth/confirm-email';
                 })
                 .catch(error => {
                     console.error('Registration failed:', error.response.data);
@@ -80,7 +77,7 @@ const Registration = () => {
 
     return (
         <div>
-            <Navbar />
+            <Navbar title={title} activeTab={activeTab} user={user}/>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-md">
                     <div className="flex flex-col items-center mb-8">
@@ -148,6 +145,7 @@ const Registration = () => {
                                     value={formData.email}
                                     className={`w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white ${formErrors.email ? 'border-red-500' : 'border-gray-600'}`}
                                     id="email"
+                                    autoComplete={"email"}
                                 />
                                 {formErrors.email && <p className="text-xs text-red-500 mt-1">{formErrors.email}</p>}
                             </div>
@@ -168,6 +166,7 @@ const Registration = () => {
                                     value={formData.password}
                                     className={`w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white ${formErrors.password ? 'border-red-500' : 'border-gray-600'}`}
                                     id="password"
+                                    autoComplete={"new-password"}
                                 />
                                 {formErrors.password && <p className="text-xs text-red-500 mt-1">{formErrors.password}</p>}
                             </div>
@@ -188,6 +187,7 @@ const Registration = () => {
                                     value={formData.confirmPassword}
                                     className={`w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white ${formErrors.confirmPassword ? 'border-red-500' : 'border-gray-600'}`}
                                     id="confirmPassword"
+                                    autoComplete={"new-password"}
                                 />
                                 {formErrors.confirmPassword &&
                                     <p className="text-xs text-red-500 mt-1">{formErrors.confirmPassword}</p>}
@@ -218,6 +218,6 @@ const Registration = () => {
             <Footer />
         </div>
     );
-};
+});
 
 export default Registration;

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Tooltip as ReactTooltip } from 'react-tooltip'; // Correct import
+import React, {memo, useState} from 'react';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
-import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
+import Navbar from "./Navbar.jsx";
 
-const Login = () => {
+const Login = memo(({title, activeTab, user}) => {
+    console.log("Login.jsx: Rendering login form...");
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailIsValid, setEmailIsValid] = useState(true);
@@ -21,17 +22,16 @@ const Login = () => {
         setEmailIsValid(true);
 
         const formData = new URLSearchParams();
-        formData.append('username', email);
+        formData.append('email', email);
         formData.append('password', password);
 
-        axios.post('/api/login', formData, {
+        axios.post('/algoritmizator/api/login', formData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
             .then(response => {
                 console.log('Login successful:', response.data);
-                localStorage.setItem('access_token', response.data.access_token);
                 window.location.href = '/algoritmizator/app';
             })
             .catch(error => {
@@ -48,7 +48,7 @@ const Login = () => {
 
     return (
         <div>
-            <Navbar />
+            <Navbar title={title} activeTab={activeTab} user={user}/>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-md">
                     <div className="flex flex-col items-center mb-8">
@@ -71,6 +71,7 @@ const Login = () => {
                                         </span>
                                     </label>
                                     <input type="text" placeholder="Email"
+                                        autoComplete={"email"}
                                         onChange={e => setEmail(e.target.value)}
                                         className={`w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white ${!emailIsValid ? 'border-red-500' : 'border-gray-600'}`}
                                         id="email"/>
@@ -79,6 +80,7 @@ const Login = () => {
                                 <div className="mt-4">
                                     <label className="block text-gray-300">Jelszó</label>
                                     <input type="password" placeholder="Jelszó"
+                                           autoComplete={"current-password"}
                                            onChange={handlePasswordChange}
                                            className="w-full px-4 py-2 mt-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white"
                                            id="password"/>
@@ -99,6 +101,6 @@ const Login = () => {
             <Footer />
         </div>
     );
-};
+});
 
 export default Login;

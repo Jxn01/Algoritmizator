@@ -4,40 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Laravel\Passport\Http\Controllers\AccessTokenController;
-use Psr\Http\Message\ServerRequestInterface;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    /**
-     * @throws BindingResolutionException
-     */
-    public function login(ServerRequestInterface $request)
+    public function login(Request $request)
     {
-        //append grant_type to the request
-        $request = $request->withParsedBody($request->getParsedBody() + [
-            'grant_type' => 'password',
-            'client_id' => env('PASSPORT_PASSWORD_GRANT_CLIENT_ID'),
-            'client_secret' => env('PASSPORT_PASSWORD_GRANT_CLIENT_SECRET'),
-            'scope' => '*',
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
-        $tokenController = app()->make(AccessTokenController::class);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-        return $tokenController->issueToken($request);
+            $request->user()->update([
+                'is_online' => true,
+                'last_online' => Carbon::now(),
+            ]);
+            $request->user()->save();
+
+            return response()->json([
+                'message' => 'Successfully logged in!',
+            ])->withCookie('XRSF-TOKEN', csrf_token());
+        } else {
+            return response()->json([
+                'message' => 'Invalid credentials',
+            ], 401);
+        }
     }
 
     public function register(Request $request)
     {
-
         $request->validate([
             'name' => 'required|string',
             'username' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string',
-            'confirmPassword' => 'required|string|same:password',
         ]);
 
         $user = new User([
@@ -48,23 +54,110 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
             'level' => 1,
             'total_xp' => 0,
-            'is_online' => false,
+            'is_online' => true,
             'last_online' => Carbon::now(),
         ]);
 
         $user->save();
 
-        return response()->json([
-            'message' => 'Successfully created user!',
-        ], 201);
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            $request->user()->save();
+
+            event(new Registered($user));
+
+            return response()->json([
+                'message' => 'Successfully registered and logged in!',
+            ])->withCookie('XRSF-TOKEN', csrf_token());
+        } else {
+            return response()->json([
+                'message' => 'Invalid credentials',
+            ], 401);
+        }
     }
 
     public function logout(Request $request)
     {
-        $request->user()->token()->revoke();
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
 
         return response()->json([
-            'message' => 'Successfully logged out',
+            'message' => 'Successfully logged out!',
+        ]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+            'confirmPassword' => 'required|string|same:password',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user) {
+            return response()->json([
+                'message' => 'User not found',
+            ], 404);
+        }
+
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return response()->json([
+            'message' => 'Successfully reset password!',
+        ]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required|string',
+            'password' => 'required|string',
+            'confirmPassword' => 'required|string|same:password',
+        ]);
+
+        $user = $request->user();
+
+        if (! Hash::check($request->current_password, $user->password)) {
+            return response()->json([
+                'message' => 'Current password is incorrect',
+            ], 400);
+        }
+
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return response()->json([
+            'message' => 'Successfully updated password!',
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|email',
+        ]);
+
+        $user = $request->user();
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Successfully updated profile!',
         ]);
     }
 
@@ -77,10 +170,5 @@ class AuthController extends Controller
             mt_rand(0, 0x3FFF) | 0x8000,
             mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF)
         );
-    }
-
-    public function user(Request $request)
-    {
-        return response()->json($request->user());
     }
 }
