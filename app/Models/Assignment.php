@@ -17,7 +17,6 @@ class Assignment extends Model
 
     protected $fillable = [
         'lesson_id',
-        'task_id',
         'assignment_xp',
     ];
 
@@ -29,5 +28,10 @@ class Assignment extends Model
     public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function completedAssignments(): HasMany
+    {
+        return $this->hasMany(CompletedAssignment::class);
     }
 }

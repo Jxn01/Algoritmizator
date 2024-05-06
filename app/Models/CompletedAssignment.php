@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CompletedAssignment extends Model
 {
@@ -18,12 +17,11 @@ class CompletedAssignment extends Model
     protected $fillable = [
         'user_id',
         'assignment_id',
-        'date',
     ];
 
-    public function assignment(): HasOne
+    public function assignment(): BelongsTo
     {
-        return $this->hasOne(Assignment::class);
+        return $this->belongsTo(Assignment::class);
     }
 
     public function user(): BelongsTo

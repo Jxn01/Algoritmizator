@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
+use App\Notifications\CustomReset;
 use App\Notifications\CustomVerifyEmail;
+use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 
 /**
  * @property mixed|true $is_online
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -36,6 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'total_xp',
         'is_online',
         'last_online',
+        'avatar',
     ];
 
     /**
@@ -61,6 +62,24 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    /**
+     * Send the email verification notification.
+     */
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new CustomVerifyEmail);
+    }
+
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new CustomReset($token));
+    }
+
+    public static function findById($id)
+    {
+        return self::where('id', $id)->first();
+    }
+
     public function senders(): HasMany
     {
         return $this->hasMany(FriendRequest::class, 'sender_id');
@@ -69,16 +88,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function receivers(): HasMany
     {
         return $this->hasMany(FriendRequest::class, 'receiver_id');
-    }
-
-    public function blockers(): HasMany
-    {
-        return $this->hasMany(BlockedUser::class);
-    }
-
-    public function blockedUsers(): HasMany
-    {
-        return $this->hasMany(BlockedUser::class, 'blocked_user_id');
     }
 
     public function completedLessons(): HasMany
@@ -91,9 +100,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(CompletedAssignment::class);
     }
 
-    public function friendTo(): BelongsToMany
+    public function friendTo(): HasMany
     {
-        return $this->belongsToMany(Friendship::class, 'party1');
+        return $this->hasMany(Friendship::class, 'party1');
     }
 
     public function friends(): HasMany

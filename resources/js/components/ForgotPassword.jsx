@@ -16,8 +16,8 @@ const ForgotPassword = memo(({title, activeTab, user}) => {
         if (emailRegex.test(email)) {
             setEmailIsValid(true);
             setEmailSent(true);
-            // Simulate sending email process
-            console.log('Password reset email sent to:', email);
+            axios.post('/algoritmizator/api/forgot-password', { email });
+            alert('Jelszó-visszaállítási e-mailt küldtünk az Ön e-mail címére.');
         } else {
             setEmailIsValid(false);
         }
@@ -29,9 +29,8 @@ const ForgotPassword = memo(({title, activeTab, user}) => {
             <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-md">
                     <div className="flex flex-col items-center mb-8">
-                        <div className="h-20 w-20 bg-gray-300 rounded-full flex items-center justify-center mb-2">
-                            <span className="text-xl font-semibold text-white">Logo</span>
-                        </div>
+                        <img src="/storage/logo.png" alt="Logo"
+                             className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"/>
                         <h2 className="text-3xl font-bold text-white mb-2">Jelszó alaphelyzetbe állítása</h2>
                     </div>
                     <div className="px-8 py-6 text-left bg-gray-800 shadow-lg rounded-lg">

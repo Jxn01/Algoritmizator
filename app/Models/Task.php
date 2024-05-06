@@ -16,7 +16,7 @@ class Task extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'answer_id',
+        'assignment_id',
         'description',
     ];
 

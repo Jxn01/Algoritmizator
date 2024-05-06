@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CompletedLesson extends Model
 {
@@ -18,12 +17,11 @@ class CompletedLesson extends Model
     protected $fillable = [
         'user_id',
         'lesson_id',
-        'date',
     ];
 
-    public function lesson(): HasOne
+    public function lesson(): BelongsTo
     {
-        return $this->hasOne(Lesson::class);
+        return $this->belongsTo(Lesson::class);
     }
 
     public function user(): BelongsTo

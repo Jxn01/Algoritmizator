@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\RedirectFromOwnProfile;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias(['inertia' => HandleInertiaRequests::class]);
+        $middleware->alias(['inertia' => HandleInertiaRequests::class, 'redirectFromOwnProfile' => redirectFromOwnProfile::class]);
         $middleware->redirectUsersTo('/algoritmizator/app');
         $middleware->redirectGuestsTo('/algoritmizator/auth/login');
     })

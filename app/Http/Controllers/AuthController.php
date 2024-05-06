@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -18,7 +21,9 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        $remember = (bool) $request->remember;
+
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
             $request->user()->update([
@@ -98,38 +103,80 @@ class AuthController extends Controller
     public function resetPassword(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-            'confirmPassword' => 'required|string|same:password',
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                ])->setRememberToken(Str::random(60));
+                $user->save();
+                event(new PasswordReset($user));
+            }
+        );
 
-        if (! $user) {
-            return response()->json([
-                'message' => 'User not found',
-            ], 404);
-        }
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
+    }
 
-        $user->password = bcrypt($request->password);
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with(['status' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
+    }
+
+    public function emailVerificationNotification(Request $request)
+    {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('message', 'Verification link sent!');
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = $request->user();
+
+        $avatarName = $user->id.'_avatar'.time().'.'.request()->avatar->getClientOriginalExtension();
+
+        $request->avatar->storeAs('avatars', $avatarName);
+
+        $user->avatar = $avatarName;
         $user->save();
 
         return response()->json([
-            'message' => 'Successfully reset password!',
+            'message' => 'Successfully updated avatar!',
+            'avatar' => $avatarName,
         ]);
     }
 
     public function updatePassword(Request $request)
     {
         $request->validate([
-            'current_password' => 'required|string',
-            'password' => 'required|string',
-            'confirmPassword' => 'required|string|same:password',
+            'oldPassword' => 'required|string',
+            'password' => 'required|min:8|string',
         ]);
 
         $user = $request->user();
 
-        if (! Hash::check($request->current_password, $user->password)) {
+        if (! Hash::check($request->oldPassword, $user->password)) {
             return response()->json([
                 'message' => 'Current password is incorrect',
             ], 400);
@@ -143,21 +190,72 @@ class AuthController extends Controller
         ]);
     }
 
-    public function updateProfile(Request $request)
+    public function updateName(Request $request)
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|email',
         ]);
 
         $user = $request->user();
 
         $user->name = $request->name;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Successfully updated name!',
+        ]);
+    }
+
+    public function updateUsername(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+        ]);
+
+        $user = $request->user();
+
+        $existingUser = User::where('username', $request->username)->first();
+        if ($existingUser) {
+            return response()->json([
+                'message' => 'Username is already taken',
+            ], 400);
+        }
+
+        $user->username = $request->username;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Successfully updated username!',
+        ]);
+    }
+
+    public function updateEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+
+        $user = $request->user();
+
+        if (! Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'Password is incorrect',
+            ], 401);
+        }
+
+        $existingUser = User::where('email', $request->email)->first();
+        if ($existingUser) {
+            return response()->json([
+                'message' => 'E-mail is already taken',
+            ], 400);
+        }
+
         $user->email = $request->email;
         $user->save();
 
         return response()->json([
-            'message' => 'Successfully updated profile!',
+            'message' => 'Successfully updated e-mail!',
         ]);
     }
 

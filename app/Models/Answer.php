@@ -15,6 +15,7 @@ class Answer extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'task_id',
         'description',
         'is_correct',
     ];
