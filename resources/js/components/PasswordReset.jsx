@@ -5,7 +5,23 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
+/**
+ * PasswordReset component
+ *
+ * This is a functional component that renders a password reset form.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ * It also uses React's useState hook to manage the state of the email, password, confirmPassword, passwordsMatch, emailIsValid, passwordStrength, and resetSuccess.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The currently active tab in the navbar
+ * @param {Object} props.user - The currently logged in user
+ * @param {string} props.token - The password reset token
+ *
+ * @returns {JSX.Element} The PasswordReset component
+ */
 const PasswordReset = memo(({title, activeTab, user, token}) => {
+    // State variables for the email, password, confirmPassword, passwordsMatch, emailIsValid, passwordStrength, and resetSuccess
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -14,19 +30,24 @@ const PasswordReset = memo(({title, activeTab, user, token}) => {
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [resetSuccess, setResetSuccess] = useState(false);
 
+    // Function to handle the form submission
     const handleSubmit = (event) => {
+        // Prevent the default form submission behavior
         event.preventDefault();
+        // Check if the password and confirmPassword match
         if (password !== confirmPassword) {
             setPasswordsMatch(false);
             return;
         }
         setPasswordsMatch(true);
+        // Validate the email
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
         if (!emailRegex.test(email)) {
             setEmailIsValid(false);
             return;
         }
         setEmailIsValid(true);
+        // Check the password strength and submit the form if the password is strong enough
         if (calculatePasswordStrength(password) >= 2) {
             const formData = new FormData();
             formData.append('email', email);
@@ -39,6 +60,7 @@ const PasswordReset = memo(({title, activeTab, user, token}) => {
         }
     };
 
+    // Function to calculate the strength of a password
     function calculatePasswordStrength(pass) {
         let strength = 0;
         if (pass.length >= 8) strength += 1;
@@ -48,6 +70,7 @@ const PasswordReset = memo(({title, activeTab, user, token}) => {
         return strength;
     }
 
+    // Render the Navbar, password reset form, and Footer
     return (
         <div>
             <Navbar title={title} activeTab={activeTab} user={user}/>

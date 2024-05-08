@@ -2,6 +2,14 @@ import React, {memo} from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
+/**
+ * Forbidden component
+ *
+ * This is a functional component that renders the forbidden access page (HTTP 403).
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ *
+ * @returns {JSX.Element} The Forbidden component
+ */
 const Forbidden = memo(() => {
     return (
         <div>

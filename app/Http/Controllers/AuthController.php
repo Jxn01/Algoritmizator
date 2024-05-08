@@ -6,14 +6,27 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
+/**
+ * Class AuthController
+ *
+ * The AuthController handles authentication related actions such as login, registration, password reset, and more.
+ */
 class AuthController extends Controller
 {
+    /**
+     * Handle user login.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
+     */
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -42,6 +55,12 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Handle user registration.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
+     */
     public function register(Request $request)
     {
         $request->validate([
@@ -87,6 +106,12 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Handle user logout.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
+     */
     public function logout(Request $request)
     {
         Auth::logout();
@@ -100,6 +125,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Handle password reset.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return RedirectResponse
+     */
     public function resetPassword(Request $request)
     {
         $request->validate([
@@ -124,6 +155,12 @@ class AuthController extends Controller
             : back()->withErrors(['email' => [__($status)]]);
     }
 
+    /**
+     * Handle password reset link request.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return RedirectResponse
+     */
     public function forgotPassword(Request $request)
     {
         $request->validate([
@@ -139,6 +176,12 @@ class AuthController extends Controller
             : back()->withErrors(['email' => __($status)]);
     }
 
+    /**
+     * Send email verification notification.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return RedirectResponse
+     */
     public function emailVerificationNotification(Request $request)
     {
         $request->user()->sendEmailVerificationNotification();
@@ -146,6 +189,12 @@ class AuthController extends Controller
         return back()->with('message', 'Verification link sent!');
     }
 
+    /**
+     * Handle avatar update.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
+     */
     public function updateAvatar(Request $request)
     {
         $request->validate([
@@ -167,6 +216,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Handle password update.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
+     */
     public function updatePassword(Request $request)
     {
         $request->validate([
@@ -190,6 +245,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Handle name update.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
+     */
     public function updateName(Request $request)
     {
         $request->validate([
@@ -206,6 +267,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Handle username update.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
+     */
     public function updateUsername(Request $request)
     {
         $request->validate([
@@ -229,6 +296,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Handle email update.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
+     */
     public function updateEmail(Request $request)
     {
         $request->validate([
@@ -259,6 +332,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Generate a UUID.
+     *
+     * @return string The generated UUID.
+     */
     private function generateUUID()
     {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',

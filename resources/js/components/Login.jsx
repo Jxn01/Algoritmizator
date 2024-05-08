@@ -6,13 +6,29 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import Footer from "./Footer.jsx";
 import Navbar from "./Navbar.jsx";
 
+/**
+ * Login component
+ *
+ * This is a functional component that renders a login form.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ * It also uses React's useState hook to manage the state of the email, password, rememberMe checkbox, email validation status, and login attempts.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The currently active tab in the navbar
+ * @param {Object} props.user - The currently logged in user
+ *
+ * @returns {JSX.Element} The Login component
+ */
 const Login = memo(({ title, activeTab, user }) => {
+    // State variables for the email, password, rememberMe checkbox, email validation status, and login attempts
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [emailIsValid, setEmailIsValid] = useState(true);
     const [loginAttempts, setLoginAttempts] = useState(0);
 
+    // Function to handle the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
@@ -39,10 +55,12 @@ const Login = memo(({ title, activeTab, user }) => {
             });
     };
 
+    // Function to handle the change of the rememberMe checkbox
     const handleRememberMeChange = (e) => {
         setRememberMe(e.target.checked);
     };
 
+    // Render the Navbar, login form, and Footer
     return (
         <div>
             <Navbar title={title} activeTab={activeTab} user={user} />

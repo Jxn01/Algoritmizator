@@ -2,6 +2,21 @@ import React, {memo} from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
+/**
+ * QuizResults component
+ *
+ * This is a functional component that renders a quiz results page.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The currently active tab in the navbar
+ * @param {Object} props.user - The currently logged in user
+ * @param {number} props.score - The user's score in the quiz
+ * @param {number} props.totalQuestions - The total number of questions in the quiz
+ *
+ * @returns {JSX.Element} The QuizResults component
+ */
 const QuizResults = memo(({title, activeTab, user, score, totalQuestions }) => {
     return (
         <div>

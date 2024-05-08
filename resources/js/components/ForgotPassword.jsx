@@ -5,11 +5,27 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
+/**
+ * ForgotPassword component
+ *
+ * This is a functional component that renders the forgot password page.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ * It also uses React's useState hook to manage the state of the email input field, the email sent status, and the email validation status.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The currently active tab in the navbar
+ * @param {Object} props.user - The currently logged in user
+ *
+ * @returns {JSX.Element} The ForgotPassword component
+ */
 const ForgotPassword = memo(({title, activeTab, user}) => {
+    // State variables for the email input field, the email sent status, and the email validation status
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
     const [emailIsValid, setEmailIsValid] = useState(true);
 
+    // Function to handle the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;

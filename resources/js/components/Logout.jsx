@@ -2,7 +2,20 @@ import React, {memo} from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
-
+/**
+ * Logout component
+ *
+ * This is a functional component that handles user logout and renders a logout confirmation page.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ * On component render, it makes a POST request to the '/algoritmizator/api/logout' endpoint to log out the user.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The currently active tab in the navbar
+ * @param {Object} props.user - The currently logged in user
+ *
+ * @returns {JSX.Element} The Logout component
+ */
 const Logout = memo(({title, activeTab, user}) => {
     console.log("Logout.jsx: Logging out...")
     axios.post('/algoritmizator/api/logout').then(r => {

@@ -1,69 +1,105 @@
+/* Import base, components, and utilities from Tailwind CSS */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-
+/* Define the theme for CodeMirror editor */
 .cm-theme {
+    /* Set the color of the text */
     --cm-color: white;
+    /* Set the background color of the editor */
     --cm-background: #2b2b2b;
+    /* Set the background color of the gutter (line numbers area) */
     --cm-gutterBackground: #1c1c1c;
+    /* Set the border color of the gutter */
     --cm-gutterBorder: #2b2b2b;
+    /* Set the background color of selected text */
     --cm-selectionBackground: #6c6783;
+    /* Set the color of the cursor */
     --cm-cursor: white;
 }
 
+/* Define the style for the editor */
 .editor {
+    /* Set the border color and width */
     border: 1px solid #ccc;
+    /* Set the border radius */
     border-radius: 4px;
 }
 
+/* Define the style for the editor container */
 .editor-container {
+    /* Set the width and height to 100% */
     width: 100%;
     height: 100%;
+    /* Set the border color, width, and radius */
     border: 1px solid #ccc;
     border-radius: 4px;
+    /* Hide overflow content */
     overflow: hidden;
+    /* Set the background color */
     background: #2b2b2b;
 }
 
+/* Define the style for the CodeMirror editor inside the editor container */
 .editor-container .cm-editor {
+    /* Set the minimum, maximum, and actual height to 100% */
     min-height: 100%;
     height: 100%;
     max-height: 100%;
+    /* Set the background and text color */
     background-color: #1e1e1e;
     color: #d4d4d4;
 }
 
+/* Define the style for the background */
 .background::before {
+    /* Set the content to an empty string */
     content: "";
+    /* Set the position to absolute */
     position: absolute;
+    /* Set the top and left position */
     top: 50%;
     left: -50%;
+    /* Set the width and height */
     width: 150%;
     height: 150%;
+    /* Set the background color */
     background-color: rgb(255, 181, 224);
+    /* Set the border radius */
     border-radius: 50%;
+    /* Apply a blur filter */
     filter: blur(100px);
+    /* Set the z-index */
     z-index: -1;
 }
 
+/* Define the style for all elements */
 * {
+    /* Set the color of the scrollbar */
     scrollbar-color: #6d28d9 #1a202c;
+    /* Set the width of the scrollbar */
     scrollbar-width: auto;
 }
 
+/* Define the style for the scrollbar of all elements for Webkit browsers */
 *::-webkit-scrollbar {
+    /* Set the width of the scrollbar */
     width: 12px;
 }
 
+/* Define the style for the scrollbar track of all elements for Webkit browsers */
 *::-webkit-scrollbar-track {
+    /* Set the background color of the scrollbar track */
     background: #1a202c;
 }
 
+/* Define the style for the scrollbar thumb of all elements for Webkit browsers */
 *::-webkit-scrollbar-thumb {
+    /* Set the background color of the scrollbar thumb */
     background-color: #6d28d9;
+    /* Set the border radius of the scrollbar thumb */
     border-radius: 20px;
+    /* Set the border color and width of the scrollbar thumb */
     border: 3px solid #1a202c;
 }
-
-

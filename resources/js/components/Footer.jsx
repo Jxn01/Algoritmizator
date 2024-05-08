@@ -1,5 +1,13 @@
 import React, {memo} from 'react';
 
+/**
+ * Footer component
+ *
+ * This is a functional component that renders the footer of the page.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ *
+ * @returns {JSX.Element} The Footer component
+ */
 const Footer = memo(() => {
     return (
         <footer className="bg-gray-800 text-white">

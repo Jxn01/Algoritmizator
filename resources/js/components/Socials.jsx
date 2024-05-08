@@ -2,9 +2,25 @@ import React, {memo, useEffect, useState} from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
+/**
+ * Socials component
+ *
+ * This is a functional component that renders a socials page.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ * It also uses React's useState hook to manage the state of the active social tab.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The currently active tab in the navbar
+ * @param {Object} props.user - The currently logged in user
+ *
+ * @returns {JSX.Element} The Socials component
+ */
 const Socials = memo(({title, activeTab, user}) => {
+    // State variable for the active social tab
     const [activeSocialTab, setActiveSocialTab] = useState('friends');
 
+    // Render the Navbar, socials page, and Footer
     return (
         <div>
         <Navbar title={title} activeTab={activeTab} user={user}/>
@@ -31,9 +47,20 @@ const Socials = memo(({title, activeTab, user}) => {
     );
 });
 
+/**
+ * FriendsComponent component
+ *
+ * This is a functional component that fetches and renders the user's friends.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ * It also uses React's useState and useEffect hooks to manage the state of the friends and to fetch the friends when the component is mounted.
+ *
+ * @returns {JSX.Element} The FriendsComponent component
+ */
 export const FriendsComponent = memo(() => {
+    // State variable for the friends
     const [friends, setFriends] = useState([]);
 
+    // Effect to fetch the friends when the component is mounted
     useEffect(() => {
         axios.get(`/algoritmizator/api/socials/friends`)
             .then(response => {
@@ -46,6 +73,7 @@ export const FriendsComponent = memo(() => {
             });
     }, []);
 
+    // Function to handle the unfriending of a friend
     const handleUnfriend = (friendId) => {
         axios.post(`/algoritmizator/api/socials/remove-friend`, { friendId })
             .then(response => {
@@ -57,6 +85,7 @@ export const FriendsComponent = memo(() => {
         setFriends(friends.filter(friend => friend.id !== friendId));
     };
 
+    // Render the friends
     return (
         <div className="min-h-screen bg-gray-800 rounded-lg text-white mb-5">
             <h1 className={'text-3xl pl-7 text-start text-white py-4'}>Barátok</h1>
@@ -90,9 +119,20 @@ export const FriendsComponent = memo(() => {
     );
 });
 
+/**
+ * FriendRequestsComponent component
+ *
+ * This is a functional component that fetches and renders the user's friend requests.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ * It also uses React's useState and useEffect hooks to manage the state of the friend requests and to fetch the friend requests when the component is mounted.
+ *
+ * @returns {JSX.Element} The FriendRequestsComponent component
+ */
 export const FriendRequestsComponent = memo(() => {
+    // State variable for the friend requests
     const [requests, setRequests] = useState([]);
 
+    // Effect to fetch the friend requests when the component is mounted
     useEffect(() => {
         axios.get(`/algoritmizator/api/socials/friend-requests`)
             .then(response => {
@@ -105,6 +145,7 @@ export const FriendRequestsComponent = memo(() => {
             });
     }, []);
 
+    // Function to handle the acceptance of a friend request
     const handleAccept = (friendId) => {
         axios.post(`/algoritmizator/api/socials/accept-friend-request`, { friendId })
             .then(response => {
@@ -116,6 +157,7 @@ export const FriendRequestsComponent = memo(() => {
             });
     };
 
+    // Function to handle the denial of a friend request
     const handleDeny = (friendId) => {
         axios.post(`/algoritmizator/api/socials/reject-friend-request`, { friendId })
             .then(response => {
@@ -127,6 +169,7 @@ export const FriendRequestsComponent = memo(() => {
             });
     };
 
+    // Render the friend requests
     return (
         <div className="min-h-screen bg-gray-800 rounded-lg text-white mb-5">
             <h1 className={'text-3xl pl-7 text-start text-white py-4'}>Bejövő kérelmek</h1>
@@ -163,10 +206,21 @@ export const FriendRequestsComponent = memo(() => {
     );
 });
 
+/**
+ * SearchComponent component
+ *
+ * This is a functional component that allows the user to search for other users.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ * It also uses React's useState hook to manage the state of the search query and the search results.
+ *
+ * @returns {JSX.Element} The SearchComponent component
+ */
 export const SearchComponent = memo(() => {
+    // State variables for the search query and the search results
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
 
+    // Function to handle the search
     const handleSearch = async (query) => {
         setQuery(query);
         if (query.trim() === '') {
@@ -185,6 +239,7 @@ export const SearchComponent = memo(() => {
             });
     }
 
+    // Function to handle the sending of a friend request
     const sendFriendRequest = (friendId, e) => {
         axios.post(`/algoritmizator/api/socials/send-friend-request`, { friendId })
             .then(response => {
@@ -201,6 +256,7 @@ export const SearchComponent = memo(() => {
             });
     }
 
+    // Render the search form and the search results
     return (
         <div className="min-h-screen bg-gray-800 rounded-lg text-white mb-5">
             <h1 className={'text-3xl pl-7 text-start text-white py-4'}>Keresés</h1>

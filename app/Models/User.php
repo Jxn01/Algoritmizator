@@ -12,14 +12,29 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * @property mixed|true $is_online
+ * Class User
+ *
+ * The User model represents a user in the system.
+ *
+ * Each user has a name, username, email, password, level, total experience, online status, last online time, and avatar.
+ * The User model also implements CanResetPassword and MustVerifyEmail contracts.
  */
 class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'users';
 
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -70,43 +85,79 @@ class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
         $this->notify(new CustomVerifyEmail);
     }
 
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     */
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new CustomReset($token));
     }
 
-    public static function findById($id)
+    /**
+     * Find a user by their ID.
+     *
+     * @param  int  $id
+     */
+    public static function findById($id): User
     {
         return self::where('id', $id)->first();
     }
 
+    /**
+     * Get the friend requests sent by the user.
+     */
     public function senders(): HasMany
     {
         return $this->hasMany(FriendRequest::class, 'sender_id');
     }
 
+    /**
+     * Get the friend requests received by the user.
+     */
     public function receivers(): HasMany
     {
         return $this->hasMany(FriendRequest::class, 'receiver_id');
     }
 
+    /**
+     * Get the lessons completed by the user.
+     */
     public function completedLessons(): HasMany
     {
         return $this->hasMany(CompletedLesson::class);
     }
 
+    /**
+     * Get the assignments completed by the user.
+     */
     public function completedAssignments(): HasMany
     {
         return $this->hasMany(CompletedAssignment::class);
     }
 
+    /**
+     * Get the friendships where the user is the first party.
+     */
     public function friendTo(): HasMany
     {
         return $this->hasMany(Friendship::class, 'party1');
     }
 
+    /**
+     * Get the friendships where the user is the second party.
+     */
     public function friends(): HasMany
     {
         return $this->hasMany(Friendship::class, 'party2');
+    }
+
+    /**
+     * Get the attempts made by the user.
+     */
+    public function attempts(): HasMany
+    {
+        return $this->hasMany(Attempt::class);
     }
 }

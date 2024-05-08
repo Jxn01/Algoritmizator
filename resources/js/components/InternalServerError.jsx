@@ -1,5 +1,13 @@
 import React, {memo} from 'react';
 
+/**
+ * InternalServerErrorPage component
+ *
+ * This is a functional component that renders the internal server error page (HTTP 500).
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ *
+ * @returns {JSX.Element} The InternalServerErrorPage component
+ */
 const InternalServerErrorPage = memo(() => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">

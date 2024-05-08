@@ -1,5 +1,13 @@
 import React, {memo} from 'react';
 
+/**
+ * NotFoundPage component
+ *
+ * This is a functional component that renders a 404 Not Found page.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ *
+ * @returns {JSX.Element} The NotFoundPage component
+ */
 const NotFoundPage = memo(() => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">

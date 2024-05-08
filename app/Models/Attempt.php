@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Class Task
+ * Class Attempt
  *
- * The Task model represents a task in the system.
+ * The Attempt model represents an attempt made by a user to complete an assignment.
  *
- * Each task is associated with a specific assignment.
- * The Task records the type, title, and description of the task.
+ * Each attempt is associated with a specific user and assignment.
+ * The attempt records the total score achieved by the user, the maximum possible score,
+ * the time taken to complete the attempt, and whether the attempt was a pass or fail.
  */
-class Task extends Model
+class Attempt extends Model
 {
     use HasFactory;
 
@@ -24,7 +24,7 @@ class Task extends Model
      *
      * @var string
      */
-    protected $table = 'tasks';
+    protected $table = 'attempts';
 
     /**
      * The primary key associated with the table.
@@ -39,22 +39,24 @@ class Task extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'assignment_id',
-        'type',
-        'title',
-        'description',
+        'total_score',
+        'max_score',
+        'time',
+        'pass',
     ];
 
     /**
-     * Get the answers associated with the task.
+     * Get the user that owns the attempt.
      */
-    public function answers(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(Answer::class);
+        return $this->belongsTo(User::class);
     }
 
     /**
-     * Get the assignment that the task is associated with.
+     * Get the assignment that the attempt is associated with.
      */
     public function assignment(): BelongsTo
     {

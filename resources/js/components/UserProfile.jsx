@@ -1,9 +1,24 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
+/**
+ * UserProfile component
+ *
+ * This is a functional component that renders a user's profile page.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The currently active tab in the navbar
+ * @param {Object} props.user - The currently logged in user
+ * @param {Object} props.profileUser - The user whose profile is being viewed
+ *
+ * @returns {JSX.Element} The UserProfile component
+ */
 const UserProfile = memo(({title, activeTab, user, profileUser}) => {
 
+    // Render the Navbar, user profile page, and Footer
     return (
         <div>
             <Navbar title={title} activeTab={activeTab} user={user}/>

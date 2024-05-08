@@ -5,7 +5,22 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import Footer from "./Footer.jsx";
 import Navbar from "./Navbar.jsx";
 
+/**
+ * Registration component
+ *
+ * This is a functional component that renders a registration form.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ * It also uses React's useState hook to manage the state of the form data, email validity, password strength, and form errors.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The currently active tab in the navbar
+ * @param {Object} props.user - The currently logged in user
+ *
+ * @returns {JSX.Element} The Registration component
+ */
 const Registration = memo(({title, activeTab, user}) => {
+    // State variables for the form data, email validity, password strength, and form errors
     const [formData, setFormData] = useState({
         name: '',
         username: '',
@@ -17,6 +32,7 @@ const Registration = memo(({title, activeTab, user}) => {
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [formErrors, setFormErrors] = useState({});
 
+    // Function to handle the change of form inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
@@ -25,6 +41,7 @@ const Registration = memo(({title, activeTab, user}) => {
         }
     };
 
+    // Function to handle the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
         const errors = validateForm();
@@ -46,6 +63,7 @@ const Registration = memo(({title, activeTab, user}) => {
         }
     };
 
+    // Function to validate the form
     const validateForm = () => {
         const errors = {};
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
@@ -66,6 +84,7 @@ const Registration = memo(({title, activeTab, user}) => {
         return errors;
     };
 
+    // Function to calculate the strength of a password
     function calculatePasswordStrength(pass) {
         let strength = 0;
         if (pass.length >= 8) strength += 1;
@@ -75,6 +94,7 @@ const Registration = memo(({title, activeTab, user}) => {
         return strength;
     }
 
+    // Render the Navbar, registration form, and Footer
     return (
         <div>
             <Navbar title={title} activeTab={activeTab} user={user}/>

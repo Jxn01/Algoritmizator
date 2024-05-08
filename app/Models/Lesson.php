@@ -7,24 +7,53 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * Class Lesson
+ *
+ * The Lesson model represents a lesson in the system.
+ *
+ * Each lesson can have a title and a description.
+ * A lesson can have one assignment and multiple completed lessons.
+ */
 class Lesson extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'lessons';
 
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'name',
+        'title',
         'description',
     ];
 
+    /**
+     * Get the assignment associated with the lesson.
+     */
     public function assignments(): HasOne
     {
         return $this->hasOne(Assignment::class);
     }
 
+    /**
+     * Get the completed lessons for the lesson.
+     */
     public function completedLessons(): HasMany
     {
         return $this->hasMany(CompletedLesson::class);

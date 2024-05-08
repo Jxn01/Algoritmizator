@@ -3,7 +3,27 @@ import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 import axios from 'axios';
 
+/**
+ * VerificationEmailSent component
+ *
+ * This is a functional component that renders a page informing the user that a verification email has been sent.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ * It also provides a function to resend the verification email.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The currently active tab in the navbar
+ * @param {Object} props.user - The currently logged in user
+ *
+ * @returns {JSX.Element} The VerificationEmailSent component
+ */
 const VerificationEmailSent = memo(({ title, activeTab, user }) => {
+    /**
+     * handleResendEmail function
+     *
+     * This function sends a POST request to the server to resend the verification email.
+     * It alerts the user whether the email was successfully sent or not.
+     */
     const handleResendEmail = () => {
         axios.post('/algoritmizator/api/email-verification-notification')
             .then(response => {
@@ -15,6 +35,7 @@ const VerificationEmailSent = memo(({ title, activeTab, user }) => {
             });
     };
 
+    // Render the Navbar, verification email sent page, and Footer
     return (
         <div>
             <Navbar title={title} activeTab={activeTab} user={user} />

@@ -2,6 +2,19 @@ import React, {memo} from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
+/**
+ * Quiz component
+ *
+ * This is a functional component that renders a quiz page.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The currently active tab in the navbar
+ * @param {Object} props.user - The currently logged in user
+ *
+ * @returns {JSX.Element} The Quiz component
+ */
 const Quiz = memo(({title, activeTab, user}) => {
     return (
         <div>

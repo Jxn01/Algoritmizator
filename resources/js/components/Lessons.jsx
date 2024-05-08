@@ -2,6 +2,7 @@ import React, {memo, useState} from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
+// Array of lessons, each with an id, title, and array of subLessons
 const lessons = [
     {
         id: 1,
@@ -49,10 +50,26 @@ const lessons = [
     }
 ];
 
+/**
+ * Lessons component
+ *
+ * This is a functional component that renders a list of lessons and their content.
+ * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
+ * It also uses React's useState hook to manage the state of the selected lesson and subLesson.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The currently active tab in the navbar
+ * @param {Object} props.user - The currently logged in user
+ *
+ * @returns {JSX.Element} The Lessons component
+ */
 const Lessons = memo(({title, activeTab, user}) => {
+    // State variables for the selected lesson and subLesson
     const [selectedLesson, setSelectedLesson] = useState(lessons[0]);
     const [selectedSubLesson, setSelectedSubLesson] = useState(lessons[0].subLessons[0]);
 
+    // Render the Navbar, list of lessons, selected lesson content, and Footer
     return (
         <div>
             <Navbar title={title} activeTab={activeTab} user={user}/>

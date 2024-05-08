@@ -8,8 +8,20 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 
+/**
+ * Class CustomVerifyEmail
+ *
+ * The CustomVerifyEmail notification class is used to handle email verification notifications.
+ * It generates a verification URL and sends it to the user's email.
+ */
 class CustomVerifyEmail extends VerifyEmail
 {
+    /**
+     * Get the verification URL.
+     *
+     * @param  mixed  $notifiable  The notifiable entity.
+     * @return string The verification URL.
+     */
     protected function verificationUrl($notifiable): string
     {
         return URL::temporarySignedRoute(
@@ -19,6 +31,12 @@ class CustomVerifyEmail extends VerifyEmail
         );
     }
 
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable  The notifiable entity.
+     * @return MailMessage The mail message.
+     */
     public function toMail($notifiable): MailMessage
     {
         $verificationUrl = $this->verificationUrl($notifiable);
