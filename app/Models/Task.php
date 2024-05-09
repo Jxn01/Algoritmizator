@@ -42,7 +42,7 @@ class Task extends Model
         'assignment_id',
         'type',
         'title',
-        'description',
+        'markdown',
     ];
 
     /**

@@ -28,7 +28,7 @@
         "@codemirror/lang-cpp": "^6.0.2",
         "@codemirror/lang-java": "^6.0.1",
         "@codemirror/lang-javascript": "^6.2.2",
-        "@codemirror/lang-python": "^6.1.5",
+        "@codemirror/lang-python": "^6.1.6",
         "@codemirror/language": "^6.10.1",
         "@codemirror/state": "^6.4.1",
         "@codemirror/theme-one-dark": "^6.1.2",
@@ -40,7 +40,9 @@
         "@inertiajs/inertia-react": "^0.8.1",
         "@inertiajs/progress": "^0.2.7",
         "codemirror": "^6.0.1",
+        "react-markdown": "^9.0.1",
         "react-modal": "^3.16.1",
+        "react-tabs": "^6.0.2",
         "react-tooltip": "^5.26.3",
         "vite-plugin-laravel": "^0.3.1"
     }

@@ -1,54 +1,13 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useEffect, useState, useRef} from 'react';
+import ReactMarkdown from 'react-markdown';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
-
-// Array of lessons, each with an id, title, and array of subLessons
-const lessons = [
-    {
-        id: 1,
-        title: "Bevezetés",
-        subLessons: [
-            { title: "Áttekintés", content: "Az adatszerkezetek és algoritmusok áttekintése." },
-            { title: "Történelem", content: "A tudományág történelmi fejlődése." }
-        ]
-    },
-    {
-        id: 2,
-        title: "Alapvető adatszerkezetek",
-        subLessons: [
-            { title: "Verem", content: "A verem (stack) működése és alkalmazásai." },
-            { title: "Sor", content: "A sor (queue) felépítése és használata." },
-            { title: "Linkelt listák", content: "Linkelt listák különböző típusai és jellemzőik." }
-        ]
-    },
-    {
-        id: 3,
-        title: "Haladó adatszerkezetek",
-        subLessons: [
-            { title: "Fák", content: "Fák és fákon alapuló adatszerkezetek." },
-            { title: "Gráfok", content: "Gráfok és azok algoritmusai." },
-            { title: "Hash táblák", content: "Hash táblák és használatuk a gyakorlatban." }
-        ]
-    },
-    {
-        id: 4,
-        title: "Algoritmusok",
-        subLessons: [
-            { title: "Rendezési algoritmusok", content: "Különböző rendezési technikák." },
-            { title: "Keresési algoritmusok", content: "Hatékony keresési módszerek." },
-            { title: "Gráf algoritmusok", content: "Algoritmusok gráfok feldolgozására." }
-        ]
-    },
-    {
-        id: 5,
-        title: "Komplexitás és Big O notáció",
-        subLessons: [
-            { title: "Bevezetés a komplexitásba", content: "Komplexitáselmélet alapjai." },
-            { title: "Big O notáció", content: "Az algoritmusok futási idejének elemzése Big O notációval." },
-            { title: "Példák és elemzés", content: "Komplexitáselemzés gyakorlati példákon keresztül." }
-        ]
-    }
-];
+import { EditorView, basicSetup} from 'codemirror';
+import { EditorState } from '@codemirror/state';
+import { python } from '@codemirror/lang-python';
+import { javascript } from '@codemirror/lang-javascript';
+import { java } from '@codemirror/lang-java';
+import { cpp } from '@codemirror/lang-cpp';
 
 /**
  * Lessons component
@@ -64,12 +23,179 @@ const lessons = [
  *
  * @returns {JSX.Element} The Lessons component
  */
-const Lessons = memo(({title, activeTab, user}) => {
-    // State variables for the selected lesson and subLesson
-    const [selectedLesson, setSelectedLesson] = useState(lessons[0]);
-    const [selectedSubLesson, setSelectedSubLesson] = useState(lessons[0].subLessons[0]);
+export const Lessons = memo(({ title, activeTab, user }) => {
+    const [lessons, setLessons] = useState([]);
+    const [selectedLesson, setSelectedLesson] = useState([]);
+    const [selectedSublesson, setSelectedSublesson] = useState([]);
+    const [codeBlocks, setCodeBlocks] = useState([]);
 
-    // Render the Navbar, list of lessons, selected lesson content, and Footer
+    const codeByLanguage = {
+        'python': '',
+        'javascript': '',
+        'java': '',
+        'cpp': ''
+    };
+
+    useEffect(() => {
+        axios.get('/algoritmizator/api/lessons')
+            .then(response => {
+                setLessons(response.data);
+                setSelectedLesson(response.data[0]);
+                setSelectedSublesson(response.data[0].sublessons[0]);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }, []);
+
+    useEffect(() => {
+        const blocks = Array.from(document.querySelectorAll('pre code')).map(codeElement => {
+            const languageClass = codeElement.className.match(/language-(\w+)/);
+            const language = languageClass ? languageClass[1] : 'plaintext';
+            return {
+                code: codeElement.textContent,
+                language: language
+            };
+        });
+
+        setCodeBlocks(blocks);
+
+        // Clean up original elements
+        //document.querySelectorAll('pre').forEach(pre => pre.remove());
+    }, [selectedSublesson]);
+
+    const CodeEditorTabs = ({ codeBlocks }) => {
+        console.log("Generating code editors");
+        const editorsRef = useRef({});
+        const tabPanelRefs = useRef({}); // Create a ref for each TabPanel
+        const [activeTab, setActiveTab] = useState('python'); // State for active tab
+        const languageExtensions = {
+            'python': python(),
+            'javascript': javascript(),
+            'java': java(),
+            'cpp': cpp()
+        }
+
+        useEffect(() => {
+            // Process each code block and assign it to the correct language
+            codeBlocks.forEach(block => {
+                const language = block.language;
+                if (codeByLanguage.hasOwnProperty(language)) {
+                    codeByLanguage[language] += block.code + '\n'; // Concatenate code if multiple blocks
+                }
+            });
+
+            // Setup editors for each language
+            Object.keys(codeByLanguage).forEach(language => {
+                const container = document.createElement('div');
+
+                const customTheme = EditorView.theme({
+                    "&": {
+                        color: "#D1D5DB",
+                        backgroundColor: "#1F2937",
+                    },
+                    ".cm-content": {
+                        caretColor: "#FBBF24",
+                    },
+                    ".cm-scroller": {
+                        overflow: 'auto',
+                    },
+                    "&.cm-focused .cm-cursor": {
+                        borderLeftColor: "#FBBF24",
+                    },
+                    "&.cm-focused .cm-selectionBackground, ::selection": {
+                        backgroundColor: "#FBBF24",
+                    },
+                    ".cm-gutters": {
+                        backgroundColor: "#1F2937",
+                        color: "#D1D5DB",
+                        border: 'none'
+                    },
+                    ".cm-activeLine": {
+                        backgroundColor: "#374151",
+                    },
+                    ".cm-activeLineGutter": {
+                        backgroundColor: "#374151",
+                    },
+                    ".cm-line": {
+                        borderBottom: '1px solid #374151'
+                    },
+                    ".cm-operator": {
+                        color: "#D97706",
+                    },
+                    ".cm-keyword": {
+                        color: "#EF4444",
+                    },
+                    ".cm-string": {
+                        color: "#10B981",
+                    },
+                    ".cm-number": {
+                        color: "#3B82F6",
+                    },
+                    ".cm-comment": {
+                        color: "#6B7280",
+                    },
+                    ".cm-function": {
+                        color: "#EC4899",
+                    },
+                    ".cm-variable": {
+                        color: "#8B5CF6",
+                    },
+                    ".cm-type": {
+                        color: "#F59E0B",
+                    },
+                }, {dark: true});
+
+                const editor = new EditorView({
+                    state: EditorState.create({
+                        doc: codeByLanguage[language],
+                        extensions: [basicSetup, customTheme, languageExtensions[language] || []],
+                    }),
+                    parent: container
+                });
+
+                // Append the editor to the corresponding TabPanel
+                if (tabPanelRefs.current[language]) {
+                    tabPanelRefs.current[language].appendChild(container);
+                }
+
+                // Store reference for cleanup
+                editorsRef.current[language] = editor;
+            });
+
+            /*return () => {
+                // Cleanup editors on component unmount
+                Object.values(editorsRef.current).forEach(editor => {
+                    editor.destroy();
+                });
+            };*/
+        }, [selectedSublesson]); // Effect runs on initial mount and when codeBlocks changes
+
+        return (
+            <div>
+                <div className="flex space-x-2">
+                    <button onClick={() => setActiveTab('python')}
+                            className={`px-4 py-2 text-white ${activeTab === 'python' ? 'bg-purple-700' : 'bg-purple-900'}`}>Python
+                    </button>
+                    <button onClick={() => setActiveTab('javascript')}
+                            className={`px-4 py-2 text-white ${activeTab === 'javascript' ? 'bg-purple-700' : 'bg-purple-900'}`}>JavaScript
+                    </button>
+                    <button onClick={() => setActiveTab('java')}
+                            className={`px-4 py-2 text-white ${activeTab === 'java' ? 'bg-purple-700' : 'bg-purple-900'}`}>Java
+                    </button>
+                    <button onClick={() => setActiveTab('cpp')}
+                            className={`px-4 py-2 text-white ${activeTab === 'cpp' ? 'bg-purple-700' : 'bg-purple-900'}`}>C++
+                    </button>
+                </div>
+                <hr className="border-2 border-purple-800 w-full"/>
+                {Object.keys(codeByLanguage).map((language, index) => (
+                    <div key={index} ref={el => tabPanelRefs.current[language] = el}
+                         style={{display: activeTab === language ? 'block' : 'none'}}></div>
+                ))}
+            </div>
+        );
+    };
+
     return (
         <div>
             <Navbar title={title} activeTab={activeTab} user={user}/>
@@ -81,7 +207,7 @@ const Lessons = memo(({title, activeTab, user}) => {
                             <button
                                 onClick={() => {
                                     setSelectedLesson(lesson);
-                                    setSelectedSubLesson(lesson.subLessons[0]);
+                                    setSelectedSublesson(lesson.sublessons[0]);
                                 }}
                                 className={`w-full text-left py-1 px-4 mb-1 rounded-lg cursor-pointer transition duration-300 ease-in-out transform hover:translate-x-1 hover:bg-purple-800 ${
                                     selectedLesson === lesson ? "bg-purple-800" : "bg-transparent"
@@ -90,13 +216,13 @@ const Lessons = memo(({title, activeTab, user}) => {
                             </button>
                             {selectedLesson === lesson && (
                                 <div className="pl-4 overflow-hidden transition-max-height duration-700 ease-in-out">
-                                    {lesson.subLessons.map(subLesson => (
-                                        <div key={subLesson.title}
-                                             onClick={() => setSelectedSubLesson(subLesson)}
+                                    {lesson.sublessons.map(sublesson => (
+                                        <div key={sublesson.id}
+                                             onClick={() => setSelectedSublesson(sublesson)}
                                              className={`py-1 px-3 mb-1 text-sm rounded-lg cursor-pointer transition duration-300 ease-in-out transform hover:translate-x-1 ${
-                                                 selectedSubLesson === subLesson ? "text-purple-500 font-bold" : "text-white"
+                                                 selectedSublesson === sublesson ? "text-purple-500 font-bold" : "text-white"
                                              }`}>
-                                            {subLesson.title}
+                                            {sublesson.title}
                                         </div>
                                     ))}
                                 </div>
@@ -104,13 +230,17 @@ const Lessons = memo(({title, activeTab, user}) => {
                         </div>
                     ))}
                 </div>
-                <div className="flex-grow bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 p-5">
+                <div className="flex-grow bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 p-20 pt-10">
                     <div className="bg-gray-800 p-5 rounded-lg text-white">
-                        <h1 className="text-2xl font-bold">{selectedLesson ? selectedLesson.title : "Select a Lesson"}</h1>
-                        <h2 className="text-xl">{selectedSubLesson ? selectedSubLesson.title : 'Select a Sub-Lesson'}</h2>
-                        <p className="mt-4">
-                            {selectedSubLesson ? selectedSubLesson.content : 'Please select a sub-lesson to view the content.'}
-                        </p>
+                        <h1 className="text-3xl font-bold ml-7 mb-2">{selectedLesson ? selectedLesson.title : "Select a Lesson"}</h1>
+                        <h2 className="text-2xl ml-7">{selectedSublesson ? selectedSublesson.title : 'Select a Sublesson'}</h2>
+                        <hr className="border-purple-800 border-2 mt-4"/>
+                        <div className="markdown">
+                            {selectedSublesson ? <ReactMarkdown children={selectedSublesson.markdown} /> : 'Please select a sublesson to view the content.'}
+                            <div className="bg-gray-900 rounded-lg border-4 border-purple-800">
+                                {selectedSublesson && codeBlocks.length > 0 && <CodeEditorTabs codeBlocks={codeBlocks} />}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

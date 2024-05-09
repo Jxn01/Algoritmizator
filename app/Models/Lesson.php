@@ -40,8 +40,18 @@ class Lesson extends Model
      */
     protected $fillable = [
         'title',
-        'description',
     ];
+
+    /**
+     * Find a lesson by its title.
+     *
+     * @param string $title
+     * @return Lesson
+     */
+    public function findLessonByTitle(string $title): Lesson
+    {
+        return $this->where('title', $title)->first();
+    }
 
     /**
      * Get the assignment associated with the lesson.
@@ -57,5 +67,13 @@ class Lesson extends Model
     public function completedLessons(): HasMany
     {
         return $this->hasMany(CompletedLesson::class);
+    }
+
+    /**
+     * Get the sublessons for the lesson.
+     */
+    public function sublessons(): HasMany
+    {
+        return $this->hasMany(Sublesson::class);
     }
 }

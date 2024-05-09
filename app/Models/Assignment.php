@@ -42,7 +42,7 @@ class Assignment extends Model
     protected $fillable = [
         'lesson_id',
         'title',
-        'description',
+        'markdown',
         'assignment_xp',
     ];
 

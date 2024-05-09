@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FriendController;
+use App\Http\Controllers\LessonsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -22,7 +23,7 @@ Route::middleware('inertia')->group(function () {
         Route::get('/algoritmizator/app/socials', [PageController::class, 'showSocials']);
         Route::get('/algoritmizator/app/socials/{id}/profile', [PageController::class, 'showUserProfile'])->middleware('redirectFromOwnProfile');
         Route::get('/algoritmizator/app/lessons/{id}/quiz', [PageController::class, 'showQuiz']);
-        Route::get('/algoritmizator/app/lessons/{id}/quiz/result', [PageController::class, 'showQuizResult']);
+        Route::get('/algoritmizator/app/lessons/{id}/quiz/result/{quizId}', [PageController::class, 'showQuizResult']);
         Route::get('/algoritmizator/auth/email-confirmed', [PageController::class, 'showEmailConfirmed']);
         Route::get('/algoritmizator/app/lessons', [PageController::class, 'showLessons']);
     });
@@ -82,6 +83,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/algoritmizator/api/socials/accept-friend-request', [FriendController::class, 'acceptFriendRequest']);
     Route::post('/algoritmizator/api/socials/reject-friend-request', [FriendController::class, 'rejectFriendRequest']);
     Route::post('/algoritmizator/api/socials/remove-friend', [FriendController::class, 'removeFriend']);
+
+    // Routes for the application's lesson actions
+    Route::get('/algoritmizator/api/lessons', [LessonsController::class, 'getLessons']);
+    Route::get('/algoritmizator/api/quiz/{id}', [LessonsController::class, 'getQuiz']);
+    Route::post('/algoritmizator/api/quiz/{id}/submit', [LessonsController::class, 'submitQuiz']);
+    Route::get('/algoritmizator/api/quiz/{id}/attempts', [LessonsController::class, 'getAttempts']);
 });
 
 // Routes that require the user to be a guest

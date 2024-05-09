@@ -38,16 +38,16 @@ class AttemptAnswer extends Model
      * @var array
      */
     protected $fillable = [
-        'attempt_id',
+        'task_attempt_id',
         'answer_id',
     ];
 
     /**
      * Get the attempt that the AttemptAnswer is associated with.
      */
-    public function attempt(): BelongsTo
+    public function taskaAtempt(): BelongsTo
     {
-        return $this->belongsTo(Attempt::class);
+        return $this->belongsTo(TaskAttempt::class);
     }
 
     /**

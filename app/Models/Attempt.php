@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Attempt
@@ -44,7 +45,7 @@ class Attempt extends Model
         'total_score',
         'max_score',
         'time',
-        'pass',
+        'passed',
     ];
 
     /**
@@ -61,5 +62,13 @@ class Attempt extends Model
     public function assignment(): BelongsTo
     {
         return $this->belongsTo(Assignment::class);
+    }
+
+    /**
+     * Get the tasks associated with the attempt.
+     */
+    public function tasks(): hasMany
+    {
+        return $this->hasMany(TaskAttempt::class);
     }
 }
