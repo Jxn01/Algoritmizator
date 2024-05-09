@@ -24,11 +24,6 @@ Az egyelemű részeket összefésüljük és rendezzük, hogy visszaállítsuk a
     - `[3]` és `[1]` összefésülése: `[1, 3]`
     - Folytatás a többi elemmel...
 
-## Összetettség
-
-- **Időbeli összetettség:** Általános esetben \(O(n \log n)\), ami optimális összehasonlításon alapuló rendezésnél.
-- **Térbeli összetettség:** Mivel a Merge Sort tömbök másolatát használja az összefésüléshez, ezért \(O(n)\) a térbeli összetettsége.
-
 ## Implementáció
 
 ```python
@@ -215,3 +210,9 @@ console.log("Original array:", arr);
 const sorted = mergeSort(arr);
 console.log("Sorted array:", sorted);
 ```
+
+
+## Összetettség
+
+- **Időbeli összetettség:** Általános esetben \(O(n \log n)\), ami optimális összehasonlításon alapuló rendezésnél.
+- **Térbeli összetettség:** Mivel a Merge Sort tömbök másolatát használja az összefésüléshez, ezért \(O(n)\) a térbeli összetettsége.

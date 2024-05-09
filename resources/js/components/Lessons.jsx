@@ -4,6 +4,7 @@ import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 import { EditorView, basicSetup} from 'codemirror';
 import { EditorState } from '@codemirror/state';
+import { oneDarkModified } from "../CodeMirrorTheme.ts";
 import { python } from '@codemirror/lang-python';
 import { javascript } from '@codemirror/lang-javascript';
 import { java } from '@codemirror/lang-java';
@@ -60,12 +61,9 @@ export const Lessons = memo(({ title, activeTab, user }) => {
 
         setCodeBlocks(blocks);
 
-        // Clean up original elements
-        //document.querySelectorAll('pre').forEach(pre => pre.remove());
     }, [selectedSublesson]);
 
     const CodeEditorTabs = ({ codeBlocks }) => {
-        console.log("Generating code editors");
         const editorsRef = useRef({});
         const tabPanelRefs = useRef({}); // Create a ref for each TabPanel
         const [activeTab, setActiveTab] = useState('python'); // State for active tab
@@ -89,67 +87,10 @@ export const Lessons = memo(({ title, activeTab, user }) => {
             Object.keys(codeByLanguage).forEach(language => {
                 const container = document.createElement('div');
 
-                const customTheme = EditorView.theme({
-                    "&": {
-                        color: "#D1D5DB",
-                        backgroundColor: "#1F2937",
-                    },
-                    ".cm-content": {
-                        caretColor: "#FBBF24",
-                    },
-                    ".cm-scroller": {
-                        overflow: 'auto',
-                    },
-                    "&.cm-focused .cm-cursor": {
-                        borderLeftColor: "#FBBF24",
-                    },
-                    "&.cm-focused .cm-selectionBackground, ::selection": {
-                        backgroundColor: "#FBBF24",
-                    },
-                    ".cm-gutters": {
-                        backgroundColor: "#1F2937",
-                        color: "#D1D5DB",
-                        border: 'none'
-                    },
-                    ".cm-activeLine": {
-                        backgroundColor: "#374151",
-                    },
-                    ".cm-activeLineGutter": {
-                        backgroundColor: "#374151",
-                    },
-                    ".cm-line": {
-                        borderBottom: '1px solid #374151'
-                    },
-                    ".cm-operator": {
-                        color: "#D97706",
-                    },
-                    ".cm-keyword": {
-                        color: "#EF4444",
-                    },
-                    ".cm-string": {
-                        color: "#10B981",
-                    },
-                    ".cm-number": {
-                        color: "#3B82F6",
-                    },
-                    ".cm-comment": {
-                        color: "#6B7280",
-                    },
-                    ".cm-function": {
-                        color: "#EC4899",
-                    },
-                    ".cm-variable": {
-                        color: "#8B5CF6",
-                    },
-                    ".cm-type": {
-                        color: "#F59E0B",
-                    },
-                }, {dark: true});
-
                 const editor = new EditorView({
                     state: EditorState.create({
                         doc: codeByLanguage[language],
-                        extensions: [basicSetup, customTheme, languageExtensions[language] || []],
+                        extensions: [basicSetup, oneDarkModified, languageExtensions[language] || []],
                     }),
                     parent: container
                 });
@@ -163,34 +104,33 @@ export const Lessons = memo(({ title, activeTab, user }) => {
                 editorsRef.current[language] = editor;
             });
 
-            /*return () => {
+            return () => {
                 // Cleanup editors on component unmount
                 Object.values(editorsRef.current).forEach(editor => {
                     editor.destroy();
                 });
-            };*/
+            };
         }, [selectedSublesson]); // Effect runs on initial mount and when codeBlocks changes
 
         return (
             <div>
-                <div className="flex space-x-2">
+                <div className="flex space-x-2 pb-4 rounded-lg font-mono">
                     <button onClick={() => setActiveTab('python')}
-                            className={`px-4 py-2 text-white ${activeTab === 'python' ? 'bg-purple-700' : 'bg-purple-900'}`}>Python
+                            className={`px-4 py-2 text-white rounded-lg ${activeTab === 'python' ? 'bg-gray-700' : 'bg-gray-900'}`}>Python
                     </button>
                     <button onClick={() => setActiveTab('javascript')}
-                            className={`px-4 py-2 text-white ${activeTab === 'javascript' ? 'bg-purple-700' : 'bg-purple-900'}`}>JavaScript
+                            className={`px-4 py-2 text-white rounded-lg ${activeTab === 'javascript' ? 'bg-gray-700' : 'bg-gray-900'}`}>JavaScript
                     </button>
                     <button onClick={() => setActiveTab('java')}
-                            className={`px-4 py-2 text-white ${activeTab === 'java' ? 'bg-purple-700' : 'bg-purple-900'}`}>Java
+                            className={`px-4 py-2 text-white rounded-lg ${activeTab === 'java' ? 'bg-gray-700' : 'bg-gray-900'}`}>Java
                     </button>
                     <button onClick={() => setActiveTab('cpp')}
-                            className={`px-4 py-2 text-white ${activeTab === 'cpp' ? 'bg-purple-700' : 'bg-purple-900'}`}>C++
+                            className={`px-4 py-2 text-white rounded-lg ${activeTab === 'cpp' ? 'bg-gray-700' : 'bg-gray-900'}`}>C++
                     </button>
                 </div>
-                <hr className="border-2 border-purple-800 w-full"/>
                 {Object.keys(codeByLanguage).map((language, index) => (
                     <div key={index} ref={el => tabPanelRefs.current[language] = el}
-                         style={{display: activeTab === language ? 'block' : 'none'}}></div>
+                         style={{display: activeTab === language ? 'block' : 'none', borderRadius: '20px', padding: '20px', backgroundColor: '#111827'}}></div>
                 ))}
             </div>
         );
@@ -237,7 +177,7 @@ export const Lessons = memo(({ title, activeTab, user }) => {
                         <hr className="border-purple-800 border-2 mt-4"/>
                         <div className="markdown">
                             {selectedSublesson ? <ReactMarkdown children={selectedSublesson.markdown} /> : 'Please select a sublesson to view the content.'}
-                            <div className="bg-gray-900 rounded-lg border-4 border-purple-800">
+                            <div>
                                 {selectedSublesson && codeBlocks.length > 0 && <CodeEditorTabs codeBlocks={codeBlocks} />}
                             </div>
                         </div>
