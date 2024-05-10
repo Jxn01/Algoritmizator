@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\RedirectFromOwnProfile;
+use App\Http\Middleware\Snoop;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,7 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias(['inertia' => HandleInertiaRequests::class, 'redirectFromOwnProfile' => redirectFromOwnProfile::class]);
+        $middleware->alias(['inertia' => HandleInertiaRequests::class, 'redirectFromOwnProfile' => redirectFromOwnProfile::class, 'snoop' => Snoop::class]);
         $middleware->redirectUsersTo('/algoritmizator/app');
         $middleware->redirectGuestsTo('/algoritmizator/auth/login');
     })

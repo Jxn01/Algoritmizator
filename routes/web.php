@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\LessonsController;
@@ -17,21 +18,21 @@ use Illuminate\Support\Facades\Route;
 // Routes that require the inertia middleware
 Route::middleware('inertia')->group(function () {
     // Routes that require the user to be authenticated
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth', 'snoop'])->group(function () {
         // Routes for the application's main pages
         Route::get('/algoritmizator/app/profile', [PageController::class, 'showProfile'])->name('profile');
-        Route::get('/algoritmizator/app/socials', [PageController::class, 'showSocials']);
-        Route::get('/algoritmizator/app/socials/{id}/profile', [PageController::class, 'showUserProfile'])->middleware('redirectFromOwnProfile');
-        Route::get('/algoritmizator/app/lessons/{id}/quiz', [PageController::class, 'showQuiz']);
-        Route::get('/algoritmizator/app/lessons/{id}/quiz/result/{quizId}', [PageController::class, 'showQuizResult']);
+        Route::get('/algoritmizator/app/socials', [PageController::class, 'showSocials'])->name('socials');
+        Route::get('/algoritmizator/app/socials/{id}/profile', [PageController::class, 'showUserProfile'])->middleware('redirectFromOwnProfile')->name('user-profile');
+        Route::get('/algoritmizator/app/lessons/{id}/quiz', [PageController::class, 'showQuiz'])->name('quiz');
+        Route::get('/algoritmizator/app/lessons/{id}/quiz/result/{quizId}', [PageController::class, 'showQuizResult'])->name('quiz-result');
         Route::get('/algoritmizator/auth/email-confirmed', [PageController::class, 'showEmailConfirmed']);
-        Route::get('/algoritmizator/app/lessons', [PageController::class, 'showLessons']);
+        Route::get('/algoritmizator/app/lessons', [PageController::class, 'showLessons'])->name('lessons');
     });
 
     // Routes that require the user to be authenticated
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth', 'snoop'])->group(function () {
         // Routes for the application's authentication pages
-        Route::get('/algoritmizator/auth/logout', [PageController::class, 'showLogout']);
+        Route::get('/algoritmizator/auth/logout', [PageController::class, 'showLogout'])->name('logout');
         Route::get('/algoritmizator/auth/confirm-email', [PageController::class, 'showConfirmEmail'])->name('verification.notice');
     });
 
@@ -45,8 +46,8 @@ Route::middleware('inertia')->group(function () {
     });
 
     // Routes for the application's main pages
-    Route::get('/algoritmizator/', [PageController::class, 'showDashboard']);
-    Route::get('/algoritmizator/app', [PageController::class, 'showDashboard']);
+    Route::get('/algoritmizator/', [PageController::class, 'showDashboard'])->middleware('snoop')->name('dashboard1');
+    Route::get('/algoritmizator/app', [PageController::class, 'showDashboard'])->middleware('snoop')->name('dashboard2');
     Route::get('/algoritmizator/error/{type}', [PageController::class, 'showError']);
 
     // Fallback route for when no other route matches
@@ -89,6 +90,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/algoritmizator/api/quiz/{id}', [LessonsController::class, 'getQuiz']);
     Route::post('/algoritmizator/api/quiz/{id}/submit', [LessonsController::class, 'submitQuiz']);
     Route::get('/algoritmizator/api/quiz/{id}/attempts', [LessonsController::class, 'getAttempts']);
+
+    Route::post('/algoritmizator/api/update-activity', [ActivityController::class, 'updateActivity']);
 });
 
 // Routes that require the user to be a guest

@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "deploy": "vite build && rsync -av --exclude='node_modules' /srv/http/szakdolgozat/algoritmizator/ /srv/http/algoritmizator/"
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.18.6",

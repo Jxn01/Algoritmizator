@@ -20,4 +20,5 @@ Artisan::command('inspire', function () {
  * This command clears expired password reset tokens.
  * It is scheduled to run every fifteen minutes.
  */
-Schedule::command('auth:clear-resets')->everyFifteenMinutes();
+Schedule::command('auth:clear-resets')->everyFifteenMinutes()->evenInMaintenanceMode();
+Schedule::command('app:set-people-offline')->everyMinute()->evenInMaintenanceMode();

@@ -28,14 +28,13 @@ export const Lessons = memo(({ title, activeTab, user }) => {
     const [lessons, setLessons] = useState([]);
     const [selectedLesson, setSelectedLesson] = useState([]);
     const [selectedSublesson, setSelectedSublesson] = useState([]);
-    const [codeBlocks, setCodeBlocks] = useState([]);
-
-    const codeByLanguage = {
-        'python': '',
-        'javascript': '',
-        'java': '',
-        'cpp': ''
-    };
+    const isFirstRun = useRef(true);
+    const languageExtensions = {
+        'python': python(),
+        'javascript': javascript(),
+        'java': java(),
+        'cpp': cpp()
+    }
 
     useEffect(() => {
         axios.get('/algoritmizator/api/lessons')
@@ -49,92 +48,126 @@ export const Lessons = memo(({ title, activeTab, user }) => {
             });
     }, []);
 
-    useEffect(() => {
-        const blocks = Array.from(document.querySelectorAll('pre code')).map(codeElement => {
+    function resetEditors(){
+        const editorContainers = document.querySelectorAll('.editor');
+        editorContainers.forEach(editor => {
+            editor.remove();
+        });
+    }
+
+    function resetButtons(){
+        const buttons = document.querySelectorAll('.buttonDiv');
+        buttons.forEach(button => {
+            button.remove();
+        });
+    }
+
+    function groupCodeBlocks(){
+        const codeElements = Array.from(document.querySelectorAll('pre code'));
+        const groupedBlocks = [];
+        let group = [];
+        let placeholder = null;
+
+        codeElements.forEach((codeElement, index) => {
             const languageClass = codeElement.className.match(/language-(\w+)/);
             const language = languageClass ? languageClass[1] : 'plaintext';
-            return {
+            const segment = {
                 code: codeElement.textContent,
                 language: language
             };
+
+            if (group.length === 0) {
+                placeholder = document.createElement('div');
+                placeholder.className = 'editor';
+                codeElement.parentNode.parentNode.insertBefore(placeholder, codeElement.parentNode);
+            }
+
+            group.push(segment);
+
+            if (!codeElement.parentNode.nextElementSibling || !codeElements[index + 1] || codeElement.parentNode.nextElementSibling !== codeElements[index + 1].parentNode) {
+                groupedBlocks.push({ location: placeholder, segments: group });
+                group = [];
+                placeholder = null;
+            }
         });
 
-        setCodeBlocks(blocks);
+        return groupedBlocks;
+    }
 
-    }, [selectedSublesson]);
-
-    const CodeEditorTabs = ({ codeBlocks }) => {
-        const editorsRef = useRef({});
-        const tabPanelRefs = useRef({}); // Create a ref for each TabPanel
-        const [activeTab, setActiveTab] = useState('python'); // State for active tab
-        const languageExtensions = {
-            'python': python(),
-            'javascript': javascript(),
-            'java': java(),
-            'cpp': cpp()
+    useEffect(() => {
+        if (isFirstRun.current) {
+            isFirstRun.current = false;
+            return;
         }
 
-        useEffect(() => {
-            // Process each code block and assign it to the correct language
-            codeBlocks.forEach(block => {
-                const language = block.language;
-                if (codeByLanguage.hasOwnProperty(language)) {
-                    codeByLanguage[language] += block.code + '\n'; // Concatenate code if multiple blocks
+        resetEditors();
+        resetButtons();
+
+        groupCodeBlocks().forEach((block, blockIndex) => {
+            const buttonDiv = document.createElement('div');
+            buttonDiv.className = 'flex space-x-2 pb-4 rounded-lg font-mono buttonDiv';
+            block.location.parentNode.insertBefore(buttonDiv, block.location);
+
+            block.segments.forEach((segment, segmentIndex) => {
+                const language = segment.language;
+                const code = segment.code;
+
+                const button = document.createElement('button');
+                buttonDiv.appendChild(button);
+                button.setAttribute('id', `editor-button-${blockIndex}-${segmentIndex}`);
+                button.textContent = language;
+
+                if(segmentIndex === 0) {
+                    button.className = `px-4 py-2 text-white rounded-lg bg-gray-700`;
+                } else {
+                    button.className = `px-4 py-2 text-white rounded-lg bg-gray-900`;
                 }
-            });
 
-            // Setup editors for each language
-            Object.keys(codeByLanguage).forEach(language => {
+                button.addEventListener('click', () => {
+                    if(!button.classList.contains('bg-gray-700')) {
+                        document.querySelectorAll('.buttonDiv button').forEach((button) => {
+                            if(button.id.includes(`editor-button-${blockIndex}`)) {
+                                button.classList.remove('bg-gray-700');
+                                button.classList.add('bg-gray-900');
+                            }
+                        });
+
+                        button.classList.remove('bg-gray-900');
+                        button.classList.add('bg-gray-700');
+
+                        document.querySelectorAll('.editor-container').forEach((editor) => {
+                            if(editor.id === `editor-container-${blockIndex}-${segmentIndex}`) {
+                                editor.style.display = 'block';
+                            } else if(editor.id.includes(`editor-container-${blockIndex}`)) {
+                                editor.style.display = 'none';
+                            }
+                        });
+                    }
+                });
+
                 const container = document.createElement('div');
+                container.setAttribute('id', `editor-container-${blockIndex}-${segmentIndex}`);
+                container.className = 'editor-container';
+                container.style.borderRadius = '20px';
+                container.style.padding = '20px';
+                container.style.backgroundColor = '#111827';
 
-                const editor = new EditorView({
+                if(segmentIndex !== 0){
+                    container.style.display = 'none';
+                }
+
+                new EditorView({
                     state: EditorState.create({
-                        doc: codeByLanguage[language],
+                        doc: code,
                         extensions: [basicSetup, oneDarkModified, languageExtensions[language] || []],
                     }),
                     parent: container
                 });
 
-                // Append the editor to the corresponding TabPanel
-                if (tabPanelRefs.current[language]) {
-                    tabPanelRefs.current[language].appendChild(container);
-                }
-
-                // Store reference for cleanup
-                editorsRef.current[language] = editor;
+                block.location.appendChild(container);
             });
-
-            return () => {
-                // Cleanup editors on component unmount
-                Object.values(editorsRef.current).forEach(editor => {
-                    editor.destroy();
-                });
-            };
-        }, [selectedSublesson]); // Effect runs on initial mount and when codeBlocks changes
-
-        return (
-            <div>
-                <div className="flex space-x-2 pb-4 rounded-lg font-mono">
-                    <button onClick={() => setActiveTab('python')}
-                            className={`px-4 py-2 text-white rounded-lg ${activeTab === 'python' ? 'bg-gray-700' : 'bg-gray-900'}`}>Python
-                    </button>
-                    <button onClick={() => setActiveTab('javascript')}
-                            className={`px-4 py-2 text-white rounded-lg ${activeTab === 'javascript' ? 'bg-gray-700' : 'bg-gray-900'}`}>JavaScript
-                    </button>
-                    <button onClick={() => setActiveTab('java')}
-                            className={`px-4 py-2 text-white rounded-lg ${activeTab === 'java' ? 'bg-gray-700' : 'bg-gray-900'}`}>Java
-                    </button>
-                    <button onClick={() => setActiveTab('cpp')}
-                            className={`px-4 py-2 text-white rounded-lg ${activeTab === 'cpp' ? 'bg-gray-700' : 'bg-gray-900'}`}>C++
-                    </button>
-                </div>
-                {Object.keys(codeByLanguage).map((language, index) => (
-                    <div key={index} ref={el => tabPanelRefs.current[language] = el}
-                         style={{display: activeTab === language ? 'block' : 'none', borderRadius: '20px', padding: '20px', backgroundColor: '#111827'}}></div>
-                ))}
-            </div>
-        );
-    };
+        });
+    }, [selectedSublesson]);
 
     return (
         <div>
@@ -177,9 +210,6 @@ export const Lessons = memo(({ title, activeTab, user }) => {
                         <hr className="border-purple-800 border-2 mt-4"/>
                         <div className="markdown">
                             {selectedSublesson ? <ReactMarkdown children={selectedSublesson.markdown} /> : 'Please select a sublesson to view the content.'}
-                            <div>
-                                {selectedSublesson && codeBlocks.length > 0 && <CodeEditorTabs codeBlocks={codeBlocks} />}
-                            </div>
                         </div>
                     </div>
                 </div>

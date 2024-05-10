@@ -18,5 +18,13 @@ export default defineConfig({
             '/api': 'http://localhost:8000',
             '/sanctum/csrf-cookie': 'http://localhost:8000',
         }
+    },
+    build: {
+        outDir: '/srv/http/algoritmizator',
+        emptyOutDir: true,
+        manifest: true,
+        rollupOptions: {
+            input: 'resources/js/app.jsx'
+        }
     }
 });
