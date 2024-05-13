@@ -9,6 +9,8 @@ import { python } from '@codemirror/lang-python';
 import { javascript } from '@codemirror/lang-javascript';
 import { java } from '@codemirror/lang-java';
 import { cpp } from '@codemirror/lang-cpp';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faFileAlt} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Lessons component
@@ -24,7 +26,7 @@ import { cpp } from '@codemirror/lang-cpp';
  *
  * @returns {JSX.Element} The Lessons component
  */
-export const Lessons = memo(({ title, activeTab, user }) => {
+export const Lessons = memo(({ title, activeTab}) => {
     const [lessons, setLessons] = useState([]);
     const [selectedLesson, setSelectedLesson] = useState([]);
     const [selectedSublesson, setSelectedSublesson] = useState([]);
@@ -44,7 +46,7 @@ export const Lessons = memo(({ title, activeTab, user }) => {
                 setSelectedSublesson(response.data[0].sublessons[0]);
             })
             .catch(error => {
-                console.error('There was an error!', error);
+                alert('Failed to fetch lessons.')
             });
     }, []);
 
@@ -171,7 +173,7 @@ export const Lessons = memo(({ title, activeTab, user }) => {
 
     return (
         <div>
-            <Navbar title={title} activeTab={activeTab} user={user}/>
+            <Navbar title={title} activeTab={activeTab}/>
             <div className="flex">
                 <div className="w-64 min-h-screen bg-gray-800 text-white p-5">
                     <h2 className="text-xl font-bold mb-3">Leckék</h2>
@@ -193,8 +195,8 @@ export const Lessons = memo(({ title, activeTab, user }) => {
                                         <div key={sublesson.id}
                                              onClick={() => setSelectedSublesson(sublesson)}
                                              className={`py-1 px-3 mb-1 text-sm rounded-lg cursor-pointer transition duration-300 ease-in-out transform hover:translate-x-1 ${
-                                                 selectedSublesson === sublesson ? "text-purple-500 font-bold" : "text-white"
-                                             }`}>
+                                                 selectedSublesson === sublesson ? "text-purple-500 font-bold" : ""}`}>
+                                            {sublesson.has_quiz ? <FontAwesomeIcon icon={faFileAlt} className="mr-2"/> : null}
                                             {sublesson.title}
                                         </div>
                                     ))}
@@ -211,6 +213,11 @@ export const Lessons = memo(({ title, activeTab, user }) => {
                         <div className="markdown">
                             {selectedSublesson ? <ReactMarkdown children={selectedSublesson.markdown} /> : 'Please select a sublesson to view the content.'}
                         </div>
+                        {selectedSublesson && selectedSublesson.has_quiz ? (
+                            <div className="mt-4 text-center items-center">
+                                <button className="bg-purple-800 text-white px-4 py-2 rounded-lg" onClick={() => window.location.href = `/algoritmizator/lessons/task/${selectedSublesson.id}`}>Feladat megoldása</button>
+                            </div>
+                        ) : null}
                     </div>
                 </div>
             </div>

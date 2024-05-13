@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
 
 export default defineConfig({
+    base: '/algoritmizator/',
     plugins: [
         react(),
         laravel({
@@ -10,21 +12,26 @@ export default defineConfig({
             refresh: true
         })
     ],
+    resolve: {
+        alias: {
+            '@': resolve(__dirname, 'resources/js'), // This uses the `resolve` function
+        },
+    },
     server: {
         strictPort: true,
         port: 5173,
         cors: true,
         proxy: {
-            '/api': 'http://localhost:8000',
-            '/sanctum/csrf-cookie': 'http://localhost:8000',
+            '/api': 'https://jxn.ddns.net/algoritmizator',
+            '/sanctum/csrf-cookie': 'https://jxn.ddns.net/algoritmizator',
         }
     },
     build: {
-        outDir: '/srv/http/algoritmizator',
-        emptyOutDir: true,
-        manifest: true,
         rollupOptions: {
-            input: 'resources/js/app.jsx'
+            input: {
+                app: resolve(__dirname, 'resources/js/app.jsx'), // Main JS
+                style: resolve(__dirname, 'resources/css/app.css') // Main CSS
+            }
         }
     }
 });

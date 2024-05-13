@@ -16,14 +16,14 @@ import Footer from "./Footer.jsx";
  *
  * @returns {JSX.Element} The Socials component
  */
-const Socials = memo(({title, activeTab, user}) => {
+const Socials = memo(({title, activeTab}) => {
     // State variable for the active social tab
     const [activeSocialTab, setActiveSocialTab] = useState('friends');
 
     // Render the Navbar, socials page, and Footer
     return (
         <div>
-        <Navbar title={title} activeTab={activeTab} user={user}/>
+        <Navbar title={title} activeTab={activeTab}/>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-2xl mt-5 text-center">
                     <div className="flex space-x-2 mb-4">
@@ -65,7 +65,7 @@ export const FriendsComponent = memo(() => {
         axios.get(`/algoritmizator/api/socials/friends`)
             .then(response => {
                 console.log('Friends:', response.data);
-                setFriends(response.data);
+                setFriends(response.data.sort((a, b) => (a.is_online < b.is_online) ? 1 : -1));
             })
             .catch(error => {
                 console.error('Error fetching friends:', error);
@@ -96,16 +96,23 @@ export const FriendsComponent = memo(() => {
                             <div key={friend.id}
                                  className="flex items-center justify-between mx-4 p-3 border-b border-purple-500">
                                 <div className="flex items-center flex-1">
-                                    <img src={"/storage/"+friend.avatar} alt={friend.name}
-                                         className="w-12 h-12 rounded-full mr-4"/>
+                                    <img src={"/algoritmizator/storage/"+friend.avatar} alt={friend.name}
+                                         //green border if online
+                                            className={`w-12 h-12 rounded-full mr-4 ${friend.is_online ? 'border-2 border-green-500' : ''}`}/>
                                     <div>
                                         <h3 className="text-lg">{friend.name}</h3>
                                         <p className="text-gray-400">{friend.username}</p>
                                         <p>LVL {friend.level} - {friend.total_xp} XP</p>
                                     </div>
+                                    <div className="text-xs text-left ml-3">
+                                        <p className={friend.is_online ? 'text-green-600' : 'text-gray-400'}>{friend.is_online ? 'Online' : 'Offline'}</p>
+                                        <p className="text-gray-400">{friend.is_online ? '' : `Utoljára aktív: ${friend.last_online}`}</p>
+                                        <p className="text-gray-400">{`Utoljára itt járt: ${friend.last_seen_at}`}</p>
+                                        <p className="text-gray-400">{`Legutóbbi tevékenység: ${friend.last_activity}`}</p>
+                                    </div>
                                 </div>
                                 <div>
-                                    <a href={`/algoritmizator/app/socials/${friend.id}/profile`}
+                                    <a href={`/algoritmizator/app/socials/profile/${friend.id}`}
                                        className="px-6 py-2 mr-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800">Profil</a>
                                     <button onClick={() => handleUnfriend(friend.id)}
                                             className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700">Eltávolítás
@@ -180,7 +187,7 @@ export const FriendRequestsComponent = memo(() => {
                         <div key={request.id}
                              className="flex items-center justify-between p-3 mx-4 border-b border-purple-500">
                             <div className="flex items-center flex-1">
-                                <img src={"/storage/"+request.avatar} alt={request.name}
+                                <img src={"/algoritmizator/storage/"+request.avatar} alt={request.name}
                                      className="w-12 h-12 rounded-full mr-4"/>
                                 <div>
                                     <h3 className="text-lg">{request.name}</h3>
@@ -189,7 +196,7 @@ export const FriendRequestsComponent = memo(() => {
                                 </div>
                             </div>
                             <div>
-                                <a href={`/algoritmizator/app/socials/${request.id}/profile`}
+                                <a href={`/algoritmizator/app/socials/profile/${request.id}`}
                                    className="px-6 py-2 mr-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800">Profil</a>
                                 <button onClick={() => handleAccept(request.id)}
                                         className="px-4 py-2 mr-3 bg-green-600 rounded-lg hover:bg-green-700">Elfogadás
@@ -275,7 +282,7 @@ export const SearchComponent = memo(() => {
                             <div key={user.id}
                                  className="flex items-center justify-between p-3 mx-4 border-b border-purple-500">
                                 <div className="flex items-center flex-1">
-                                    <img src={"/storage/"+user.avatar} alt={user.name}
+                                    <img src={"/algoritmizator/storage/"+user.avatar} alt={user.name}
                                          className="w-12 h-12 rounded-full mr-4"/>
                                     <div>
                                         <h3 className={`text-lg ${user.is_friend ? 'text-purple-500' : 'text-white'}`}>{user.name}</h3>
@@ -284,7 +291,7 @@ export const SearchComponent = memo(() => {
                                     </div>
                                 </div>
                                 <div>
-                                    <a href={`/algoritmizator/app/socials/${user.id}/profile`}
+                                    <a href={`/algoritmizator/app/socials/profile/${user.id}`}
                                        className="px-6 py-2 mr-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800">Profil
                                     </a>
                                     {!user.is_friend &&

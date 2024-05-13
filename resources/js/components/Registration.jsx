@@ -19,7 +19,7 @@ import Navbar from "./Navbar.jsx";
  *
  * @returns {JSX.Element} The Registration component
  */
-const Registration = memo(({title, activeTab, user}) => {
+const Registration = memo(({title, activeTab}) => {
     // State variables for the form data, email validity, password strength, and form errors
     const [formData, setFormData] = useState({
         name: '',
@@ -51,7 +51,6 @@ const Registration = memo(({title, activeTab, user}) => {
             axios.post('/algoritmizator/api/register', data)
                 .then(response => {
                     console.log('Registration successful:', response.data);
-                    // Redirect to the login page
                     window.location.href = '/algoritmizator/auth/confirm-email';
                 })
                 .catch(error => {
@@ -97,11 +96,11 @@ const Registration = memo(({title, activeTab, user}) => {
     // Render the Navbar, registration form, and Footer
     return (
         <div>
-            <Navbar title={title} activeTab={activeTab} user={user}/>
+            <Navbar title={title} activeTab={activeTab}/>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-md">
                     <div className="flex flex-col items-center mb-8">
-                        <img src="/storage/logo.png" alt="Logo"
+                        <img src="/algoritmizator/storage/logo.png" alt="Logo"
                              className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"/>
                         <h2 className="text-3xl font-bold text-white mb-2">Fiók létrehozása</h2>
                     </div>

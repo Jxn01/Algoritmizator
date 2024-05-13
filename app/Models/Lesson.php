@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Lesson
@@ -44,21 +43,10 @@ class Lesson extends Model
 
     /**
      * Find a lesson by its title.
-     *
-     * @param string $title
-     * @return Lesson
      */
     public function findLessonByTitle(string $title): Lesson
     {
         return $this->where('title', $title)->first();
-    }
-
-    /**
-     * Get the assignment associated with the lesson.
-     */
-    public function assignments(): HasOne
-    {
-        return $this->hasOne(Assignment::class);
     }
 
     /**

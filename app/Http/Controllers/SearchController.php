@@ -86,7 +86,44 @@ class SearchController extends Controller
                 'total_xp' => $user->total_xp,
                 'level' => $user->level,
                 'avatar' => $user->avatar,
+                'is_online' => $user->is_online,
+                'last_activity' => $user->last_activity,
+                'last_seen_at' => $user->last_seen_at,
+                'last_online' => $user->last_online,
             ];
+        });
+
+        return response()->json($results);
+    }
+
+    public static function getOnlineFriends(Request $request)
+    {
+        $currentUserId = Auth::getUser()->id;
+        $results1 = User::find($currentUserId)->friendTo;
+        $results2 = User::find($currentUserId)->friends;
+        $results = $results1->merge($results2);
+        $results = $results->map(function ($friend) {
+            $user = User::find($friend->party1 === Auth::getUser()->id ? $friend->party2 : $friend->party1);
+            if (! $user->is_online) {
+                return null;
+            }
+
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'username' => $user->username,
+                'total_xp' => $user->total_xp,
+                'level' => $user->level,
+                'avatar' => $user->avatar,
+                'is_online' => $user->is_online,
+                'last_activity' => $user->last_activity,
+                'last_seen_at' => $user->last_seen_at,
+                'last_online' => $user->last_online,
+            ];
+        });
+
+        $results = $results->filter(function ($friend) {
+            return $friend !== null;
         });
 
         return response()->json($results);
@@ -119,5 +156,15 @@ class SearchController extends Controller
         });
 
         return response()->json($results);
+    }
+
+    public static function getUser(Request $request, $id)
+    {
+        $user = User::find($id);
+        if (! $user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        return response()->json($user);
     }
 }

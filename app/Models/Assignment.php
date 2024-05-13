@@ -40,7 +40,7 @@ class Assignment extends Model
      * @var array
      */
     protected $fillable = [
-        'lesson_id',
+        'sublesson_id',
         'title',
         'markdown',
         'assignment_xp',
@@ -49,9 +49,9 @@ class Assignment extends Model
     /**
      * Get the lesson that owns the assignment.
      */
-    public function lesson(): BelongsTo
+    public function sublesson(): BelongsTo
     {
-        return $this->belongsTo(Lesson::class);
+        return $this->belongsTo(Sublesson::class);
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -22,7 +21,7 @@ class PageController extends Controller
      */
     public function showDashboard()
     {
-        return Inertia::render('Dashboard', ['title' => 'Vezérlőpult', 'activeTab' => 'dashboard', 'user' => Auth::user()]);
+        return Inertia::render('Dashboard', ['title' => 'Vezérlőpult', 'activeTab' => 'dashboard']);
     }
 
     /**
@@ -32,7 +31,7 @@ class PageController extends Controller
      */
     public function showLogin()
     {
-        return Inertia::render('Login', ['title' => 'Bejelentkezés', 'activeTab' => 'login', 'user' => Auth::user()]);
+        return Inertia::render('Login', ['title' => 'Bejelentkezés', 'activeTab' => 'login']);
     }
 
     /**
@@ -42,7 +41,7 @@ class PageController extends Controller
      */
     public function showRegistration()
     {
-        return Inertia::render('Registration', ['title' => 'Regisztráció', 'activeTab' => 'registration', 'user' => Auth::user()]);
+        return Inertia::render('Registration', ['title' => 'Regisztráció', 'activeTab' => 'registration']);
     }
 
     /**
@@ -52,7 +51,7 @@ class PageController extends Controller
      */
     public function showForgotPassword()
     {
-        return Inertia::render('ForgotPassword', ['title' => 'Elfelejtett jelszó', 'activeTab' => 'login', 'user' => Auth::user()]);
+        return Inertia::render('ForgotPassword', ['title' => 'Elfelejtett jelszó', 'activeTab' => 'login']);
     }
 
     /**
@@ -63,7 +62,7 @@ class PageController extends Controller
      */
     public function showResetPassword($token)
     {
-        return Inertia::render('PasswordReset', ['title' => 'Jelszó visszaállítása', 'activeTab' => 'login', 'user' => Auth::user(), 'token' => $token]);
+        return Inertia::render('PasswordReset', ['title' => 'Jelszó visszaállítása', 'activeTab' => 'login', 'token' => $token]);
     }
 
     /**
@@ -73,7 +72,7 @@ class PageController extends Controller
      */
     public function showLogout()
     {
-        return Inertia::render('Logout', ['title' => 'Kijelentkezés', 'activeTab' => 'logout', 'user' => Auth::user()]);
+        return Inertia::render('Logout', ['title' => 'Kijelentkezés', 'activeTab' => 'logout']);
     }
 
     /**
@@ -83,7 +82,7 @@ class PageController extends Controller
      */
     public function showEmailConfirmed()
     {
-        return Inertia::render('EmailConfirmation', ['title' => 'E-mail cím megerősítve', 'activeTab' => 'registration', 'user' => Auth::user()]);
+        return Inertia::render('EmailConfirmation', ['title' => 'E-mail cím megerősítve', 'activeTab' => 'registration']);
     }
 
     /**
@@ -93,7 +92,7 @@ class PageController extends Controller
      */
     public function showConfirmEmail()
     {
-        return Inertia::render('VerificationEmailSent', ['title' => 'E-mail cím megerősítése', 'activeTab' => 'registration', 'user' => Auth::user()]);
+        return Inertia::render('VerificationEmailSent', ['title' => 'E-mail cím megerősítése', 'activeTab' => 'registration']);
     }
 
     /**
@@ -105,16 +104,16 @@ class PageController extends Controller
     public function showError($type)
     {
         if ($type === '404') {
-            return Inertia::render('NotFound', ['title' => '404', 'user' => Auth::user()]);
+            return Inertia::render('NotFound', ['title' => '404']);
         }
         if ($type === '403') {
-            return Inertia::render('Forbidden', ['title' => '403', 'user' => Auth::user()]);
+            return Inertia::render('Forbidden', ['title' => '403']);
         }
         if ($type === '500') {
-            return Inertia::render('InternalServerError', ['title' => '500', 'user' => Auth::user()]);
+            return Inertia::render('InternalServerError', ['title' => '500']);
         }
 
-        return Inertia::render('NotFound', ['title' => '404', 'user' => Auth::user()]);
+        return Inertia::render('NotFound', ['title' => '404']);
     }
 
     /**
@@ -124,7 +123,7 @@ class PageController extends Controller
      */
     public function showNotFound()
     {
-        return Inertia::render('NotFound', ['title' => '404', 'user' => Auth::user()]);
+        return Inertia::render('NotFound', ['title' => '404']);
     }
 
     /**
@@ -134,7 +133,7 @@ class PageController extends Controller
      */
     public function showProfile()
     {
-        return Inertia::render('Profile', ['title' => 'Profilom', 'activeTab' => 'profile', 'user' => Auth::getUser()]);
+        return Inertia::render('Profile', ['title' => 'Profilom', 'activeTab' => 'profile']);
     }
 
     /**
@@ -144,7 +143,7 @@ class PageController extends Controller
      */
     public function showSocials()
     {
-        return Inertia::render('Socials', ['title' => 'Közösség', 'activeTab' => 'socials', 'user' => Auth::getUser()]);
+        return Inertia::render('Socials', ['title' => 'Közösség', 'activeTab' => 'socials']);
     }
 
     /**
@@ -155,9 +154,7 @@ class PageController extends Controller
      */
     public function showUserProfile($id)
     {
-        $user = User::findById($id);
-
-        return Inertia::render('UserProfile', ['title' => 'Profil', 'activeTab' => 'socials', 'user' => Auth::getUser(), 'profileUser' => $user]);
+        return Inertia::render('UserProfile', ['title' => 'Profil', 'activeTab' => 'socials', 'id' => $id]);
     }
 
     /**
@@ -167,18 +164,7 @@ class PageController extends Controller
      */
     public function showLessons()
     {
-        return Inertia::render('Lessons', ['title' => 'Tananyag', 'activeTab' => 'lessons', 'user' => Auth::getUser()]);
-    }
-
-    /**
-     * Show the algorithm page.
-     *
-     * @param  int  $id  The ID of the algorithm to show.
-     * @return Response
-     */
-    public function showAlgorithm($id)
-    {
-        return Inertia::render('Algorithm', ['id' => $id, 'title' => 'Tananyag', 'activeTab' => 'lessons', 'user' => Auth::getUser()]);
+        return Inertia::render('Lessons', ['title' => 'Tananyag', 'activeTab' => 'lessons']);
     }
 
     /**
@@ -187,9 +173,9 @@ class PageController extends Controller
      * @param  int  $id  The ID of the quiz to show.
      * @return Response
      */
-    public function showQuiz($id)
+    public function showTask($id)
     {
-        return Inertia::render('Quiz', ['id' => $id, 'title' => 'Tananyag', 'activeTab' => 'lessons', 'user' => Auth::getUser()]);
+        return Inertia::render('Task', ['id' => $id, 'title' => 'Tananyag', 'activeTab' => 'lessons']);
     }
 
     /**
@@ -198,8 +184,8 @@ class PageController extends Controller
      * @param  int  $id  The ID of the quiz whose result to show.
      * @return Response
      */
-    public function showQuizResult($id)
+    public function showTaskAttempt($id)
     {
-        return Inertia::render('QuizResult', ['id' => $id, 'title' => 'Tananyag', 'activeTab' => 'lessons', 'user' => Auth::getUser()]);
+        return Inertia::render('TaskAttempt', ['id' => $id, 'title' => 'Tananyag', 'activeTab' => 'lessons']);
     }
 }

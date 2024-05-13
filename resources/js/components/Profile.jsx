@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 import Modal from 'react-modal';
@@ -22,16 +22,27 @@ Modal.setAppElement('body');
  *
  * @returns {JSX.Element} The Profile component
  */
-const Profile = memo(({ title, activeTab, user }) => {
-    // State variables for the user, form data, form errors, modal state, selected form, password strength, success message, and profile picture
-    const [currentUser, setCurrentUser] = useState(user);
-    const [formData, setFormData] = useState({...user});
+const Profile = memo(({ title, activeTab}) => {
+    useEffect(() => {
+        axios.get('/algoritmizator/api/user')
+            .then(response => {
+                setCurrentUser(response.data);
+                setFormData({...response.data});
+                setProfilePicture('/algoritmizator/storage/' + response.data.avatar);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
+    const [currentUser, setCurrentUser] = useState({});
+    const [formData, setFormData] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedForm, setSelectedForm] = useState('');
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [successMessage, setSuccessMessage] = useState('');
-    const [profilePicture, setProfilePicture] = useState('/storage/' + user.avatar);
+    const [profilePicture, setProfilePicture] = useState('/algoritmizator/storage/default.png');
 
     // Function to handle the change of form inputs
     const handleChange = (e) => {
@@ -98,7 +109,7 @@ const Profile = memo(({ title, activeTab, user }) => {
 
         axios.post('/algoritmizator/api/update-avatar', formData)
             .then(response => {
-                setProfilePicture('/storage/' + response.data.avatar);
+                setProfilePicture('/algoritmizator/storage/' + response.data.avatar);
                 alert("A profilkép módosítása sikeres.")
             })
             .catch(error => {
@@ -289,7 +300,7 @@ const Profile = memo(({ title, activeTab, user }) => {
     const renderPasswordFields = () => (
         <>
             <div className="mb-4">
-                <label htmlFor="oldPassword" className="block text-white text-sm font-bold mb-2">Régi jelszó
+                <label htmlFor="oldPassword" className="block text-white text-sm font-bold mb-2">Jelenlegi jelszó
                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2 text-white" id="oldPassTip"/>
                     <ReactTooltip anchorSelect={'#oldPassTip'} place="right" effect="solid">
                         A jelenlegi jelszavad.
@@ -360,7 +371,7 @@ const Profile = memo(({ title, activeTab, user }) => {
     // Render the Navbar, profile page, and Footer
     return (
         <div>
-            <Navbar title={title} activeTab={activeTab} user={user}/>
+            <Navbar title={title} activeTab={activeTab}/>
             <div
                 className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-4xl bg-gray-800 p-6 rounded-lg shadow-lg text-white space-y-4">

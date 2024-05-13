@@ -16,8 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias(['inertia' => HandleInertiaRequests::class, 'redirectFromOwnProfile' => redirectFromOwnProfile::class, 'snoop' => Snoop::class]);
-        $middleware->redirectUsersTo('/algoritmizator/app');
-        $middleware->redirectGuestsTo('/algoritmizator/auth/login');
+        $middleware->redirectUsersTo('/app');
+        $middleware->redirectGuestsTo('/auth/login');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -17,7 +17,7 @@ import axios from 'axios';
  *
  * @returns {JSX.Element} The VerificationEmailSent component
  */
-const VerificationEmailSent = memo(({ title, activeTab, user }) => {
+const VerificationEmailSent = memo(({ title, activeTab}) => {
     /**
      * handleResendEmail function
      *
@@ -38,11 +38,11 @@ const VerificationEmailSent = memo(({ title, activeTab, user }) => {
     // Render the Navbar, verification email sent page, and Footer
     return (
         <div>
-            <Navbar title={title} activeTab={activeTab} user={user} />
+            <Navbar title={title} activeTab={activeTab}/>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-md text-center">
                     <div className="flex flex-col items-center mb-8">
-                        <img src="/storage/logo.png" alt="Logo"
+                        <img src="/algoritmizator/storage/logo.png" alt="Logo"
                              className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"/>
                         <h2 className="text-3xl font-bold text-white mb-2">Erősítse meg az e-mail címét</h2>
                     </div>

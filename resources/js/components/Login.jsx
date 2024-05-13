@@ -20,7 +20,7 @@ import Navbar from "./Navbar.jsx";
  *
  * @returns {JSX.Element} The Login component
  */
-const Login = memo(({ title, activeTab, user }) => {
+const Login = memo(({ title, activeTab}) => {
     // State variables for the email, password, rememberMe checkbox, email validation status, and login attempts
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -31,11 +31,13 @@ const Login = memo(({ title, activeTab, user }) => {
     // Function to handle the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
+        /*
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
         if (!emailRegex.test(email)) {
             setEmailIsValid(false);
             return;
         }
+        */
         setEmailIsValid(true);
 
         const formData = new FormData();
@@ -63,11 +65,11 @@ const Login = memo(({ title, activeTab, user }) => {
     // Render the Navbar, login form, and Footer
     return (
         <div>
-            <Navbar title={title} activeTab={activeTab} user={user} />
+            <Navbar title={title} activeTab={activeTab}/>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-md">
                     <div className="flex flex-col items-center mb-8">
-                        <img src="/storage/logo.png" alt="Logo"
+                        <img src="/algoritmizator/storage/logo.png" alt="Logo"
                              className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"/>
                         <h2 className="text-3xl font-bold text-white mb-2">Üdvözöljük újra!</h2>
                     </div>

@@ -205,7 +205,7 @@ class AuthController extends Controller
 
         $avatarName = $user->id.'_avatar'.time().'.'.request()->avatar->getClientOriginalExtension();
 
-        $request->avatar->storeAs('avatars', $avatarName);
+        $request->avatar->storeAs('public/avatars', $avatarName);
 
         $user->avatar = $avatarName;
         $user->save();

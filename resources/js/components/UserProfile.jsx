@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
@@ -11,17 +11,25 @@ import Footer from "./Footer.jsx";
  * @param {Object} props - The properties passed to the component
  * @param {string} props.title - The title of the page
  * @param {string} props.activeTab - The currently active tab in the navbar
- * @param {Object} props.user - The currently logged in user
- * @param {Object} props.profileUser - The user whose profile is being viewed
  *
  * @returns {JSX.Element} The UserProfile component
  */
-const UserProfile = memo(({title, activeTab, user, profileUser}) => {
+const UserProfile = memo(({title, activeTab, id}) => {
+    const [profileUser, setProfileUser] = useState({});
+
+    useEffect(() => {
+        axios.get('/algoritmizator/api/users/' + id)
+            .then(response => {
+                setProfileUser(response.data);
+            }).catch(error => {
+                console.error(error);
+            });
+    }, []);
 
     // Render the Navbar, user profile page, and Footer
     return (
         <div>
-            <Navbar title={title} activeTab={activeTab} user={user}/>
+            <Navbar title={title} activeTab={activeTab}/>
             <div
                 className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-4xl bg-gray-800 p-6 rounded-lg shadow-lg text-white space-y-4">
@@ -29,7 +37,7 @@ const UserProfile = memo(({title, activeTab, user, profileUser}) => {
                         <div>
                             <div className="relative inline-block">
                                 <img
-                                    src={"/storage/" + profileUser.avatar}
+                                    src={"/algoritmizator/storage/" + profileUser.avatar}
                                     alt="Profile"
                                     className="w-32 h-32 rounded-full object-cover border-4 border-purple-800 cursor-pointer"
                                 />

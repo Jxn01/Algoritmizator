@@ -19,7 +19,7 @@ import Footer from "./Footer.jsx";
  *
  * @returns {JSX.Element} The ForgotPassword component
  */
-const ForgotPassword = memo(({title, activeTab, user}) => {
+const ForgotPassword = memo(({title, activeTab}) => {
     // State variables for the email input field, the email sent status, and the email validation status
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
@@ -41,11 +41,11 @@ const ForgotPassword = memo(({title, activeTab, user}) => {
 
     return (
         <div>
-            <Navbar title={title} activeTab={activeTab} user={user}/>
+            <Navbar title={title} activeTab={activeTab}/>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-md">
                     <div className="flex flex-col items-center mb-8">
-                        <img src="/storage/logo.png" alt="Logo"
+                        <img src="/algoritmizator/storage/logo.png" alt="Logo"
                              className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"/>
                         <h2 className="text-3xl font-bold text-white mb-2">Jelszó alaphelyzetbe állítása</h2>
                     </div>
