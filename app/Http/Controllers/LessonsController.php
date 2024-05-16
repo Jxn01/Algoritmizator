@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Assignment;
 use App\Models\Attempt;
 use App\Models\AttemptAnswer;
+use App\Models\AttemptQuestion;
 use App\Models\Lesson;
+use App\Models\Question;
 use App\Models\Sublesson;
+use App\Models\Task;
 use App\Models\TaskAttempt;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class LessonsController extends Controller
 {
-    public function getLessons(Request $request)
+    public function getLessons(Request $request): JsonResponse
     {
         $response = [];
         $lessons = Lesson::all();
@@ -28,7 +32,7 @@ class LessonsController extends Controller
         return response()->json($response);
     }
 
-    public function getAssignmentAndTasks(Request $request, $id)
+    public function getAssignmentAndTasks(Request $request, $id): JsonResponse
     {
         $assignment = Sublesson::find($id)->assignment;
         $tasks = $assignment->tasks->map(function ($task) {
@@ -37,11 +41,17 @@ class LessonsController extends Controller
                 'title' => $task->title,
                 'markdown' => $task->markdown,
                 'type' => $task->type,
-                'answers' => $task->answers->map(function ($answer) {
+                'questions' => $task->questions->map(function ($question) {
                     return [
-                        'id' => $answer->id,
-                        'answer' => $answer->answer,
-                        'is_correct' => $answer->is_correct,
+                        'id' => $question->id,
+                        'markdown' => $question->markdown,
+                        'answers' => $question->answers->map(function ($answer) {
+                            return [
+                                'id' => $answer->id,
+                                'answer' => $answer->answer,
+                                'is_correct' => $answer->is_correct,
+                            ];
+                        }),
                     ];
                 }),
             ];
@@ -53,130 +63,228 @@ class LessonsController extends Controller
         ]);
     }
 
-    public function submitAssignment(Request $request, $id)
+
+    public function submitAssignment(Request $request)
     {
-        $assignment = Sublesson::find($id)->assignment;
-        $tasks = $assignment->tasks;
-        $answers = $request->input('answers');
-        $time = $request->input('time');
+        $validatedData = $request->validate([
+            'assignment_id' => 'required|integer|exists:assignments,id',
+            'tasks' => 'required|array',
+            'tasks.*.id' => 'required|integer|exists:tasks,id',
+            'tasks.*.questions' => 'required|array',
+            'tasks.*.questions.*.id' => 'required|integer|exists:questions,id',
+            'tasks.*.questions.*.answer' => 'required',
+            'time' => 'required|integer|min:0',
+        ]);
 
-        $attempt = new Attempt();
-        $attempt->user_id = auth()->user()->id;
-        $attempt->assignment_id = $assignment->id;
+        $user = auth()->user();
+        $assignment = Assignment::findOrFail($validatedData['assignment_id']);
+        $totalScore = 0;
+        $maxScore = 0;
 
-        foreach ($tasks as $task) {
-            new TaskAttempt([
-                'task_id' => $task->id,
+        // Create the main attempt
+        $attempt = Attempt::create([
+            'user_id' => $user->id,
+            'assignment_id' => $assignment->id,
+            'total_score' => 0, // Will update later
+            'max_score' => 0, // Will update later
+            'time' => gmdate('H:i:s', $validatedData['time']),
+            'passed' => false, // Will update later
+        ]);
+
+        foreach ($validatedData['tasks'] as $taskData) {
+            $task = Task::findOrFail($taskData['id']);
+            $taskMaxScore = $task->questions->count();
+            $taskScore = 0;
+
+            // Create task attempt
+            $taskAttempt = TaskAttempt::create([
                 'attempt_id' => $attempt->id,
+                'task_id' => $task->id,
             ]);
-        }
 
-        foreach($answers as $answer) {
-            $attemptAnswer = new AttemptAnswer();
-            $attemptAnswer->task_attempt_id = $answer['task_id'];
-            $attemptAnswer->answer_id = $answer['answer_id'];
-            $attemptAnswer->custom_answer = $answer['custom_answer'];
-            $attemptAnswer->save();
-        }
+            foreach ($taskData['questions'] as $questionData) {
+                $question = Question::findOrFail($questionData['id']);
+                $questionMaxScore = 1; // Each question has a max score of 1
+                $questionScore = 0;
 
-        foreach ($tasks as $task) {
-            $taskAnswers = [];
-            foreach ($answers as $answer) {
-                if ($answer['task_id'] == $task->id) {
-                    $taskAnswers[] = $answer;
+                // Create attempt question
+                $attemptQuestion = AttemptQuestion::create([
+                    'task_attempt_id' => $taskAttempt->id,
+                    'question_id' => $question->id,
+                ]);
+
+                if ($task->type === 'result') {
+                    // Handle custom answer for result type questions
+                    $submittedAnswer = $questionData['answer'];
+                    $correctAnswer = $question->answers->first()->answer; // Assume only one correct answer
+
+                    // Store the custom answer
+                    AttemptAnswer::create([
+                        'attempt_question_id' => $attemptQuestion->id,
+                        'custom_answer' => $submittedAnswer,
+                    ]);
+
+                    // Check if the answer is correct
+                    if (trim($submittedAnswer) === trim($correctAnswer)) {
+                        $questionScore = 1; // Full score for correct answer
+                    }
+                } else {
+                    // Handle multiple-choice answers
+                    $submittedAnswers = is_array($questionData['answer']) ? $questionData['answer'] : [$questionData['answer']];
+                    $correctAnswers = $question->answers->where('is_correct', true)->pluck('id')->toArray();
+
+                    foreach ($submittedAnswers as $submittedAnswerId) {
+                        AttemptAnswer::create([
+                            'attempt_question_id' => $attemptQuestion->id,
+                            'answer_id' => $submittedAnswerId,
+                        ]);
+
+                        if (in_array($submittedAnswerId, $correctAnswers)) {
+                            $questionScore++;
+                        } else {
+                            $questionScore--;
+                        }
+                    }
+                    $questionScore = max(0, $questionScore); // Ensure score is not negative
                 }
+
+                $taskScore += $questionScore;
             }
-            $maxScore += 1;
-            $correctAnswer = null;
-            if ($task->type == 'quiz') {
-                $correctAnswer = $task->answers->where('is_correct', true)->first()->id;
-                $userAnswer = $taskAnswers[0]['answer_id'];
-                if($correctAnswer == $userAnswer) {
-                    $totalScore += 1;
-                }
-            } else if($task->type == 'open') {
-                $correctAnswer = $task->answers->where('is_correct', true)->first()->answer;
-                $userAnswer = $taskAnswers[0]['custom_answer'];
-                if($correctAnswer == $userAnswer) {
-                    $totalScore += 1;
-                }
-            } else if($task->type == 'multiple') {
-                $correctAnswers = $task->answers->where('is_correct', true)->pluck('id');
-                $userAnswers = collect($taskAnswers)->pluck('answer_id');
-                if($correctAnswers->diff($userAnswers)->isEmpty() && $userAnswers->diff($correctAnswers)->isEmpty()) {
-                    $totalScore += 1;
-                }
-            } else if($task->type == 'true_false'){
-                $correctAnswers = $task->answers->where('is_correct', true)->pluck('id');
-                $userAnswers = collect($taskAnswers)->pluck('answer_id');
-                if($correctAnswers->diff($userAnswers)->isEmpty() && $userAnswers->diff($correctAnswers)->isEmpty()) {
-                    $totalScore += 1;
-                }
-            }
+
+            $totalScore += $taskScore;
+            $maxScore += $taskMaxScore;
         }
 
-        if ($totalScore < $maxScore / 3 * 2) {
-            $passed = false;
-        }
+        // Determine if the assignment is passed (70% or more)
+        $passed = ($totalScore / $maxScore) >= 0.7;
 
-        $attempt->total_score = $totalScore;
-        $attempt->max_score = $maxScore;
-        $attempt->time = $time;
-        $attempt->passed = $passed;
-        $attempt->save();
+        // Update attempt with calculated scores and pass status
+        $attempt->update([
+            'total_score' => $totalScore,
+            'max_score' => $maxScore,
+            'passed' => $passed,
+        ]);
 
-        return redirect()->route('task-attempt', ['id' => $id, 'resultId' => $attempt->id]);
+        return response()->json([
+            'message' => 'Assignment submitted successfully',
+            'attempt_id' => $attempt->id,
+        ]);
     }
 
-    public function getAttempts($id)
-    {
-        $attempts = Attempt::where('assignment_id', $id)->where('user_id', auth()->user()->id)->get();
-        $attempts = $attempts->map(function ($attempt) {
-            return [
-                'id' => $attempt->id,
-                'assignment_id' => $attempt->assignment_id,
-                'total_score' => $attempt->total_score,
-                'max_score' => $attempt->max_score,
-                'time' => $attempt->time,
-                'passed' => $attempt->passed,
-                'created_at' => $attempt->created_at,
-            ];
-        });
 
-        return response()->json($attempts);
-    }
-
-    public function getAttempt($id, $resultId)
+    public function getAttempt($id): JsonResponse
     {
-        $attempt = Attempt::where('assignment_id', $id)->where('user_id', auth()->user()->id)->where('id', $resultId)->first();
-        $attempt = [
+        $attempt = Attempt::with([
+            'assignment',
+            'tasks.task',
+            'tasks.questions.question.answers', // Load answers through the question relationship
+            'tasks.questions.attemptAnswers'    // Load attemptAnswers directly on AttemptQuestion
+        ])->findOrFail($id);
+
+        $data = [
             'id' => $attempt->id,
-            'assignment_title' => $attempt->assignment->title,
-            'assignment_markdown' => $attempt->assignment->markdown,
-            'assignment_xp' => $attempt->assignment->assignment_xp,
-            'total_score' => $attempt->total_score,
-            'max_score' => $attempt->max_score,
-            'time' => $attempt->time,
-            'passed' => $attempt->passed,
-            'created_at' => $attempt->created_at,
-            'taskAttempts' => $attempt->tasks->map(function ($taskAttempt) {
+            'user_id' => $attempt->user_id,
+            'assignment' => [
+                'id' => $attempt->assignment->id,
+                'title' => $attempt->assignment->title,
+                'markdown' => $attempt->assignment->markdown,
+            ],
+            'tasks' => $attempt->tasks->map(function ($taskAttempt) {
                 return [
-                    'id' => $taskAttempt->id,
-                    'task_title' => $taskAttempt->task->title,
-                    'task_markdown' => $taskAttempt->task->markdown,
-                    'task_type' => $taskAttempt->task->type,
-                    'answers' => $taskAttempt->answers->map(function ($answer) {
+                    'id' => $taskAttempt->task->id,
+                    'title' => $taskAttempt->task->title,
+                    'markdown' => $taskAttempt->task->markdown,
+                    'type' => $taskAttempt->task->type,
+                    'questions' => $taskAttempt->questions->map(function ($attemptQuestion) {
+                        $question = $attemptQuestion->question;
                         return [
-                            'id' => $answer->id,
-                            'answer' => $answer->answer->answer,
-                            'is_correct' => $answer->answer->is_correct,
-                            'custom_answer' => $answer->custom_answer,
+                            'id' => $question->id,
+                            'markdown' => $question->markdown,
+                            'type' => $question->type,
+                            'submitted_answers' => $attemptQuestion->attemptAnswers->map(function ($attemptAnswer) {
+                                return [
+                                    'id' => $attemptAnswer->id,
+                                    'answer_id' => $attemptAnswer->answer_id,
+                                    'custom_answer' => $attemptAnswer->custom_answer,
+                                    'answer' => $attemptAnswer->answer ? $attemptAnswer->answer->answer : null,
+                                    'is_correct' => $attemptAnswer->answer ? $attemptAnswer->answer->is_correct : null,
+                                ];
+                            }),
+                            'answers' => $question->answers->map(function ($answer) {
+                                return [
+                                    'id' => $answer->id,
+                                    'answer' => $answer->answer,
+                                    'is_correct' => $answer->is_correct,
+                                ];
+                            }),
                         ];
                     }),
                 ];
             }),
+            'total_score' => $attempt->total_score,
+            'max_score' => $attempt->max_score,
+            'time' => $attempt->time,
+            'passed' => $attempt->passed,
         ];
 
-        return response()->json($attempt);
+        return response()->json($data);
+    }
+
+
+
+
+    public function getAllAttempts(Request $request): JsonResponse
+    {
+        $user = auth()->user();
+
+        $attempts = Attempt::with([
+            'assignment',
+            'tasks.task',
+            'tasks.questions.question',
+            'tasks.questions.answers.answer'
+        ])->where('user_id', $user->id)->get();
+
+        $data = $attempts->map(function ($attempt) {
+            return [
+                'id' => $attempt->id,
+                'user_id' => $attempt->user_id,
+                'assignment' => [
+                    'id' => $attempt->assignment->id,
+                    'title' => $attempt->assignment->title,
+                    'markdown' => $attempt->assignment->markdown,
+                ],
+                'tasks' => $attempt->tasks->map(function ($taskAttempt) {
+                    return [
+                        'id' => $taskAttempt->task->id,
+                        'title' => $taskAttempt->task->title,
+                        'markdown' => $taskAttempt->task->markdown,
+                        'type' => $taskAttempt->task->type,
+                        'questions' => $taskAttempt->questions->map(function ($attemptQuestion) {
+                            return [
+                                'id' => $attemptQuestion->question->id,
+                                'markdown' => $attemptQuestion->question->markdown,
+                                'type' => $attemptQuestion->question->type,
+                                'submitted_answers' => $attemptQuestion->answers->map(function ($attemptAnswer) {
+                                    return [
+                                        'id' => $attemptAnswer->id,
+                                        'answer_id' => $attemptAnswer->answer_id,
+                                        'custom_answer' => $attemptAnswer->custom_answer,
+                                        'answer' => $attemptAnswer->answer ? $attemptAnswer->answer->answer : null,
+                                        'is_correct' => $attemptAnswer->answer ? $attemptAnswer->answer->is_correct : null,
+                                    ];
+                                }),
+                                'correct_answers' => $attemptQuestion->question->answers->where('is_correct', true)->pluck('id'),
+                            ];
+                        }),
+                    ];
+                }),
+                'total_score' => $attempt->total_score,
+                'max_score' => $attempt->max_score,
+                'time' => $attempt->time,
+                'passed' => $attempt->passed,
+            ];
+        });
+
+        return response()->json($data);
     }
 }

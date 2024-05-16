@@ -26,7 +26,7 @@ import {faFileAlt} from "@fortawesome/free-solid-svg-icons";
  *
  * @returns {JSX.Element} The Lessons component
  */
-export const Lessons = memo(({ title, activeTab}) => {
+export const Lessons = memo(({title, activeTab}) => {
     const [lessons, setLessons] = useState([]);
     const [selectedLesson, setSelectedLesson] = useState([]);
     const [selectedSublesson, setSelectedSublesson] = useState([]);

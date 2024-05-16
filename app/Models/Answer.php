@@ -38,7 +38,7 @@ class Answer extends Model
      * @var array
      */
     protected $fillable = [
-        'task_id',
+        'question_id',
         'answer',
         'is_correct',
     ];
@@ -48,6 +48,6 @@ class Answer extends Model
      */
     public function question(): BelongsTo
     {
-        return $this->belongsTo(Task::class);
+        return $this->belongsTo(Question::class);
     }
 }

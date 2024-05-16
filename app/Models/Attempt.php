@@ -20,25 +20,10 @@ class Attempt extends Model
 {
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'attempts';
 
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
     protected $primaryKey = 'id';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'user_id',
         'assignment_id',
@@ -48,25 +33,16 @@ class Attempt extends Model
         'passed',
     ];
 
-    /**
-     * Get the user that owns the attempt.
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the assignment that the attempt is associated with.
-     */
     public function assignment(): BelongsTo
     {
         return $this->belongsTo(Assignment::class);
     }
 
-    /**
-     * Get the tasks associated with the attempt.
-     */
     public function tasks(): hasMany
     {
         return $this->hasMany(TaskAttempt::class);

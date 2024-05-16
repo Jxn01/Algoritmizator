@@ -15,22 +15,23 @@ import React, {memo, useEffect, useState} from "react";
  */
 const Navbar = memo(({ title, activeTab}) => {
     const [user, setUser] = useState(null);
+    const [authenticated, setAuthenticated] = useState(false);
+    const [avatar, setAvatar] = useState('default.png');
 
     useEffect(() => {
         // Fetch the currently logged in user
         axios.get('/algoritmizator/api/user')
             .then(response => {
                 setUser(response.data);
+                if(response.data.id !== undefined){
+                    setAuthenticated(true);
+                    setAvatar(response.data.avatar);
+                }
             })
             .catch(error => {
                 console.error(error);
             });
     }, []);
-
-    // The avatar of the user or a default avatar if the user is not logged in
-    const avatar = user ? user.avatar : 'storage/default.png';
-    // Whether the user is authenticated (logged in)
-    const authenticated = user !== null;
 
     // Render the navigation bar with links to different pages
     // The active tab is highlighted with a bold font
@@ -51,24 +52,24 @@ const Navbar = memo(({ title, activeTab}) => {
                         {authenticated && (
                             <>
                                 <a href="/algoritmizator/app"
-                                   className={`text-white px-3 py-2 rounded-md text-sm ${activeTab === 'dashboard' ? 'font-bold' : 'font-medium'}`}>
+                                   className={`text-white px-3 py-2 rounded-lg text-sm ${activeTab === 'dashboard' ? 'font-bold border-1 border-white' : 'font-medium'}`}>
                                     Vezérlőpult
                                 </a>
                                 <a href="/algoritmizator/app/lessons"
-                                   className={`text-white px-3 py-2 rounded-md text-sm ${activeTab === 'lessons' ? 'font-bold' : 'font-medium'}`}>
+                                   className={`text-white px-3 py-2 rounded-lg text-sm ${activeTab === 'lessons' ? 'font-bold border-1 border-white' : 'font-medium'}`}>
                                     Tananyag
                                 </a>
                                 <a href="/algoritmizator/app/socials"
-                                   className={`text-white px-3 py-2 rounded-md text-sm ${activeTab === 'socials' ? 'font-bold' : 'font-medium'}`}>
+                                   className={`text-white px-3 py-2 rounded-lg text-sm ${activeTab === 'socials' ? 'font-bold border-1 border-white' : 'font-medium'}`}>
                                     Közösség
                                 </a>
                                 <a href="/algoritmizator/auth/logout"
-                                   className={`text-white px-3 py-2 rounded-md text-sm ${activeTab === 'logout' ? 'font-bold' : 'font-medium'}`}>
+                                   className={`text-white px-3 py-2 rounded-lg text-sm ${activeTab === 'logout' ? 'font-bold border-1 border-white' : 'font-medium'}`}>
                                     Kijelentkezés
                                 </a>
                                 <a className="flex items-center flex-1" href="/algoritmizator/app/profile">
                                     <div
-                                       className={`flex items-center text-white px-3 py-2 rounded-md text-sm ${activeTab === 'profile' ? 'font-bold' : 'font-medium'}`}>
+                                       className={`flex items-center text-white px-3 py-2 rounded-md text-sm font-medium`}>
                                         <img src={"/algoritmizator/storage/" + avatar} alt="Profile"
                                              className="h-12 w-12 rounded-full mr-2 object-cover border-2 border-purple-800"/>
                                     </div>

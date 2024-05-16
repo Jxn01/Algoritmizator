@@ -23,7 +23,7 @@ Route::middleware('inertia')->group(function () {
         Route::get('/app/socials', [PageController::class, 'showSocials'])->name('socials');
         Route::get('/app/socials/profile/{id}', [PageController::class, 'showUserProfile'])->middleware('redirectFromOwnProfile')->name('user-profile');
         Route::get('/lessons/task/{id}', [PageController::class, 'showTask'])->name('task');
-        Route::get('/lessons/task/{id}/result/{resultId}', [PageController::class, 'showTaskAttempt'])->name('task-attempt');
+        Route::get('/lessons/task/attempt/{id}', [PageController::class, 'showTaskAttempt'])->name('task-attempt');
         Route::get('/auth/email-confirmed', [PageController::class, 'showEmailConfirmed']);
         Route::get('/app/lessons', [PageController::class, 'showLessons'])->name('lessons');
         Route::get('/', [PageController::class, 'showDashboard'])->name('dashboard1');
@@ -81,7 +81,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Routes for the application's social features
     Route::get('/api/socials/search', [SearchController::class, 'search']);
     Route::get('/api/socials/friends', [SearchController::class, 'getFriends']);
-    Route::get('/api/socials/online_friends', [SearchController::class, 'getOnlineFriends']);
+    Route::get('/api/socials/online-friends', [SearchController::class, 'getOnlineFriends']);
     Route::get('/api/socials/friend-requests', [SearchController::class, 'getFriendRequests']);
     Route::get('/api/users/{id}', [SearchController::class, 'getUser']);
     Route::post('/api/socials/send-friend-request', [FriendController::class, 'sendFriendRequest']);
@@ -92,9 +92,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Routes for the application's lesson actions
     Route::get('/api/lessons', [LessonsController::class, 'getLessons']);
     Route::get('/api/task/{id}', [LessonsController::class, 'getAssignmentAndTasks']);
-    Route::post('/api/task/{id}/submit', [LessonsController::class, 'submitAssignment']);
-    Route::get('/api/task/{id}/attempts', [LessonsController::class, 'getAttempts']);
-    Route::get('/api/task/{id}/attempt/{resultId}', [LessonsController::class, 'getAttempt']);
+    Route::post('/api/task/submit', [LessonsController::class, 'submitAssignment']);
+    Route::get('/api/task/attempts', [LessonsController::class, 'getAllAttempts']);
+    Route::get('/api/task/attempt/{id}', [LessonsController::class, 'getAttempt']);
 });
 
 // Routes that require the user to be a guest

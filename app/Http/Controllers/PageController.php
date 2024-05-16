@@ -19,7 +19,7 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function showDashboard()
+    public function showDashboard(): Response
     {
         return Inertia::render('Dashboard', ['title' => 'Vezérlőpult', 'activeTab' => 'dashboard']);
     }
@@ -29,7 +29,7 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function showLogin()
+    public function showLogin(): Response
     {
         return Inertia::render('Login', ['title' => 'Bejelentkezés', 'activeTab' => 'login']);
     }
@@ -39,7 +39,7 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function showRegistration()
+    public function showRegistration(): Response
     {
         return Inertia::render('Registration', ['title' => 'Regisztráció', 'activeTab' => 'registration']);
     }
@@ -49,7 +49,7 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function showForgotPassword()
+    public function showForgotPassword(): Response
     {
         return Inertia::render('ForgotPassword', ['title' => 'Elfelejtett jelszó', 'activeTab' => 'login']);
     }
@@ -57,10 +57,10 @@ class PageController extends Controller
     /**
      * Show the reset password page.
      *
-     * @param  string  $token  The password reset token.
+     * @param string $token  The password reset token.
      * @return Response
      */
-    public function showResetPassword($token)
+    public function showResetPassword(string $token): Response
     {
         return Inertia::render('PasswordReset', ['title' => 'Jelszó visszaállítása', 'activeTab' => 'login', 'token' => $token]);
     }
@@ -70,7 +70,7 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function showLogout()
+    public function showLogout(): Response
     {
         return Inertia::render('Logout', ['title' => 'Kijelentkezés', 'activeTab' => 'logout']);
     }
@@ -80,7 +80,7 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function showEmailConfirmed()
+    public function showEmailConfirmed(): Response
     {
         return Inertia::render('EmailConfirmation', ['title' => 'E-mail cím megerősítve', 'activeTab' => 'registration']);
     }
@@ -90,7 +90,7 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function showConfirmEmail()
+    public function showConfirmEmail(): Response
     {
         return Inertia::render('VerificationEmailSent', ['title' => 'E-mail cím megerősítése', 'activeTab' => 'registration']);
     }
@@ -101,7 +101,7 @@ class PageController extends Controller
      * @param  string  $type  The type of error (404, 403, 500).
      * @return Response
      */
-    public function showError($type)
+    public function showError($type): Response
     {
         if ($type === '404') {
             return Inertia::render('NotFound', ['title' => '404']);
@@ -121,7 +121,7 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function showNotFound()
+    public function showNotFound(): Response
     {
         return Inertia::render('NotFound', ['title' => '404']);
     }
@@ -131,7 +131,7 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function showProfile()
+    public function showProfile(): Response
     {
         return Inertia::render('Profile', ['title' => 'Profilom', 'activeTab' => 'profile']);
     }
@@ -141,7 +141,7 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function showSocials()
+    public function showSocials(): Response
     {
         return Inertia::render('Socials', ['title' => 'Közösség', 'activeTab' => 'socials']);
     }
@@ -152,7 +152,7 @@ class PageController extends Controller
      * @param  int  $id  The ID of the user whose profile to show.
      * @return Response
      */
-    public function showUserProfile($id)
+    public function showUserProfile($id): Response
     {
         return Inertia::render('UserProfile', ['title' => 'Profil', 'activeTab' => 'socials', 'id' => $id]);
     }
@@ -162,7 +162,7 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function showLessons()
+    public function showLessons(): Response
     {
         return Inertia::render('Lessons', ['title' => 'Tananyag', 'activeTab' => 'lessons']);
     }
@@ -173,7 +173,7 @@ class PageController extends Controller
      * @param  int  $id  The ID of the quiz to show.
      * @return Response
      */
-    public function showTask($id)
+    public function showTask($id): Response
     {
         return Inertia::render('Task', ['id' => $id, 'title' => 'Tananyag', 'activeTab' => 'lessons']);
     }
@@ -184,7 +184,7 @@ class PageController extends Controller
      * @param  int  $id  The ID of the quiz whose result to show.
      * @return Response
      */
-    public function showTaskAttempt($id)
+    public function showTaskAttempt($id): Response
     {
         return Inertia::render('TaskAttempt', ['id' => $id, 'title' => 'Tananyag', 'activeTab' => 'lessons']);
     }

@@ -9,7 +9,7 @@ const Dashboard = memo(({ title, activeTab}) => {
     const [friends, setFriends] = useState([]);
     const [completedAssignments, setCompletedAssignments] = useState([]);
     useEffect(() => {
-        axios.get(`/algoritmizator/api/socials/online_friends`)
+        axios.get(`/algoritmizator/api/socials/online-friends`)
             .then(response => {
                 setFriends(response.data);
             })

@@ -48,9 +48,9 @@ class Task extends Model
     /**
      * Get the answers associated with the task.
      */
-    public function answers(): HasMany
+    public function questions(): HasMany
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Question::class);
     }
 
     /**

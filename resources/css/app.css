@@ -33,11 +33,15 @@
     border: 3px solid #1a202c;
 }
 
+.border-1{
+    border-width: 1px;
+}
+
 .markdown {
     padding: 28px;
     padding-top: 6px;
     /* Basic resets to ensure styles inside this container are consistent */
-    color: inherit; /* Ensures text color is inherited from parent */
+    color: white; /* Ensures text color is inherited from parent */
     font-family: inherit; /* Keeps font consistent with the rest of your application */
 
     /* List styling */
