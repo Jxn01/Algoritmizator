@@ -76,7 +76,6 @@ class AuthController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'level' => 1,
             'total_xp' => 0,
             'is_online' => true,
             'last_online' => Carbon::now(),

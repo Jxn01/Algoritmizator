@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Notifications\CustomReset;
 use App\Notifications\CustomVerifyEmail;
-use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,7 +18,7 @@ use Illuminate\Notifications\Notifiable;
  * Each user has a name, username, email, password, level, total experience, online status, last online time, and avatar.
  * The User model also implements CanResetPassword and MustVerifyEmail contracts.
  */
-class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -47,12 +46,13 @@ class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
         'username',
         'email',
         'password',
-        'level',
         'total_xp',
         'is_online',
         'last_online',
         'avatar',
     ];
+
+    protected $appends = ['level'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -75,6 +75,11 @@ class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getLevelAttribute(): int
+    {
+        return Level::findLevelByXp($this->total_xp);
     }
 
     /**
@@ -119,22 +124,6 @@ class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
     public function receivers(): HasMany
     {
         return $this->hasMany(FriendRequest::class, 'receiver_id');
-    }
-
-    /**
-     * Get the lessons completed by the user.
-     */
-    public function completedLessons(): HasMany
-    {
-        return $this->hasMany(CompletedLesson::class);
-    }
-
-    /**
-     * Get the assignments completed by the user.
-     */
-    public function completedAssignments(): HasMany
-    {
-        return $this->hasMany(CompletedAssignment::class);
     }
 
     /**

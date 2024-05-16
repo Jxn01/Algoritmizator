@@ -63,14 +63,6 @@ class Assignment extends Model
     }
 
     /**
-     * Get the completed assignments for the assignment.
-     */
-    public function completedAssignments(): HasMany
-    {
-        return $this->hasMany(CompletedAssignment::class);
-    }
-
-    /**
      * Get the attempts for the assignment.
      */
     public function attempts(): HasMany

@@ -50,14 +50,6 @@ class Lesson extends Model
     }
 
     /**
-     * Get the completed lessons for the lesson.
-     */
-    public function completedLessons(): HasMany
-    {
-        return $this->hasMany(CompletedLesson::class);
-    }
-
-    /**
      * Get the sublessons for the lesson.
      */
     public function sublessons(): HasMany
