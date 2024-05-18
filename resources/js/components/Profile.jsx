@@ -23,19 +23,8 @@ Modal.setAppElement('body');
  * @returns {JSX.Element} The Profile component
  */
 const Profile = memo(({ title, activeTab}) => {
-    useEffect(() => {
-        axios.get('/algoritmizator/api/user')
-            .then(response => {
-                setCurrentUser(response.data);
-                setFormData({...response.data});
-                setProfilePicture('/algoritmizator/storage/' + response.data.avatar);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
-
     const [currentUser, setCurrentUser] = useState({});
+    const [successfulAttempts, setSuccessfulAttempts] = useState([]);
     const [formData, setFormData] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -43,6 +32,28 @@ const Profile = memo(({ title, activeTab}) => {
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [successMessage, setSuccessMessage] = useState('');
     const [profilePicture, setProfilePicture] = useState('/algoritmizator/storage/default.png');
+
+    useEffect(() => {
+        axios.get('/algoritmizator/api/user')
+            .then(response => {
+                setCurrentUser(response.data);
+                setFormData({...response.data});
+                setProfilePicture('/algoritmizator/storage/' + response.data.avatar);
+
+                const id = response.data.id;
+                axios.get(`/algoritmizator/api/task/attempts/successful/user/${id}`)
+                    .then(attemptResponse => {
+                        setSuccessfulAttempts(attemptResponse.data);
+                    })
+                    .catch(attemptError => {
+                        console.error('Error fetching completed assignments:', attemptError);
+                        setSuccessfulAttempts([]);
+                    });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
 
     // Function to handle the change of form inputs
     const handleChange = (e) => {
@@ -419,10 +430,31 @@ const Profile = memo(({ title, activeTab}) => {
                     <hr className={'border-purple-600 border-2 mx-auto'}/>
                     <div className="flex flex-col items-center justify-center">
                         <h2 className="text-2xl font-bold">Teljesített leckék</h2>
-                        <p className="text-xl">Lecke 1</p>
-                        <p className="text-xl">Lecke 1</p>
-                        <p className="text-xl">Lecke 1</p>
-                        <p className="text-xl">Lecke 1</p>
+                        <div className="overflow-auto w-full mt-2" style={{maxHeight: 'calc(50vh)'}}>
+                            {successfulAttempts.length === 0 && <p>Még nem teljesítettél feladatot. :(</p>}
+                            {successfulAttempts.map(attempt => (
+                                <a key={attempt.id} href={`/algoritmizator/lessons/task/attempt/${attempt.id}`}
+                                   className="flex items-center justify-between mx-4 p-3 border-t border-purple-500">
+                                    <div className="flex items-center flex-1">
+                                        <div>
+                                            <h3 className="text-lg">{attempt.title}</h3>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col items-end">
+                                        <p className="text-gray-400 text-sm">{attempt.total_score}/{attempt.max_score} pont</p>
+                                        <p className="text-green-500 font-bold text-sm">+{attempt.assignment_xp} XP</p>
+                                        <p className="text-gray-400 text-sm">Idő: {attempt.time}</p>
+                                        <p className="text-gray-400 text-sm">{new Date(attempt.created_at).toLocaleString('hu-HU', {
+                                            year: 'numeric',
+                                            month: '2-digit',
+                                            day: '2-digit',
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        })}</p>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
                     </div>
                     <hr className={'border-purple-600 border-2 mx-auto'}/>
                     <button onClick={() => setModalIsOpen(true)}

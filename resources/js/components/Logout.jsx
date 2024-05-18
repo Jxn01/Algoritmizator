@@ -17,11 +17,6 @@ import Footer from "./Footer.jsx";
  * @returns {JSX.Element} The Logout component
  */
 const Logout = memo(({title, activeTab}) => {
-    axios.post('/algoritmizator/api/logout').then(r => {
-        console.log('Logout successful:', r.data);
-    }).catch(e => {
-        console.error('Logout failed:', e.response.data);
-    })
     return (
         <div>
             <Navbar title={title} activeTab={activeTab}/>

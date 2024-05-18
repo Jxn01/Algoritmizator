@@ -149,4 +149,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Attempt::class);
     }
+
+    /**
+     * Get the successful attempts made by the user.
+     */
+    public function successfulAttempts(): HasMany
+    {
+        return $this->hasMany(SuccessfulAttempt::class);
+    }
 }

@@ -47,4 +47,9 @@ class Attempt extends Model
     {
         return $this->hasMany(TaskAttempt::class);
     }
+
+    public function successfulAttempts(): hasMany
+    {
+        return $this->hasMany(SuccessfulAttempt::class);
+    }
 }

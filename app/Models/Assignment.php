@@ -69,4 +69,12 @@ class Assignment extends Model
     {
         return $this->hasMany(Attempt::class);
     }
+
+    /**
+     * Get the successful attempts for the assignment.
+     */
+    public function successfulAttempts(): HasMany
+    {
+        return $this->hasMany(SuccessfulAttempt::class);
+    }
 }

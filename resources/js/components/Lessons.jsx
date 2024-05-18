@@ -10,7 +10,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { java } from '@codemirror/lang-java';
 import { cpp } from '@codemirror/lang-cpp';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFileAlt} from "@fortawesome/free-solid-svg-icons";
+import {faFileAlt, faCheck} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Lessons component
@@ -30,6 +30,7 @@ export const Lessons = memo(({title, activeTab}) => {
     const [lessons, setLessons] = useState([]);
     const [selectedLesson, setSelectedLesson] = useState([]);
     const [selectedSublesson, setSelectedSublesson] = useState([]);
+    const [successfulAttempts, setSuccessfulAttempts] = useState([]);
     const isFirstRun = useRef(true);
     const languageExtensions = {
         'python': python(),
@@ -47,6 +48,22 @@ export const Lessons = memo(({title, activeTab}) => {
             })
             .catch(error => {
                 alert('Failed to fetch lessons.')
+            });
+
+        axios.get('/algoritmizator/api/user')
+            .then(r => {
+                const id = r.data.id;
+                axios.get(`/algoritmizator/api/task/attempts/successful/user/${id}`)
+                    .then(response => {
+                        setSuccessfulAttempts(response.data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching completed assignments:', error);
+                        setSuccessfulAttempts([]);
+                    });
+            })
+            .catch(e => {
+                console.log(e);
             });
     }, []);
 
@@ -197,7 +214,10 @@ export const Lessons = memo(({title, activeTab}) => {
                                              className={`py-1 px-3 mb-1 text-sm rounded-lg cursor-pointer transition duration-300 ease-in-out transform hover:translate-x-1 ${
                                                  selectedSublesson === sublesson ? "text-purple-500 font-bold" : ""}`}>
                                             {sublesson.has_quiz ? <FontAwesomeIcon icon={faFileAlt} className="mr-2"/> : null}
-                                            {sublesson.title}
+                                            <span className={successfulAttempts.some(attempt => attempt.sublesson_id === sublesson.id) ? "text-green-500" : ""}>
+                                                {sublesson.title}
+                                                {successfulAttempts.some(attempt => attempt.sublesson_id === sublesson.id) ? <FontAwesomeIcon icon={faCheck} className="ml-2"/> : null}
+                                            </span>
                                         </div>
                                     ))}
                                 </div>

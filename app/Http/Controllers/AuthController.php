@@ -106,31 +106,12 @@ class AuthController extends Controller
     }
 
     /**
-     * Handle user logout.
-     *
-     * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
-     */
-    public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return response()->json([
-            'message' => 'Successfully logged out!',
-        ]);
-    }
-
-    /**
      * Handle password reset.
      *
      * @param  Request  $request  The incoming HTTP request.
      * @return RedirectResponse
      */
-    public function resetPassword(Request $request)
+    public function resetPassword(Request $request): RedirectResponse
     {
         $request->validate([
             'token' => 'required',
@@ -160,7 +141,7 @@ class AuthController extends Controller
      * @param  Request  $request  The incoming HTTP request.
      * @return RedirectResponse
      */
-    public function forgotPassword(Request $request)
+    public function forgotPassword(Request $request): RedirectResponse
     {
         $request->validate([
             'email' => 'required|email',
@@ -181,7 +162,7 @@ class AuthController extends Controller
      * @param  Request  $request  The incoming HTTP request.
      * @return RedirectResponse
      */
-    public function emailVerificationNotification(Request $request)
+    public function emailVerificationNotification(Request $request): RedirectResponse
     {
         $request->user()->sendEmailVerificationNotification();
 
@@ -194,7 +175,7 @@ class AuthController extends Controller
      * @param  Request  $request  The incoming HTTP request.
      * @return JsonResponse
      */
-    public function updateAvatar(Request $request)
+    public function updateAvatar(Request $request): JsonResponse
     {
         $request->validate([
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -221,7 +202,7 @@ class AuthController extends Controller
      * @param  Request  $request  The incoming HTTP request.
      * @return JsonResponse
      */
-    public function updatePassword(Request $request)
+    public function updatePassword(Request $request): JsonResponse
     {
         $request->validate([
             'oldPassword' => 'required|string',
@@ -250,7 +231,7 @@ class AuthController extends Controller
      * @param  Request  $request  The incoming HTTP request.
      * @return JsonResponse
      */
-    public function updateName(Request $request)
+    public function updateName(Request $request): JsonResponse
     {
         $request->validate([
             'name' => 'required|string',
@@ -272,7 +253,7 @@ class AuthController extends Controller
      * @param  Request  $request  The incoming HTTP request.
      * @return JsonResponse
      */
-    public function updateUsername(Request $request)
+    public function updateUsername(Request $request): JsonResponse
     {
         $request->validate([
             'username' => 'required|string',
@@ -301,7 +282,7 @@ class AuthController extends Controller
      * @param  Request  $request  The incoming HTTP request.
      * @return JsonResponse
      */
-    public function updateEmail(Request $request)
+    public function updateEmail(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|string|email',
@@ -336,7 +317,7 @@ class AuthController extends Controller
      *
      * @return string The generated UUID.
      */
-    private function generateUUID()
+    private function generateUUID(): string
     {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF),

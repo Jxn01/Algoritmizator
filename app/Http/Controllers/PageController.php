@@ -72,6 +72,7 @@ class PageController extends Controller
      */
     public function showLogout(): Response
     {
+
         return Inertia::render('Logout', ['title' => 'Kijelentkezés', 'activeTab' => 'logout']);
     }
 

@@ -6,11 +6,14 @@ use App\Models\Assignment;
 use App\Models\Attempt;
 use App\Models\AttemptAnswer;
 use App\Models\AttemptQuestion;
+use App\Models\HourlyAlgorithm;
 use App\Models\Lesson;
 use App\Models\Question;
 use App\Models\Sublesson;
+use App\Models\SuccessfulAttempt;
 use App\Models\Task;
 use App\Models\TaskAttempt;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -145,7 +148,7 @@ class LessonsController extends Controller
                             $questionScore--;
                         }
                     }
-                    $questionScore = max(0, $questionScore); // Ensure score is not negative
+                    $questionScore >= count($correctAnswers) * 0.5 ? $questionScore = 1 : $questionScore = 0;
                 }
 
                 $taskScore += $questionScore;
@@ -155,8 +158,35 @@ class LessonsController extends Controller
             $maxScore += $taskMaxScore;
         }
 
-        // Determine if the assignment is passed (70% or more)
         $passed = ($totalScore / $maxScore) >= 0.7;
+        if($passed) {
+            $successfulAttempt = SuccessfulAttempt::where('user_id', $user->id)
+                ->where('assignment_id', $assignment->id)
+                ->first();
+
+            if(!$successfulAttempt) {
+                SuccessfulAttempt::create([
+                    'user_id' => $user->id,
+                    'assignment_id' => $assignment->id,
+                    'attempt_id' => $attempt->id,
+                ]);
+
+                $user = User::findById($user->id);
+                $user->update([
+                    'total_xp' => $user->total_xp + $assignment->assignment_xp,
+                ]);
+                $user->save();
+            } else {
+                $previousAttempt = $successfulAttempt->attempt;
+                if($totalScore > $previousAttempt->total_score) {
+                    $successfulAttempt->update([
+                        'attempt_id' => $attempt->id,
+                    ]);
+                    $successfulAttempt->save();
+                }
+            }
+
+        }
 
         // Update attempt with calculated scores and pass status
         $attempt->update([
@@ -286,5 +316,43 @@ class LessonsController extends Controller
         });
 
         return response()->json($data);
+    }
+
+    public function getSuccessfulAttempts(Request $request, $id): JsonResponse
+    {
+        $successfulAttempts = SuccessfulAttempt::with([
+            'assignment',
+            'assignment.sublesson',
+            'attempt',
+        ])->where('user_id', $id)->get();
+
+        $data = $successfulAttempts->map(function ($successfulAttempt) {
+            return [
+                'id' => $successfulAttempt->attempt->id,
+                'title' => $successfulAttempt->assignment->title,
+                'assignment_xp' => $successfulAttempt->assignment->assignment_xp,
+                'total_score' => $successfulAttempt->attempt->total_score,
+                'max_score' => $successfulAttempt->attempt->max_score,
+                'time' => $successfulAttempt->attempt->time,
+                'created_at' => $successfulAttempt->attempt->created_at,
+                'sublesson_id' => $successfulAttempt->assignment->sublesson->id,
+            ];
+        });
+
+
+        return response()->json($data);
+    }
+
+    public function getHourlyAlgorithm(Request $request): JsonResponse
+    {
+        //$hour = date('H');
+        $hour = 1;
+        $algorithm = HourlyAlgorithm::where('id', $hour)->first();
+
+        return response()->json([
+            'id' => $algorithm->id,
+            'title' => $algorithm->title,
+            'markdown' => $algorithm->markdown,
+        ]);
     }
 }

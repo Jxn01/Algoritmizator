@@ -204,16 +204,27 @@ const TaskAttempt = ({ id, title, activeTab }) => {
                                         )}
                                         {task.type !== 'result' && (
                                             <div>
-                                            {question.answers.map((answer, aIndex) => (
-                                                    <div key={aIndex} className={`mb-2 ${question.submitted_answers.some(sa => sa.answer_id === answer.id) ? (answer.is_correct ? 'text-green-500' : 'text-red-500') : 'text-gray-300'}`}>
-                                                        <strong>Válasz:</strong> {answer.answer}
-                                                        {question.submitted_answers.some(sa => sa.answer_id === answer.id) && (
-                                                            <span className="ml-2">
-                                                                {answer.is_correct ? '✔' : '✖'}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                ))}
+                                                {question.answers.map((answer, aIndex) => {
+                                                    const isSubmitted = question.submitted_answers.some(sa => sa.answer_id === answer.id);
+                                                    const isCorrect = answer.is_correct;
+                                                    const className = isSubmitted
+                                                        ? (isCorrect ? 'text-green-500' : 'text-red-500')
+                                                        : (task.type === 'checkbox' && isCorrect ? 'text-yellow-500' : 'text-gray-300');
+
+                                                    return (
+                                                        <div key={aIndex} className={`mb-2 ${className}`}>
+                                                            <strong>Válasz:</strong> {answer.answer}
+                                                            {isSubmitted && (
+                                                                <span className="ml-2">
+                                                                    {isCorrect ? '✔' : '✖'}
+                                                                </span>
+                                                            )}
+                                                            {!isSubmitted && task.type === 'checkbox' && isCorrect && (
+                                                                <span className="ml-2">✖</span>
+                                                            )}
+                                                        </div>
+                                                    );
+                                                })}
                                             </div>
                                         )}
                                     </div>

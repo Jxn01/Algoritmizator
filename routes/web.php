@@ -33,7 +33,7 @@ Route::middleware('inertia')->group(function () {
     // Routes that require the user to be authenticated
     Route::middleware(['auth', 'snoop'])->group(function () {
         // Routes for the application's authentication pages
-        Route::get('/auth/logout', [PageController::class, 'showLogout'])->name('logout');
+        Route::get('/auth/logout', [PageController::class, 'showLogout'])->middleware('logout');
         Route::get('/auth/confirm-email', [PageController::class, 'showConfirmEmail'])->name('verification.notice');
     });
 
@@ -66,7 +66,6 @@ Route::get('/auth/email/verify/{id}/{hash}', function (EmailVerificationRequest 
 // Routes that require the user to be authenticated
 Route::middleware('auth')->group(function () {
     // Routes for the application's authentication actions
-    Route::post('/api/logout', [AuthController::class, 'logout']);
     Route::post('/api/email-verification-notification', [AuthController::class, 'emailVerificationNotification'])->middleware('throttle:6,1')->name('verification.send');
 });
 
@@ -95,6 +94,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/api/task/submit', [LessonsController::class, 'submitAssignment']);
     Route::get('/api/task/attempts', [LessonsController::class, 'getAllAttempts']);
     Route::get('/api/task/attempt/{id}', [LessonsController::class, 'getAttempt']);
+    Route::get('/api/task/attempts/successful/user/{id}', [LessonsController::class, 'getSuccessfulAttempts']);
+    Route::get('/api/algorithm-of-the-hour', [LessonsController::class, 'getHourlyAlgorithm']);
 });
 
 // Routes that require the user to be a guest
