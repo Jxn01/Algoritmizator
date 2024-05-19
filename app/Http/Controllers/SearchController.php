@@ -25,11 +25,11 @@ class SearchController extends Controller
      * @param  Request  $request  The incoming HTTP request.
      * @return JsonResponse The search results.
      */
-    public static function search(Request $request)
+    public static function search(Request $request): JsonResponse
     {
         $query = $request->input('query');
         if (! $query) {
-            return response()->json([]);
+            return response()->json();
         }
 
         $currentUserId = Auth::getUser()->id;
@@ -70,7 +70,7 @@ class SearchController extends Controller
      * @param  Request  $request  The incoming HTTP request.
      * @return JsonResponse The friends of the current user.
      */
-    public static function getFriends(Request $request)
+    public static function getFriends(Request $request): JsonResponse
     {
         $currentUserId = Auth::getUser()->id;
         $results1 = User::find($currentUserId)->friendTo;
@@ -96,7 +96,7 @@ class SearchController extends Controller
         return response()->json($results);
     }
 
-    public static function getOnlineFriends(Request $request)
+    public static function getOnlineFriends(Request $request): JsonResponse
     {
         $currentUserId = Auth::getUser()->id;
         $results1 = User::find($currentUserId)->friendTo;
@@ -138,7 +138,7 @@ class SearchController extends Controller
      * @param  Request  $request  The incoming HTTP request.
      * @return JsonResponse The friend requests of the current user.
      */
-    public static function getFriendRequests(Request $request)
+    public static function getFriendRequests(Request $request): JsonResponse
     {
         $currentUserId = Auth::getUser()->id;
         $results = User::find($currentUserId)->receivers;
@@ -158,7 +158,7 @@ class SearchController extends Controller
         return response()->json($results);
     }
 
-    public static function getUser(Request $request, $id)
+    public static function getUser(Request $request, $id): JsonResponse
     {
         $user = User::find($id);
         if (! $user) {

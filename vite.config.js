@@ -14,7 +14,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@': resolve(__dirname, 'resources/js'), // This uses the `resolve` function
+            '@': resolve(__dirname, 'resources/js'),
         },
     },
     server: {
@@ -29,8 +29,8 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                app: resolve(__dirname, 'resources/js/app.jsx'), // Main JS
-                style: resolve(__dirname, 'resources/css/app.css') // Main CSS
+                app: resolve(__dirname, 'resources/js/app.jsx'),
+                style: resolve(__dirname, 'resources/css/app.css'),
             }
         }
     }

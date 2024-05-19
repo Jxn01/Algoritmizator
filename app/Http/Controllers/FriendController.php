@@ -24,9 +24,8 @@ class FriendController extends Controller
      * It creates a new Friendship record and deletes the corresponding FriendRequest record.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
-    public function acceptFriendRequest(Request $request)
+    public function acceptFriendRequest(Request $request): JsonResponse
     {
         $currentUserId = Auth::getUser()->id;
         $friendId = $request->input('friendId');
@@ -53,9 +52,8 @@ class FriendController extends Controller
      * It deletes the corresponding FriendRequest record.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
-    public function rejectFriendRequest(Request $request)
+    public function rejectFriendRequest(Request $request): JsonResponse
     {
         $currentUserId = Auth::getUser()->id;
         $friendId = $request->input('friendId');
@@ -77,9 +75,8 @@ class FriendController extends Controller
      * It creates a new FriendRequest record.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
-    public function sendFriendRequest(Request $request)
+    public function sendFriendRequest(Request $request): JsonResponse
     {
         $currentUserId = Auth::getUser()->id;
         $friendId = $request->input('friendId');
@@ -103,9 +100,8 @@ class FriendController extends Controller
      * It deletes the corresponding Friendship record.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
-    public function removeFriend(Request $request)
+    public function removeFriend(Request $request): JsonResponse
     {
         $currentUserId = Auth::getUser()->id;
         $friendId = $request->input('friendId');
@@ -114,7 +110,7 @@ class FriendController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
 
-        $friendship = Friendship::where(function ($q) use ($currentUserId, $friendId) {
+        $friendship = Friendship::where(static function ($q) use ($currentUserId, $friendId) {
             $q->where('party1', $currentUserId)->where('party2', $friendId);
         })->orWhere(function ($q) use ($currentUserId, $friendId) {
             $q->where('party1', $friendId)->where('party2', $currentUserId);

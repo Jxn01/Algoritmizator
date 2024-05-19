@@ -26,7 +26,7 @@ const Logout = memo(({title, activeTab}) => {
                         <h2 className="text-3xl font-bold text-white mb-2">Sikeres kijelentkezés</h2>
                     </div>
                     <div className="px-8 py-6 bg-gray-800 shadow-lg rounded-lg">
-                        <p className="text-lg text-gray-300 mb-4">Önt kijelentkezték. Térjen vissza hamarosan!</p>
+                        <p className="text-lg text-gray-300 mb-4">Kijelentkeztél. Térj vissza hamarosan!</p>
                         <a href="/algoritmizator/app" className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Vissza a főoldalra</a>
                     </div>
                 </div>

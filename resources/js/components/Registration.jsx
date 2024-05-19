@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import Footer from "./Footer.jsx";
 import Navbar from "./Navbar.jsx";
+import calculatePasswordStrength from "@/PasswordStrength.js";
 
 /**
  * Registration component
@@ -20,7 +21,6 @@ import Navbar from "./Navbar.jsx";
  * @returns {JSX.Element} The Registration component
  */
 const Registration = memo(({title, activeTab}) => {
-    // State variables for the form data, email validity, password strength, and form errors
     const [formData, setFormData] = useState({
         name: '',
         username: '',
@@ -32,7 +32,6 @@ const Registration = memo(({title, activeTab}) => {
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [formErrors, setFormErrors] = useState({});
 
-    // Function to handle the change of form inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
@@ -41,7 +40,6 @@ const Registration = memo(({title, activeTab}) => {
         }
     };
 
-    // Function to handle the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
         const errors = validateForm();
@@ -50,19 +48,19 @@ const Registration = memo(({title, activeTab}) => {
             const { confirmPassword, ...data } = formData;
             axios.post('/algoritmizator/api/register', data)
                 .then(response => {
-                    console.log('Registration successful:', response.data);
+                    alert("Sikeres regisztráció!");
                     window.location.href = '/algoritmizator/auth/confirm-email';
                 })
                 .catch(error => {
-                    console.error('Registration failed:', error.response.data);
                     if (error.response.status === 422) {
                         setFormErrors(error.response.data.errors);
+                    } else {
+                        alert(error);
                     }
                 });
         }
     };
 
-    // Function to validate the form
     const validateForm = () => {
         const errors = {};
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
@@ -83,17 +81,6 @@ const Registration = memo(({title, activeTab}) => {
         return errors;
     };
 
-    // Function to calculate the strength of a password
-    function calculatePasswordStrength(pass) {
-        let strength = 0;
-        if (pass.length >= 8) strength += 1;
-        if (pass.match(/\d+/)) strength += 1;
-        if (pass.match(/[a-z]/) && pass.match(/[A-Z]/)) strength += 1;
-        if (pass.match(/[^a-zA-Z0-9]/)) strength += 1;
-        return strength;
-    }
-
-    // Render the Navbar, registration form, and Footer
     return (
         <div>
             <Navbar title={title} activeTab={activeTab}/>
@@ -112,7 +99,7 @@ const Registration = memo(({title, activeTab}) => {
                                     Név
                                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="nameTip"/>
                                     <ReactTooltip anchorSelect={'#nameTip'} place="right" effect="solid">
-                                        Adja meg a nevét.
+                                        Add meg a neved.
                                     </ReactTooltip>
                                 </label>
                                 <input
@@ -132,7 +119,7 @@ const Registration = memo(({title, activeTab}) => {
                                     Felhasználónév
                                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="usernameTip"/>
                                     <ReactTooltip anchorSelect={'#usernameTip'} place="right" effect="solid">
-                                        Adja meg a felhasználónevét.
+                                        Add meg a felhasználóneved.
                                     </ReactTooltip>
                                 </label>
                                 <input
@@ -152,7 +139,7 @@ const Registration = memo(({title, activeTab}) => {
                                     Email
                                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="emailTip"/>
                                     <ReactTooltip anchorSelect={'#emailTip'} place="right" effect="solid">
-                                        Adja meg az e-mail címét. Csak inf.elte.hu e-maileket fogadunk el.
+                                        Add meg az e-mail címed. Csak inf.elte.hu e-maileket fogadunk el.
                                     </ReactTooltip>
                                 </label>
                                 <input
@@ -173,7 +160,7 @@ const Registration = memo(({title, activeTab}) => {
                                     Jelszó
                                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="passwordTip"/>
                                     <ReactTooltip anchorSelect={'#passwordTip'} place="right" effect="solid">
-                                        Adjon meg egy erős jelszót, amely betűk, számok és szimbólumok keverékét tartalmazza.
+                                        Adj meg egy erős jelszót, amely betűk, számok és szimbólumok keverékét tartalmazza.
                                     </ReactTooltip>
                                 </label>
                                 <input
@@ -194,7 +181,7 @@ const Registration = memo(({title, activeTab}) => {
                                     Jelszó megerősítése
                                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="confirmPasswordTip"/>
                                     <ReactTooltip anchorSelect={'#confirmPasswordTip'} place="right" effect="solid">
-                                        Adja meg újra a jelszót a megerősítéshez.
+                                        Add meg újra a jelszót a megerősítéshez.
                                     </ReactTooltip>
                                 </label>
                                 <input
@@ -226,8 +213,8 @@ const Registration = memo(({title, activeTab}) => {
                                 </button>
                             </div>
                             <div className="mt-4 text-center">
-                                <a href="/algoritmizator/auth/login" className="text-purple-200 hover:text-purple-400">Már van fiókja?
-                                    Jelentkezzen be</a>
+                                <a href="/algoritmizator/auth/login" className="text-purple-200 hover:text-purple-400">Már van fiókod?
+                                    Jelentkezz be</a>
                             </div>
                         </form>
                     </div>

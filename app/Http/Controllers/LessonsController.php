@@ -66,8 +66,7 @@ class LessonsController extends Controller
         ]);
     }
 
-
-    public function submitAssignment(Request $request)
+    public function submitAssignment(Request $request): JsonResponse
     {
         $validatedData = $request->validate([
             'assignment_id' => 'required|integer|exists:assignments,id',
@@ -84,14 +83,13 @@ class LessonsController extends Controller
         $totalScore = 0;
         $maxScore = 0;
 
-        // Create the main attempt
         $attempt = Attempt::create([
             'user_id' => $user->id,
             'assignment_id' => $assignment->id,
-            'total_score' => 0, // Will update later
-            'max_score' => 0, // Will update later
+            'total_score' => 0,
+            'max_score' => 0,
             'time' => gmdate('H:i:s', $validatedData['time']),
-            'passed' => false, // Will update later
+            'passed' => false,
         ]);
 
         foreach ($validatedData['tasks'] as $taskData) {
@@ -99,7 +97,6 @@ class LessonsController extends Controller
             $taskMaxScore = $task->questions->count();
             $taskScore = 0;
 
-            // Create task attempt
             $taskAttempt = TaskAttempt::create([
                 'attempt_id' => $attempt->id,
                 'task_id' => $task->id,
@@ -107,32 +104,26 @@ class LessonsController extends Controller
 
             foreach ($taskData['questions'] as $questionData) {
                 $question = Question::findOrFail($questionData['id']);
-                $questionMaxScore = 1; // Each question has a max score of 1
                 $questionScore = 0;
 
-                // Create attempt question
                 $attemptQuestion = AttemptQuestion::create([
                     'task_attempt_id' => $taskAttempt->id,
                     'question_id' => $question->id,
                 ]);
 
                 if ($task->type === 'result') {
-                    // Handle custom answer for result type questions
                     $submittedAnswer = $questionData['answer'];
-                    $correctAnswer = $question->answers->first()->answer; // Assume only one correct answer
+                    $correctAnswer = $question->answers->first()->answer;
 
-                    // Store the custom answer
                     AttemptAnswer::create([
                         'attempt_question_id' => $attemptQuestion->id,
                         'custom_answer' => $submittedAnswer,
                     ]);
 
-                    // Check if the answer is correct
                     if (trim($submittedAnswer) === trim($correctAnswer)) {
-                        $questionScore = 1; // Full score for correct answer
+                        $questionScore = 1;
                     }
                 } else {
-                    // Handle multiple-choice answers
                     $submittedAnswers = is_array($questionData['answer']) ? $questionData['answer'] : [$questionData['answer']];
                     $correctAnswers = $question->answers->where('is_correct', true)->pluck('id')->toArray();
 
@@ -159,12 +150,12 @@ class LessonsController extends Controller
         }
 
         $passed = ($totalScore / $maxScore) >= 0.7;
-        if($passed) {
+        if ($passed) {
             $successfulAttempt = SuccessfulAttempt::where('user_id', $user->id)
                 ->where('assignment_id', $assignment->id)
                 ->first();
 
-            if(!$successfulAttempt) {
+            if (! $successfulAttempt) {
                 SuccessfulAttempt::create([
                     'user_id' => $user->id,
                     'assignment_id' => $assignment->id,
@@ -178,7 +169,7 @@ class LessonsController extends Controller
                 $user->save();
             } else {
                 $previousAttempt = $successfulAttempt->attempt;
-                if($totalScore > $previousAttempt->total_score) {
+                if ($totalScore > $previousAttempt->total_score) {
                     $successfulAttempt->update([
                         'attempt_id' => $attempt->id,
                     ]);
@@ -188,7 +179,6 @@ class LessonsController extends Controller
 
         }
 
-        // Update attempt with calculated scores and pass status
         $attempt->update([
             'total_score' => $totalScore,
             'max_score' => $maxScore,
@@ -201,14 +191,13 @@ class LessonsController extends Controller
         ]);
     }
 
-
     public function getAttempt($id): JsonResponse
     {
         $attempt = Attempt::with([
             'assignment',
             'tasks.task',
-            'tasks.questions.question.answers', // Load answers through the question relationship
-            'tasks.questions.attemptAnswers'    // Load attemptAnswers directly on AttemptQuestion
+            'tasks.questions.question.answers',
+            'tasks.questions.attemptAnswers',
         ])->findOrFail($id);
 
         $data = [
@@ -227,6 +216,7 @@ class LessonsController extends Controller
                     'type' => $taskAttempt->task->type,
                     'questions' => $taskAttempt->questions->map(function ($attemptQuestion) {
                         $question = $attemptQuestion->question;
+
                         return [
                             'id' => $question->id,
                             'markdown' => $question->markdown,
@@ -260,9 +250,6 @@ class LessonsController extends Controller
         return response()->json($data);
     }
 
-
-
-
     public function getAllAttempts(Request $request): JsonResponse
     {
         $user = auth()->user();
@@ -271,7 +258,7 @@ class LessonsController extends Controller
             'assignment',
             'tasks.task',
             'tasks.questions.question',
-            'tasks.questions.answers.answer'
+            'tasks.questions.answers.answer',
         ])->where('user_id', $user->id)->get();
 
         $data = $attempts->map(function ($attempt) {
@@ -338,7 +325,6 @@ class LessonsController extends Controller
                 'sublesson_id' => $successfulAttempt->assignment->sublesson->id,
             ];
         });
-
 
         return response()->json($data);
     }
