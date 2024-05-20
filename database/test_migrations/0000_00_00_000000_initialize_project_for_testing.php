@@ -79,7 +79,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken()->nullable();
+            $table->rememberToken();
             $table->timestamps();
             $table->integer('total_xp')->default(0);
             $table->boolean('is_online')->default(false);
@@ -390,6 +390,7 @@ return new class extends Migration
                 'name' => 'User Four',
                 'username' => 'userfour',
                 'email' => 'userfour@inf.elte.hu',
+                'email_verified_at' => null,
                 'password' => Hash::make('password'),
                 'total_xp' => 0,
                 'is_online' => false,
