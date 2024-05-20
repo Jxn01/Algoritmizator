@@ -26,12 +26,6 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
         });
 
-        Schema::create('migrations', static function ($table) {
-            $table->id();
-            $table->string('migration');
-            $table->integer('batch');
-        });
-
         Schema::create('jobs', static function ($table) {
             $table->id();
             $table->string('queue');
