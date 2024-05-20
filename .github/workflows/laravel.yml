@@ -43,7 +43,7 @@ jobs:
         DB_DATABASE: laravel
         DB_USERNAME: root
         DB_PASSWORD:
-      run: php artisan migrate --path=/database/test_migrations --force
+      run: php artisan migrate --path=/database/test_migrations/0000_00_00_000000_initialize_project_for_testing.php --force
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         DB_HOST: 127.0.0.1
