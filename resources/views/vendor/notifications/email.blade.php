@@ -47,8 +47,8 @@
 @isset($actionText)
 <x-slot:subcopy>
 @lang(
-    "Ha valamiért nem sikerül a \":actionText\" gombra kattintani, akkor másolja ki és illessze be az alábbi URL-t\n".
-    'a webböngészőjébe:',
+    "Ha valamiért nem sikerül a \":actionText\" gombra kattintani, akkor másold ki és illesszd be az alábbi URL-t\n".
+    'a webböngésződbe:',
     [
         'actionText' => $actionText,
     ]

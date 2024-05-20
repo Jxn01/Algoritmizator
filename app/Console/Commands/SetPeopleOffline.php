@@ -26,7 +26,6 @@ class SetPeopleOffline extends Command
      */
     public function handle(): void
     {
-        // Set all users offline whose last_online was more than 30 minutes ago
         $users = User::where('last_online', '<', now()->subMinutes(20))
             ->update(['is_online' => false]);
     }

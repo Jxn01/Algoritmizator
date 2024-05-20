@@ -19,14 +19,11 @@ class Snoop
         $user = $request->user();
 
         if ($user) {
-            // Update last_online with current time
             $user->last_online = Carbon::now();
             $user->is_online = true;
 
-            // Get the route the user is heading to
             $route = $request->route()->getName();
 
-            // Update last_seen_at and last_activity based on the route
             switch ($route) {
                 case 'profile':
                     $user->last_seen_at = 'Saját profil';
@@ -67,7 +64,6 @@ class Snoop
                     break;
             }
 
-            // Save the changes
             $user->save();
         }
 

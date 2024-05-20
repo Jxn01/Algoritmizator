@@ -29,7 +29,7 @@ class CustomReset extends Notification
      *
      * @param  string  $token  The password reset token.
      */
-    public function __construct($token)
+    public function __construct(string $token)
     {
         $this->token = $token;
     }
@@ -40,7 +40,7 @@ class CustomReset extends Notification
      * @param  mixed  $notifiable  The notifiable entity.
      * @return array The delivery channels.
      */
-    public function via($notifiable): array
+    public function via(mixed $notifiable): array
     {
         return ['mail'];
     }
@@ -51,7 +51,7 @@ class CustomReset extends Notification
      * @param  mixed  $notifiable  The notifiable entity.
      * @return string The password reset URL.
      */
-    protected function verificationUrl($notifiable): string
+    protected function verificationUrl(mixed $notifiable): string
     {
         return URL::temporarySignedRoute(
             'password.reset',
@@ -66,15 +66,15 @@ class CustomReset extends Notification
      * @param  mixed  $notifiable  The notifiable entity.
      * @return MailMessage The mail message.
      */
-    public function toMail($notifiable): MailMessage
+    public function toMail(mixed $notifiable): MailMessage
     {
         $verificationUrl = $this->verificationUrl($notifiable);
 
         return (new MailMessage)
             ->subject('Jelszó visszaállítás')
-            ->greeting('Üdvözlöm!')
-            ->line('Kérjük, kattintson az alábbi gombra a jelszó visszaállításához.')
+            ->greeting('Helló!')
+            ->line('Kérlek, kattints az alábbi gombra a jelszó visszaállításához.')
             ->action('Jelszó visszaállítása', $verificationUrl)
-            ->line('Amennyiben Ön nem kérte a jelszó visszaállítását, további teendő nem szükséges.');
+            ->line('Amennyiben Te nem kérted a jelszó visszaállítását, további teendő nem szükséges.');
     }
 }

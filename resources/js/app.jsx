@@ -1,4 +1,3 @@
-import '../css/app.css';
 import './bootstrap';
 import React from 'react';
 import { createInertiaApp } from '@inertiajs/react'
@@ -10,9 +9,7 @@ createInertiaApp({
         createRoot(el).render(<App {...props} />)
     }
 }).then(r => {
-    // Log the successful creation of the Inertia app
-    console.log('[inertia.js] Inertia app created successfully');
+    //
 }).catch(e => {
-    // Log the error if the Inertia app creation fails
-    console.error('[inertia.js] Inertia app creation failed', e);
+    alert(e);
 });

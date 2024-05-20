@@ -29,15 +29,14 @@ const UserProfile = memo(({title, activeTab, id}) => {
                         setSuccessfulAttempts(attemptResponse.data);
                     })
                     .catch(attemptError => {
-                        console.error('Error fetching completed assignments:', attemptError);
+                        alert(attemptError);
                         setSuccessfulAttempts([]);
                     });
             }).catch(error => {
-                console.error(error);
+                alert(error);
             });
     }, []);
 
-    // Render the Navbar, user profile page, and Footer
     return (
         <div>
             <Navbar title={title} activeTab={activeTab}/>

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -16,12 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class AttemptAnswer extends Model
 {
-    use HasFactory;
-
-    protected $table = 'attempt_answers';
-
-    protected $primaryKey = 'id';
-
     protected $fillable = [
         'attempt_question_id',
         'answer_id',

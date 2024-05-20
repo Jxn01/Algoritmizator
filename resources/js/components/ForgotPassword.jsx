@@ -20,20 +20,18 @@ import Footer from "./Footer.jsx";
  * @returns {JSX.Element} The ForgotPassword component
  */
 const ForgotPassword = memo(({title, activeTab}) => {
-    // State variables for the email input field, the email sent status, and the email validation status
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
     const [emailIsValid, setEmailIsValid] = useState(true);
 
-    // Function to handle the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
         if (emailRegex.test(email)) {
             setEmailIsValid(true);
             setEmailSent(true);
-            axios.post('/algoritmizator/api/forgot-password', { email });
-            alert('Jelszó-visszaállítási e-mailt küldtünk az Ön e-mail címére.');
+            axios.post('/algoritmizator/api/forgot-password', {email})
+            alert('Jelszó-visszaállítási e-mailt küldtünk az e-mail címedre.');
         } else {
             setEmailIsValid(false);
         }
@@ -56,7 +54,7 @@ const ForgotPassword = memo(({title, activeTab}) => {
                                 <label className="block text-gray-300" htmlFor="email">Email
                                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="emailTip" />
                                     <ReactTooltip anchorSelect="#emailTip" place="right" effect="solid">
-                                        Adja meg a fiókjához tartozó e-mail címet.
+                                        Add meg a fiókodhoz tartozó e-mail címet.
                                     </ReactTooltip>
                                 </label>
                                 <input type="email" placeholder="Email"
@@ -67,7 +65,7 @@ const ForgotPassword = memo(({title, activeTab}) => {
                             </div>
                             {emailSent ?
                                 <div className="mt-4 text-center text-green-500">
-                                    Jelszó-visszaállítási e-mailt küldtünk az Ön e-mail címére.
+                                    Jelszó-visszaállítási e-mailt küldtünk az e-mail címedre.
                                 </div>
                                 :
                                 <div className="flex items-center justify-between mt-6">

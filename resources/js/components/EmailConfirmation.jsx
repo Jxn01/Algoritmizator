@@ -24,11 +24,11 @@ const EmailConfirmation = memo(({title, activeTab}) => {
                     <div className="flex flex-col items-center mb-8">
                         <img src="/algoritmizator/storage/logo.png" alt="Logo"
                              className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"/>
-                        <h2 className="text-3xl font-bold text-white mb-2">Email Megerősítve</h2>
+                        <h2 className="text-3xl font-bold text-white mb-2">Email megerősítve</h2>
                     </div>
                     <div className="px-8 py-6 bg-gray-800 shadow-lg rounded-lg">
-                        <h3 className="text-2xl font-bold text-center text-white mb-4">Megerősítés Sikeres</h3>
-                        <p className="text-lg text-gray-300 mb-4">Köszönjük, hogy megerősítette e-mail címét. Mostantól hozzáférhet fiókja minden funkciójához.</p>
+                        <h3 className="text-2xl font-bold text-center text-white mb-4">Sikeres megerősítés</h3>
+                        <p className="text-lg text-gray-300 mb-4">Köszönjük, hogy megerősítetted az e-mail címed. Mostantól hozzáférhetsz fiókod minden funkciójához.</p>
                         <a href="/algoritmizator/app" className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Vissza a vezérlőpultra</a>
                     </div>
                 </div>

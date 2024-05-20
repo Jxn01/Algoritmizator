@@ -19,7 +19,6 @@ const Navbar = memo(({ title, activeTab}) => {
     const [avatar, setAvatar] = useState('default.png');
 
     useEffect(() => {
-        // Fetch the currently logged in user
         axios.get('/algoritmizator/api/user')
             .then(response => {
                 setUser(response.data);
@@ -29,14 +28,10 @@ const Navbar = memo(({ title, activeTab}) => {
                 }
             })
             .catch(error => {
-                console.error(error);
+                alert(error);
             });
     }, []);
 
-    // Render the navigation bar with links to different pages
-    // The active tab is highlighted with a bold font
-    // If the user is authenticated, links to the socials, logout, and profile pages are shown
-    // If the user is not authenticated, links to the login and registration pages are shown
     return (
         <nav className="bg-gray-800 text-white w-full">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

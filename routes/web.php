@@ -52,12 +52,12 @@ Route::middleware('inertia')->group(function () {
     Route::fallback([PageController::class, 'showNotFound']);
 });
 
-Route::get('/api/user', function () {
+Route::get('/api/user', static function () {
     return response()->json(auth()->user());
 });
 
 // Route for verifying the user's email address
-Route::get('/auth/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+Route::get('/auth/email/verify/{id}/{hash}', static function (EmailVerificationRequest $request) {
     $request->fulfill();
 
     return redirect('/auth/email-confirmed');

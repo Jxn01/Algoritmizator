@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
+import calculatePasswordStrength from "@/PasswordStrength.js";
 
 Modal.setAppElement('body');
 
@@ -46,16 +47,15 @@ const Profile = memo(({ title, activeTab}) => {
                         setSuccessfulAttempts(attemptResponse.data);
                     })
                     .catch(attemptError => {
-                        console.error('Error fetching completed assignments:', attemptError);
+                        alert(attemptError);
                         setSuccessfulAttempts([]);
                     });
             })
             .catch(error => {
-                console.log(error);
+                alert(error);
             });
     }, []);
 
-    // Function to handle the change of form inputs
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormData({
@@ -67,7 +67,6 @@ const Profile = memo(({ title, activeTab}) => {
         }
     };
 
-    // Function to open the modal
     const openModal = (form) => {
         setSelectedForm(form);
         setModalIsOpen(true);
@@ -75,7 +74,6 @@ const Profile = memo(({ title, activeTab}) => {
         setSuccessMessage('');
     };
 
-    // Function to close the modal
     const closeModal = () => {
         setModalIsOpen(false);
         setSelectedForm('');
@@ -83,14 +81,12 @@ const Profile = memo(({ title, activeTab}) => {
         setSuccessMessage('');
     };
 
-    // Function to go back to the form selection
     const goBackToSelection = () => {
         setSelectedForm('');
         setFormErrors({});
         setSuccessMessage('');
     };
 
-    // Function to validate the form
     const validateForm = () => {
         const errors = {};
         const emailRegex = /^[^\s@]+@inf\.elte.hu$/i;
@@ -112,7 +108,6 @@ const Profile = memo(({ title, activeTab}) => {
         return errors;
     };
 
-    // Function to handle the change of the profile picture
     const handleImageChange = async (event) => {
         const file = event.target.files[0];
         const formData = new FormData();
@@ -124,12 +119,10 @@ const Profile = memo(({ title, activeTab}) => {
                 alert("A profilkép módosítása sikeres.")
             })
             .catch(error => {
-                console.log(error);
-                alert("Hiba történt a profilkép módosítása során.");
+                alert(error);
             });
     };
 
-    // Function to handle the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
         const errors = validateForm();
@@ -192,17 +185,6 @@ const Profile = memo(({ title, activeTab}) => {
         }
     };
 
-    // Function to calculate the strength of a password
-    function calculatePasswordStrength(pass) {
-        let strength = 0;
-        if (pass.length >= 8) strength += 1;
-        if (pass.match(/\d+/)) strength += 1;
-        if (pass.match(/[a-z]/) && pass.match(/[A-Z]/)) strength += 1;
-        if (pass.match(/[^a-zA-Z0-9]/)) strength += 1;
-        return strength;
-    }
-
-    // Function to render the form
     const renderForm = () => {
         if (!selectedForm) {
             return renderSelectionButtons();
@@ -220,7 +202,6 @@ const Profile = memo(({ title, activeTab}) => {
         }
     };
 
-    // Function to render the selection buttons
     const renderSelectionButtons = () => (
         <>
             <button type="button" onClick={() => openModal('name')}
@@ -242,7 +223,6 @@ const Profile = memo(({ title, activeTab}) => {
         </>
     );
 
-    // Function to render the text field
     const renderTextField = () => (
         <div className="mb-4">
             <label htmlFor={selectedForm}
@@ -265,7 +245,6 @@ const Profile = memo(({ title, activeTab}) => {
         </div>
     );
 
-    // Function to render the email fields
     const renderEmailFields = () => (
         <>
             <div className="mb-4">
@@ -307,7 +286,6 @@ const Profile = memo(({ title, activeTab}) => {
         </>
     );
 
-    // Function to render the password fields
     const renderPasswordFields = () => (
         <>
             <div className="mb-4">
@@ -379,7 +357,6 @@ const Profile = memo(({ title, activeTab}) => {
         </>
     );
 
-    // Render the Navbar, profile page, and Footer
     return (
         <div>
             <Navbar title={title} activeTab={activeTab}/>
