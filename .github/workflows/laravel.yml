@@ -1,4 +1,4 @@
-name: Algoritmizator Test Pipeline
+name: Laravel
 
 on:
   push:
@@ -18,11 +18,11 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: laravel
         ports:
-          - 3306
-        options: --health-cmd="mysqladmin ping -h 127.0.0.1" --health-interval=10s --health-timeout=5s --health-retries=10
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      - uses: shivammathur/setup-php@v3
         with:
           php-version: '8.3.3'
           extensions: mbstring, pdo_mysql
@@ -38,9 +38,7 @@ jobs:
       - name: Wait for MySQL to be ready
         run: |
           echo "Waiting for MySQL to be ready..."
-          while ! mysqladmin ping -h 127.0.0.1 --silent; do
-            sleep 1
-          done
+          timeout 60s bash -c 'while ! mysqladmin ping --host=127.0.0.1 --silent; do sleep 1; done'
       - name: Migrate Database
         env:
           DB_HOST: 127.0.0.1
