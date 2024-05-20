@@ -16,7 +16,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias(['inertia' => HandleInertiaRequests::class, 'redirectFromOwnProfile' => RedirectFromOwnProfile::class, 'snoop' => Snoop::class, 'logout' => Logout::class]);
+        $middleware->alias([
+            'inertia' => HandleInertiaRequests::class,
+            'redirectFromOwnProfile' => RedirectFromOwnProfile::class,
+            'snoop' => Snoop::class,
+            'logout' => Logout::class,
+        ]);
         $middleware->redirectUsersTo('/app');
         $middleware->redirectGuestsTo('/auth/login');
     })

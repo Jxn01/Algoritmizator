@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Notifications\CustomReset;
 use App\Notifications\CustomVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,21 +19,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable;
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
-
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'id';
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -102,10 +87,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Find a user by their ID.
-     *
-     * @param  int  $id
      */
-    public static function findById($id): User
+    public static function findById(int $id): User
     {
         return self::where('id', $id)->first();
     }

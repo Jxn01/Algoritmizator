@@ -1,35 +1,23 @@
-/* Import base, components, and utilities from Tailwind CSS */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* Define the style for all elements */
 * {
-    /* Set the color of the scrollbar */
     scrollbar-color: #6d28d9 #1a202c;
-    /* Set the width of the scrollbar */
     scrollbar-width: auto;
 }
 
-/* Define the style for the scrollbar of all elements for Webkit browsers */
 *::-webkit-scrollbar {
-    /* Set the width of the scrollbar */
     width: 12px;
 }
 
-/* Define the style for the scrollbar track of all elements for Webkit browsers */
 *::-webkit-scrollbar-track {
-    /* Set the background color of the scrollbar track */
     background: #1a202c;
 }
 
-/* Define the style for the scrollbar thumb of all elements for Webkit browsers */
 *::-webkit-scrollbar-thumb {
-    /* Set the background color of the scrollbar thumb */
     background-color: #6d28d9;
-    /* Set the border radius of the scrollbar thumb */
     border-radius: 20px;
-    /* Set the border color and width of the scrollbar thumb */
     border: 3px solid #1a202c;
 }
 
@@ -38,87 +26,75 @@
 }
 
 .markdown {
-    padding: 28px;
-    padding-top: 6px;
-    /* Basic resets to ensure styles inside this container are consistent */
-    color: white; /* Ensures text color is inherited from parent */
-    font-family: inherit; /* Keeps font consistent with the rest of your application */
+    padding: 6px 28px 28px;
+    color: white;
+    font-family: inherit;
 
-    /* List styling */
     ul, ol {
-        padding-left: 20px; /* Adds indentation to lists */
-        list-style-position: outside; /* Ensures markers appear outside the content flow */
+        padding-left: 20px;
+        list-style-position: outside;
     }
     ol {
-        list-style-type: decimal; /* Ensures ordered lists are numbered */
+        list-style-type: decimal;
     }
     ul {
-        list-style-type: disc; /* Standard disc style for unordered lists */
+        list-style-type: disc;
     }
 
-    /* Header adjustments */
     h1 {
-        font-size: 2.25rem; /* Larger font size for main titles */
+        font-size: 2.25rem;
         font-weight: bold;
         margin-top: 1em;
         margin-bottom: 0.5em;
     }
     h2 {
-        font-size: 1.875rem; /* Smaller than h1 but still prominent */
+        font-size: 1.875rem;
         font-weight: bold;
         margin-top: 1em;
         margin-bottom: 0.5em;
     }
     h3 {
-        font-size: 1.5rem; /* Medium size for sub-sections */
+        font-size: 1.5rem;
         font-weight: bold;
         margin-top: 1em;
         margin-bottom: 0.5em;
     }
     h4 {
-        font-size: 1.25rem; /* Smaller, for lower-level headings */
+        font-size: 1.25rem;
         font-weight: bold;
         margin-top: 1em;
         margin-bottom: 0.5em;
     }
     h5 {
-        font-size: 1.125rem; /* Smaller yet, useful for fine-grained sections */
+        font-size: 1.125rem;
         font-weight: bold;
         margin-top: 1em;
         margin-bottom: 0.5em;
     }
     h6 {
-        font-size: 1rem; /* Smallest header, close to normal text size */
+        font-size: 1rem;
         font-weight: bold;
         margin-top: 1em;
         margin-bottom: 0.5em;
     }
 
-    /* Paragraph styling */
     p {
-        margin-top: 0.5em; /* Adds vertical spacing between paragraphs */
+        margin-top: 0.5em;
         margin-bottom: 0.5em;
     }
 
-    /* Link styling */
     a {
-        color: #3182ce; /* Example: blue color for links */
-        text-decoration: underline; /* Underlines links */
+        color: #3182ce;
+        text-decoration: underline;
     }
 
-    /* Image styling */
     img {
-        max-width: 100%; /* Ensures images are not wider than their container */
-        height: auto; /* Maintains aspect ratio */
+        max-width: 100%;
+        height: auto;
     }
 
-    /* Code and preformat styling */
     pre code {
         display: none;
     }
 
 }
-
-
-
-

@@ -17,10 +17,8 @@ import Footer from "./Footer.jsx";
  * @returns {JSX.Element} The Socials component
  */
 const Socials = memo(({title, activeTab}) => {
-    // State variable for the active social tab
     const [activeSocialTab, setActiveSocialTab] = useState('friends');
 
-    // Render the Navbar, socials page, and Footer
     return (
         <div>
         <Navbar title={title} activeTab={activeTab}/>
@@ -57,23 +55,19 @@ const Socials = memo(({title, activeTab}) => {
  * @returns {JSX.Element} The FriendsComponent component
  */
 export const FriendsComponent = memo(() => {
-    // State variable for the friends
     const [friends, setFriends] = useState([]);
 
-    // Effect to fetch the friends when the component is mounted
     useEffect(() => {
         axios.get(`/algoritmizator/api/socials/friends`)
             .then(response => {
-                console.log('Friends:', response.data);
                 setFriends(response.data.sort((a, b) => (a.is_online < b.is_online) ? 1 : -1));
             })
             .catch(error => {
-                console.error('Error fetching friends:', error);
+                alert(error);
                 setFriends([]);
             });
     }, []);
 
-    // Function to handle the unfriending of a friend
     const handleUnfriend = (friendId) => {
         axios.post(`/algoritmizator/api/socials/remove-friend`, { friendId })
             .then(response => {
@@ -85,7 +79,6 @@ export const FriendsComponent = memo(() => {
         setFriends(friends.filter(friend => friend.id !== friendId));
     };
 
-    // Render the friends
     return (
         <div className="min-h-screen bg-gray-800 rounded-lg text-white mb-5">
             <h1 className={'text-3xl pl-7 text-start text-white py-4'}>Barátok</h1>
@@ -136,23 +129,19 @@ export const FriendsComponent = memo(() => {
  * @returns {JSX.Element} The FriendRequestsComponent component
  */
 export const FriendRequestsComponent = memo(() => {
-    // State variable for the friend requests
     const [requests, setRequests] = useState([]);
 
-    // Effect to fetch the friend requests when the component is mounted
     useEffect(() => {
         axios.get(`/algoritmizator/api/socials/friend-requests`)
             .then(response => {
-                console.log('Friend requests:', response.data);
                 setRequests(response.data);
             })
             .catch(error => {
-                console.error('Error fetching friend requests:', error);
+                alert(error);
                 setRequests([]);
             });
     }, []);
 
-    // Function to handle the acceptance of a friend request
     const handleAccept = (friendId) => {
         axios.post(`/algoritmizator/api/socials/accept-friend-request`, { friendId })
             .then(response => {
@@ -164,7 +153,6 @@ export const FriendRequestsComponent = memo(() => {
             });
     };
 
-    // Function to handle the denial of a friend request
     const handleDeny = (friendId) => {
         axios.post(`/algoritmizator/api/socials/reject-friend-request`, { friendId })
             .then(response => {
@@ -176,7 +164,6 @@ export const FriendRequestsComponent = memo(() => {
             });
     };
 
-    // Render the friend requests
     return (
         <div className="min-h-screen bg-gray-800 rounded-lg text-white mb-5">
             <h1 className={'text-3xl pl-7 text-start text-white py-4'}>Bejövő kérelmek</h1>
@@ -223,11 +210,9 @@ export const FriendRequestsComponent = memo(() => {
  * @returns {JSX.Element} The SearchComponent component
  */
 export const SearchComponent = memo(() => {
-    // State variables for the search query and the search results
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
 
-    // Function to handle the search
     const handleSearch = async (query) => {
         setQuery(query);
         if (query.trim() === '') {
@@ -237,16 +222,14 @@ export const SearchComponent = memo(() => {
 
         await axios.get(`/algoritmizator/api/socials/search?query=${query}`)
             .then(response => {
-                console.log('Search results:', response.data);
                 setResults(response.data);
             })
             .catch(error => {
-                console.error('Error fetching search results:', error);
+                alert(error);
                 setResults([]);
             });
     }
 
-    // Function to handle the sending of a friend request
     const sendFriendRequest = (friendId, e) => {
         axios.post(`/algoritmizator/api/socials/send-friend-request`, { friendId })
             .then(response => {
@@ -263,7 +246,6 @@ export const SearchComponent = memo(() => {
             });
     }
 
-    // Render the search form and the search results
     return (
         <div className="min-h-screen bg-gray-800 rounded-lg text-white mb-5">
             <h1 className={'text-3xl pl-7 text-start text-white py-4'}>Keresés</h1>

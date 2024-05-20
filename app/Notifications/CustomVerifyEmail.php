@@ -42,10 +42,10 @@ class CustomVerifyEmail extends VerifyEmail
         $verificationUrl = $this->verificationUrl($notifiable);
 
         return (new MailMessage)
-            ->subject('Erősítse meg e-mail címét')
-            ->greeting('Üdvözlöm!')
-            ->line('Kérjük, kattintson az alábbi gombra az e-mail címének megerősítéséhez.')
+            ->subject('Erősítsd meg e-mail címed')
+            ->greeting('Helló!')
+            ->line('Kérlek, kattints az alábbi gombra az e-mail címed megerősítéséhez.')
             ->action('E-mail cím megerősítése', $verificationUrl)
-            ->line('Amennyiben Ön nem hozott létre fiókot, további teendő nem szükséges.');
+            ->line('Amennyiben Te nem hoztál létre fiókot, további teendő nem szükséges.');
     }
 }

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
+import calculatePasswordStrength from "@/PasswordStrength.js";
 
 /**
  * PasswordReset component
@@ -21,7 +22,6 @@ import Footer from "./Footer.jsx";
  * @returns {JSX.Element} The PasswordReset component
  */
 const PasswordReset = memo(({title, activeTab, token}) => {
-    // State variables for the email, password, confirmPassword, passwordsMatch, emailIsValid, passwordStrength, and resetSuccess
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -30,24 +30,19 @@ const PasswordReset = memo(({title, activeTab, token}) => {
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [resetSuccess, setResetSuccess] = useState(false);
 
-    // Function to handle the form submission
     const handleSubmit = (event) => {
-        // Prevent the default form submission behavior
         event.preventDefault();
-        // Check if the password and confirmPassword match
         if (password !== confirmPassword) {
             setPasswordsMatch(false);
             return;
         }
         setPasswordsMatch(true);
-        // Validate the email
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
         if (!emailRegex.test(email)) {
             setEmailIsValid(false);
             return;
         }
         setEmailIsValid(true);
-        // Check the password strength and submit the form if the password is strong enough
         if (calculatePasswordStrength(password) >= 2) {
             const formData = new FormData();
             formData.append('email', email);
@@ -60,17 +55,6 @@ const PasswordReset = memo(({title, activeTab, token}) => {
         }
     };
 
-    // Function to calculate the strength of a password
-    function calculatePasswordStrength(pass) {
-        let strength = 0;
-        if (pass.length >= 8) strength += 1;
-        if (pass.match(/\d+/)) strength += 1;
-        if (pass.match(/[a-z]/) && pass.match(/[A-Z]/)) strength += 1;
-        if (pass.match(/[^a-zA-Z0-9]/)) strength += 1;
-        return strength;
-    }
-
-    // Render the Navbar, password reset form, and Footer
     return (
         <div>
             <Navbar title={title} activeTab={activeTab}/>
@@ -88,7 +72,7 @@ const PasswordReset = memo(({title, activeTab, token}) => {
                                 <label className="block text-gray-300" htmlFor="email">E-mail cím
                                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="emailTip"/>
                                     <ReactTooltip anchorSelect="#emailTip" place="right" effect="solid">
-                                        Adja meg a jelenlegi inf.elte.hu-s e-mail címét!
+                                        Add meg a jelenlegi inf.elte.hu-s e-mail címét!
                                     </ReactTooltip>
                                 </label>
                                 <input type="text" placeholder="E-mail cím"
@@ -97,14 +81,14 @@ const PasswordReset = memo(({title, activeTab, token}) => {
                                        className={`w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white ${!emailIsValid ? 'border-red-500' : 'border-gray-600'}`}
                                        id="email"/>
                                 {!emailIsValid &&
-                                    <p className="text-xs text-red-500 mt-1">Kérjük, adjon meg egy érvényes inf.elte.hu
+                                    <p className="text-xs text-red-500 mt-1">Kérjük, adj meg egy érvényes inf.elte.hu
                                         e-mail címet.</p>}
                             </div>
                             <div className="mt-4">
                                 <label className="block text-gray-300" htmlFor="password">Új jelszó
                                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="newPasswordTip"/>
                                     <ReactTooltip anchorSelect="#newPasswordTip" place="right" effect="solid">
-                                        Adjon meg egy erős jelszót, amely betűk, számok és szimbólumok keverékét
+                                        Adj meg egy erős jelszót, amely betűk, számok és szimbólumok keverékét
                                         tartalmazza.
                                     </ReactTooltip>
                                 </label>
@@ -123,7 +107,7 @@ const PasswordReset = memo(({title, activeTab, token}) => {
                                                      id="newPasswordConfirmationTip"/>
                                     <ReactTooltip anchorSelect="#newPasswordConfirmationTip" place="right"
                                                   effect="solid">
-                                        Adja meg ugyanazt a jelszót még egyszer!
+                                        Add meg ugyanazt a jelszót még egyszer!
                                     </ReactTooltip>
                                 </label>
                                 <input type="password" placeholder="Új jelsző megerősítése"
@@ -152,7 +136,7 @@ const PasswordReset = memo(({title, activeTab, token}) => {
                                 </button>
                             </div>
                             {resetSuccess &&
-                                <p className="text-green-500 mt-2">A jelszavát sikeresen visszaállítottuk.</p>}
+                                <p className="text-green-500 mt-2">A jelszavad sikeresen visszaállítottuk.</p>}
                         </form>
                     </div>
                 </div>

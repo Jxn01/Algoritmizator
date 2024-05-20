@@ -18,12 +18,6 @@ import axios from 'axios';
  * @returns {JSX.Element} The VerificationEmailSent component
  */
 const VerificationEmailSent = memo(({ title, activeTab}) => {
-    /**
-     * handleResendEmail function
-     *
-     * This function sends a POST request to the server to resend the verification email.
-     * It alerts the user whether the email was successfully sent or not.
-     */
     const handleResendEmail = () => {
         axios.post('/algoritmizator/api/email-verification-notification')
             .then(response => {
@@ -31,11 +25,9 @@ const VerificationEmailSent = memo(({ title, activeTab}) => {
             })
             .catch(error => {
                 alert('E-mail újraküldés sikertelen.');
-                console.error('There was an error!', error);
             });
     };
 
-    // Render the Navbar, verification email sent page, and Footer
     return (
         <div>
             <Navbar title={title} activeTab={activeTab}/>
@@ -44,11 +36,11 @@ const VerificationEmailSent = memo(({ title, activeTab}) => {
                     <div className="flex flex-col items-center mb-8">
                         <img src="/algoritmizator/storage/logo.png" alt="Logo"
                              className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"/>
-                        <h2 className="text-3xl font-bold text-white mb-2">Erősítse meg az e-mail címét</h2>
+                        <h2 className="text-3xl font-bold text-white mb-2">Erősítsd meg az e-mail címed</h2>
                     </div>
                     <div className="px-8 py-6 bg-gray-800 shadow-lg rounded-lg">
                         <h3 className="text-2xl font-bold text-center text-white mb-4">Megerősítő e-mail elküldve</h3>
-                        <p className="text-lg text-gray-300 mb-4">Kérjük, ellenőrizze e-mail címét, hogy hitelesíthesse fiókját és befejezhesse a regisztrációs folyamatot.</p>
+                        <p className="text-lg text-gray-300 mb-4">Kérjük, ellenőrizd az e-mail címed, hogy hitelesíthesd a fiókod és befejezhesd a regisztrációs folyamatot.</p>
                         <button onClick={handleResendEmail} className="px-6 py-2 m-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Újraküldés</button>
                         <a href="/algoritmizator/app" className="px-6 py-2 m-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Tovább a főoldalra</a>
                     </div>

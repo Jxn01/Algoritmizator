@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -16,8 +15,6 @@ class PageController extends Controller
 {
     /**
      * Show the dashboard page.
-     *
-     * @return Response
      */
     public function showDashboard(): Response
     {
@@ -26,8 +23,6 @@ class PageController extends Controller
 
     /**
      * Show the login page.
-     *
-     * @return Response
      */
     public function showLogin(): Response
     {
@@ -36,8 +31,6 @@ class PageController extends Controller
 
     /**
      * Show the registration page.
-     *
-     * @return Response
      */
     public function showRegistration(): Response
     {
@@ -46,8 +39,6 @@ class PageController extends Controller
 
     /**
      * Show the forgot password page.
-     *
-     * @return Response
      */
     public function showForgotPassword(): Response
     {
@@ -57,8 +48,7 @@ class PageController extends Controller
     /**
      * Show the reset password page.
      *
-     * @param string $token  The password reset token.
-     * @return Response
+     * @param  string  $token  The password reset token.
      */
     public function showResetPassword(string $token): Response
     {
@@ -67,8 +57,6 @@ class PageController extends Controller
 
     /**
      * Show the logout page.
-     *
-     * @return Response
      */
     public function showLogout(): Response
     {
@@ -78,8 +66,6 @@ class PageController extends Controller
 
     /**
      * Show the email confirmed page.
-     *
-     * @return Response
      */
     public function showEmailConfirmed(): Response
     {
@@ -88,8 +74,6 @@ class PageController extends Controller
 
     /**
      * Show the confirm email page.
-     *
-     * @return Response
      */
     public function showConfirmEmail(): Response
     {
@@ -100,9 +84,8 @@ class PageController extends Controller
      * Show the error page.
      *
      * @param  string  $type  The type of error (404, 403, 500).
-     * @return Response
      */
-    public function showError($type): Response
+    public function showError(string $type): Response
     {
         if ($type === '404') {
             return Inertia::render('NotFound', ['title' => '404']);
@@ -119,8 +102,6 @@ class PageController extends Controller
 
     /**
      * Show the not found page.
-     *
-     * @return Response
      */
     public function showNotFound(): Response
     {
@@ -129,8 +110,6 @@ class PageController extends Controller
 
     /**
      * Show the profile page.
-     *
-     * @return Response
      */
     public function showProfile(): Response
     {
@@ -139,8 +118,6 @@ class PageController extends Controller
 
     /**
      * Show the socials page.
-     *
-     * @return Response
      */
     public function showSocials(): Response
     {
@@ -151,17 +128,14 @@ class PageController extends Controller
      * Show the user profile page.
      *
      * @param  int  $id  The ID of the user whose profile to show.
-     * @return Response
      */
-    public function showUserProfile($id): Response
+    public function showUserProfile(int $id): Response
     {
         return Inertia::render('UserProfile', ['title' => 'Profil', 'activeTab' => 'socials', 'id' => $id]);
     }
 
     /**
      * Show the lessons page.
-     *
-     * @return Response
      */
     public function showLessons(): Response
     {
@@ -172,9 +146,8 @@ class PageController extends Controller
      * Show the quiz page.
      *
      * @param  int  $id  The ID of the quiz to show.
-     * @return Response
      */
-    public function showTask($id): Response
+    public function showTask(int $id): Response
     {
         return Inertia::render('Task', ['id' => $id, 'title' => 'Tananyag', 'activeTab' => 'lessons']);
     }
@@ -183,9 +156,8 @@ class PageController extends Controller
      * Show the quiz result page.
      *
      * @param  int  $id  The ID of the quiz whose result to show.
-     * @return Response
      */
-    public function showTaskAttempt($id): Response
+    public function showTaskAttempt(int $id): Response
     {
         return Inertia::render('TaskAttempt', ['id' => $id, 'title' => 'Tananyag', 'activeTab' => 'lessons']);
     }

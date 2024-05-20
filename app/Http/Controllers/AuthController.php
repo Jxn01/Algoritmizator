@@ -25,9 +25,8 @@ class AuthController extends Controller
      * Handle user login.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -48,20 +47,19 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Successfully logged in!',
             ])->withCookie('XRSF-TOKEN', csrf_token());
-        } else {
-            return response()->json([
-                'message' => 'Invalid credentials',
-            ], 401);
         }
+
+        return response()->json([
+            'message' => 'Invalid credentials',
+        ], 401);
     }
 
     /**
      * Handle user registration.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
         $request->validate([
             'name' => 'required|string',
@@ -71,7 +69,6 @@ class AuthController extends Controller
         ]);
 
         $user = new User([
-            'id' => $this->generateUUID(),
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
@@ -98,18 +95,17 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Successfully registered and logged in!',
             ])->withCookie('XRSF-TOKEN', csrf_token());
-        } else {
-            return response()->json([
-                'message' => 'Invalid credentials',
-            ], 401);
         }
+
+        return response()->json([
+            'message' => 'Invalid credentials',
+        ], 401);
     }
 
     /**
      * Handle password reset.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return RedirectResponse
      */
     public function resetPassword(Request $request): RedirectResponse
     {
@@ -121,7 +117,7 @@ class AuthController extends Controller
 
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
-            function (User $user, string $password) {
+            static function (User $user, string $password) {
                 $user->forceFill([
                     'password' => Hash::make($password),
                 ])->setRememberToken(Str::random(60));
@@ -139,7 +135,6 @@ class AuthController extends Controller
      * Handle password reset link request.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return RedirectResponse
      */
     public function forgotPassword(Request $request): RedirectResponse
     {
@@ -160,7 +155,6 @@ class AuthController extends Controller
      * Send email verification notification.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return RedirectResponse
      */
     public function emailVerificationNotification(Request $request): RedirectResponse
     {
@@ -173,7 +167,6 @@ class AuthController extends Controller
      * Handle avatar update.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function updateAvatar(Request $request): JsonResponse
     {
@@ -182,6 +175,7 @@ class AuthController extends Controller
         ]);
 
         $user = $request->user();
+        $oldAvatar = $user->avatar;
 
         $avatarName = $user->id.'_avatar'.time().'.'.request()->avatar->getClientOriginalExtension();
 
@@ -189,6 +183,10 @@ class AuthController extends Controller
 
         $user->avatar = $avatarName;
         $user->save();
+
+        if ($oldAvatar !== 'default.png') {
+            unlink(storage_path('public/avatars/'.$oldAvatar));
+        }
 
         return response()->json([
             'message' => 'Successfully updated avatar!',
@@ -200,7 +198,6 @@ class AuthController extends Controller
      * Handle password update.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function updatePassword(Request $request): JsonResponse
     {
@@ -229,7 +226,6 @@ class AuthController extends Controller
      * Handle name update.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function updateName(Request $request): JsonResponse
     {
@@ -251,7 +247,6 @@ class AuthController extends Controller
      * Handle username update.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function updateUsername(Request $request): JsonResponse
     {
@@ -280,7 +275,6 @@ class AuthController extends Controller
      * Handle email update.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function updateEmail(Request $request): JsonResponse
     {
@@ -310,21 +304,5 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Successfully updated e-mail!',
         ]);
-    }
-
-    /**
-     * Generate a UUID.
-     *
-     * @return string The generated UUID.
-     */
-    private function generateUUID(): string
-    {
-        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF),
-            mt_rand(0, 0xFFFF),
-            mt_rand(0, 0x0FFF) | 0x4000,
-            mt_rand(0, 0x3FFF) | 0x8000,
-            mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF)
-        );
     }
 }
