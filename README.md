@@ -1,5 +1,5 @@
 # Algoritmizátor
-[![Algoritmizator Test Pipeline](https://github.com/Jxn01/algoritmizator/actions/workflows/laravel.yml/badge.svg)](https://github.com/Jxn01/algoritmizator/actions/workflows/laravel.yml)
+[![Algoritmizator Test Pipeline](https://github.com/Jxn01/algoritmizator/actions/workflows/test.yml/badge.svg)](https://github.com/Jxn01/algoritmizator/actions/workflows/test.yml)
 
 Ez a projekt egy webes alkalmazás, amelynek célja, hogy a felhasználók játékos módon tanulhassák meg az algoritmusokat.
 
