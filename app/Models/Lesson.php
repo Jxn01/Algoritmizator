@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Lesson extends Model
 {
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,9 +30,9 @@ class Lesson extends Model
     /**
      * Find a lesson by its title.
      */
-    public function findLessonByTitle(string $title): Lesson
+    public static function findLessonByTitle(string $title): ?Lesson
     {
-        return $this->where('title', $title)->first();
+        return self::where('title', $title)->first();
     }
 
     /**

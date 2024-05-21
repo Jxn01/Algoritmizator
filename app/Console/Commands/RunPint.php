@@ -6,6 +6,12 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Command\Command as CommandAlias;
 use Symfony\Component\Process\Process;
 
+/**
+ * Class RunPint
+ *
+ * The RunPint class is a console command that runs Laravel Pint to fix code style issues.
+ * It extends the base Command class provided by Laravel.
+ */
 class RunPint extends Command
 {
     /**

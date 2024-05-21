@@ -15,6 +15,11 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
         }
+
+        if ($this->app->environment('testing')) {
+            //use the routes in routes/test.php
+            $this->loadRoutesFrom(base_path('routes/test.php'));
+        }
     }
 
     /**

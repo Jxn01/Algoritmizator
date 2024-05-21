@@ -96,6 +96,15 @@ class SearchController extends Controller
         return response()->json($results);
     }
 
+    /**
+     * Get online friends of the current user.
+     *
+     * This method gets the online friends of the current user.
+     * It includes information about the friend's ID, name, username, total XP, level, and avatar.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse The online friends of the current user.
+     */
     public static function getOnlineFriends(Request $request): JsonResponse
     {
         $currentUserId = Auth::getUser()->id;
@@ -158,6 +167,15 @@ class SearchController extends Controller
         return response()->json($results);
     }
 
+    /**
+     * Get a user by ID.
+     *
+     * This method gets a user by their ID.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @param  int  $id  The ID of the user.
+     * @return JsonResponse The user.
+     */
     public static function getUser(Request $request, $id): JsonResponse
     {
         $user = User::find($id);

@@ -26,12 +26,6 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
         });
 
-        Schema::create('migrations', static function ($table) {
-            $table->id();
-            $table->string('migration');
-            $table->integer('batch');
-        });
-
         Schema::create('jobs', static function ($table) {
             $table->id();
             $table->string('queue');
@@ -84,7 +78,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
             $table->timestamps();
             $table->integer('total_xp')->default(0);
             $table->boolean('is_online')->default(false);
@@ -199,8 +193,8 @@ return new class extends Migration
         Schema::create('attempt_answers', static function ($table) {
             $table->id()->autoIncrement();
             $table->foreignId('attempt_question_id');
-            $table->foreignId('answer_id');
-            $table->string('custom_answer');
+            $table->foreignId('answer_id')->nullable();
+            $table->string('custom_answer')->nullable();
             $table->timestamps();
         });
 

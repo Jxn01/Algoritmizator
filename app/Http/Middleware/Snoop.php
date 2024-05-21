@@ -7,6 +7,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class Snoop
+ *
+ * The Snoop middleware updates the user's last online status and activity.
+ */
 class Snoop
 {
     /**
