@@ -180,15 +180,11 @@ php artisan serve --host=
 
 6. Állítsd be a webkiszolgálót a következőképpen: [Apache](https://httpd.apache.org/), [Nginx](https://www.nginx.com/), [Caddy](https://caddyserver.com/).
 
-Megjegyzések 
+Megjegyzések:
 
 - Az alkalmazás üzembehelyezése előtt győződj meg róla, hogy az adatbázis, a webkiszolgáló és az email kiszolgáló megfelelően konfigurálva van.
 - Az alkalmazás üzembehelyezése előtt győződj meg róla, hogy a Laravel cache és konfigurációs fájlok frissítve vannak.
 - Az alkalmazás frontend része azzal a feltételezéssel lett megírva, hogy a backend és a frontend azonos szerveren futnak, sőt, az index.php fájl az /algoritmizator mappában található. Ez könnyen megvalósítható egy mappahivatkozás létrehozásával.
-
-## Licensz
-
-Az alkalmazás a MIT licensz alatt érhető el. További információért olvasd el a [LICENSE](LICENSE) fájlt.
 
 ## Kapcsolat
 
