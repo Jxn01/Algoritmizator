@@ -1,66 +1,200 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Algoritmizátor
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ez a projekt egy webes alkalmazás, amelynek célja, hogy a felhasználók játékos módon tanulhassák meg az algoritmusokat.
 
-## About Laravel
+## A projekt célja
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Az alkalmazás célja, hogy a felhasználók számára élvezetes és interaktív módon tanítsa meg az algoritmusokat. A felhasználók különböző szintű feladatokat oldhatnak meg, amelyek segítenek nekik megérteni és elsajátítani az algoritmusok működését. Minél több feladatot oldanak meg, annál több pontot és szintet érnek el.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Felhasználói élmény
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Az alkalmazás működése
 
-## Learning Laravel
+A felhasználók regisztrálhatnak és bejelentkezhetnek az alkalmazásba. A bejelentkezés után a felhasználók elérhetik a feladatokat, amelyeket megoldhatnak. Minden feladat megoldása után a felhasználók pontokat kapnak, amelyek segítenek nekik a szintlépésben. A szintlépés lehetővé teszi a felhasználók számára, hogy újabb és nehezebb feladatokat oldjanak meg.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Szintlépési rendszer
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+A szintlépési rendszer a felhasználók előrehaladását követi. Minél több pontot szereznek a felhasználók, annál magasabb szintre léphetnek. A szintlépés motiválja a felhasználókat, hogy folytassák a tanulást és a fejlődést.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Hitelesítési és közösségi rendszer
 
-## Laravel Sponsors
+Az alkalmazásban a felhasználók regisztrálhatnak és bejelentkezhetnek. A bejelentkezett felhasználók hozzáférhetnek a profiljukhoz, ahol nyomon követhetik a haladásukat, megtekinthetik a barátaikat és a baráti kéréseiket. A közösségi funkciók lehetővé teszik a felhasználók számára, hogy kapcsolatba lépjenek más felhasználókkal, megosszák a haladásukat és segítséget kérjenek.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Fejlesztői információk
 
-### Premium Partners
+### Technológiai stack
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- Laravel: A backend szerver és az API kiszolgálására használt keretrendszer.
+- React: A frontend felhasználói felület készítésére használt könyvtár.
+- TailwindCSS: A felhasználói felület stílusának kialakítására használt CSS keretrendszer.
+- CodeMirror: A kódszerkesztő funkciók biztosítására használt könyvtár.
+- InertiaJS: A Laravel és React közötti sima integráció biztosítására használt könyvtár.
+- MySQL: Az adatok tárolására használt adatbázis rendszer.
+- Laravel Eloquent ORM: Az adatbázis műveletek egyszerűsítésére használt ORM.
 
-## Contributing
+### Tesztelés és monitoring
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- PHPUnit: A backend kód tesztelésére használt keretrendszer.
+- Laravel Telescope: A backend teljesítményének és állapotának monitorozására használt eszköz.
 
-## Code of Conduct
+### Fejlesztői környezet
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+A fejlesztői környezet beállításához szükséges a következő lépések végrehajtása:
 
-## Security Vulnerabilities
+1. Klónozd le a projektet a GitHub repository-ból.
+2. Telepítsd a Composer és a NodeJS csomagokat a következő paranccsal:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+composer install
+npm install
+```
 
-## License
+3. Hozz létre egy `.env` fájlt a `.env.example` fájl alapján:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+cp .env.example .env
+```
+
+4. Generálj egy alkalmazás kulcsot a következő paranccsal:
+
+```bash
+php artisan key:generate
+```
+
+5. Állítsd be az adatbázis kapcsolatot és az email szerver konfigurációját a `.env` fájlban:
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=
+DB_PORT=
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+
+MAIL_MAILER=smtp
+MAIL_HOST=
+MAIL_PORT=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ENCRYPTION=
+MAIL_FROM_ADDRESS=
+MAIL_FROM_NAME=
+```
+
+6. Migráld az adatbázis táblákat a következő paranccsal:
+
+```bash
+php artisan migrate
+```
+
+7. Indítsd el a Laravel szerver a következő paranccsal:
+
+```bash
+php artisan serve
+```
+
+8. Indítsd el a React alkalmazást a következő paranccsal:
+
+```bash
+npm run dev
+```
+
+9. Nyisd meg a böngészőt a `http://localhost:8000` címen.
+
+### Tesztelés
+
+1. A teszt adatbázis beállításához állítsd be a következőket a phpunit.xml fájlban:
+
+```xml
+<php>
+    <env name="DB_CONNECTION" value="mysql"/>
+    <env name="DB_DATABASE" value="algoritmizator_test"/>
+    <env name="DB_HOST" value="127.0.0.1"/>
+    <env name="DB_PORT" value="3306"/>
+    <env name="DB_USERNAME" value=""/>
+    <env name="DB_PASSWORD" value=""/>
+</php>
+```
+
+2. A backend kód teszteléséhez használd a PHPUnit keretrendszert a következő paranccsal:
+
+```bash
+php artisan test
+```
+
+A Laravel Telescope alkalmazás segítségével monitorozhatod a backend teljesítményét és állapotát a `http://localhost:8000/telescope` címen.
+
+### Üzembehelyezés
+
+Az alkalmazás üzembehelyezéséhez szükséges a következő lépések végrehajtása:
+
+1. Állítsd be az `.env` fájlban az adatbázis kapcsolatot, az email szerver konfigurációját és a környezeti változókat:
+
+```bash
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://example.com
+
+DB_CONNECTION=mysql
+DB_HOST=
+DB_PORT=
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+
+MAIL_MAILER=smtp
+MAIL_HOST=
+MAIL_PORT=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ENCRYPTION=
+MAIL_FROM_ADDRESS=
+MAIL_FROM_NAME=
+```
+
+2. Állítsd be a Laravel cache és konfigurációs fájlokat a következő paranccsal:
+
+```bash
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+3. Buildeld le a React alkalmazást a következő paranccsal:
+
+```bash
+npm run build
+```
+
+4. Állítsd be a React alkalmazást a következő paranccsal:
+
+```bash
+npm run prod
+```
+
+5. Állítsd be a Laravel szerver konfigurációját a következő paranccsal:
+
+```bash
+php artisan serve --host=
+```
+
+6. Állítsd be a webkiszolgálót a következőképpen: [Apache](https://httpd.apache.org/), [Nginx](https://www.nginx.com/), [Caddy](https://caddyserver.com/).
+
+Megjegyzések 
+
+- Az alkalmazás üzembehelyezése előtt győződj meg róla, hogy az adatbázis, a webkiszolgáló és az email kiszolgáló megfelelően konfigurálva van.
+- Az alkalmazás üzembehelyezése előtt győződj meg róla, hogy a Laravel cache és konfigurációs fájlok frissítve vannak.
+- Az alkalmazás frontend része azzal a feltételezéssel lett megírva, hogy a backend és a frontend azonos szerveren futnak, sőt, az index.php fájl az /algoritmizator mappában található. Ez könnyen megvalósítható egy mappahivatkozás létrehozásával.
+
+## Licensz
+
+Az alkalmazás a MIT licensz alatt érhető el. További információért olvasd el a [LICENSE](LICENSE) fájlt.
+
+## Kapcsolat
+
+Ha bármilyen kérdésed vagy észrevételed van az alkalmazással kapcsolatban, kérlek vedd fel a kapcsolatot velem az alábbi email címen:
+
+- Email (inf.elte): [pst8ra@inf.elte.hu](mailto:pst8ra@inf.elte.hu)
+- Email (személyes): [jxn.personal@gmail.com](mailto:jxn.personal@gmail.com)
+- GitHub: [Jxn01](https://www.github.com/Jxn01)
+- LinkedIn: [Jxn01](https://www.linkedin.com/in/jxn01)
