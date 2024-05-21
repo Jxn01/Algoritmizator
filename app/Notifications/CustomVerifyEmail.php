@@ -22,7 +22,7 @@ class CustomVerifyEmail extends VerifyEmail
      * @param  mixed  $notifiable  The notifiable entity.
      * @return string The verification URL.
      */
-    protected function verificationUrl($notifiable): string
+    public function verificationUrl($notifiable): string
     {
         return URL::temporarySignedRoute(
             'verification.verify',

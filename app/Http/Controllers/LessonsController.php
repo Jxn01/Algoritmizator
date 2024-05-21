@@ -17,8 +17,23 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * Class LessonsController
+ *
+ * The LessonsController handles actions related to lessons in the application.
+ * This includes getting lessons, assignments, tasks, and submitting assignments.
+ */
 class LessonsController extends Controller
 {
+    /**
+     * Get all lessons.
+     *
+     * This method returns all lessons in the system.
+     * Each lesson includes information about the sublessons associated with it.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse The lessons in the system.
+     */
     public function getLessons(Request $request): JsonResponse
     {
         $response = [];
@@ -35,7 +50,17 @@ class LessonsController extends Controller
         return response()->json($response);
     }
 
-    public function getAssignmentAndTasks(Request $request, $id): JsonResponse
+    /**
+     * Get a specific lesson.
+     *
+     * This method returns a specific lesson in the system.
+     * The lesson includes information about the sublessons associated with it.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @param int $id  The ID of the lesson.
+     * @return JsonResponse The lesson.
+     */
+    public function getAssignmentAndTasks(Request $request, int $id): JsonResponse
     {
         $assignment = Sublesson::find($id)->assignment;
         $tasks = $assignment->tasks->map(function ($task) {
@@ -66,6 +91,15 @@ class LessonsController extends Controller
         ]);
     }
 
+    /**
+     * Submit an assignment.
+     *
+     * This method submits an assignment with the user's answers.
+     * It calculates the total score and determines if the user passed the assignment.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse The result of the submission.
+     */
     public function submitAssignment(Request $request): JsonResponse
     {
         $validatedData = $request->validate([
@@ -191,7 +225,15 @@ class LessonsController extends Controller
         ]);
     }
 
-    public function getAttempt($id): JsonResponse
+    /**
+     * Get an attempt.
+     *
+     * This method returns an attempt with the user's answers.
+     *
+     * @param int $id  The ID of the attempt.
+     * @return JsonResponse The attempt.
+     */
+    public function getAttempt(int $id): JsonResponse
     {
         $attempt = Attempt::with([
             'assignment',
@@ -250,6 +292,14 @@ class LessonsController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * Get all attempts.
+     *
+     * This method returns all attempts of the current user.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse The attempts of the current user.
+     */
     public function getAllAttempts(Request $request): JsonResponse
     {
         $user = auth()->user();
@@ -305,7 +355,16 @@ class LessonsController extends Controller
         return response()->json($data);
     }
 
-    public function getSuccessfulAttempts(Request $request, $id): JsonResponse
+    /**
+     * Get successful attempts.
+     *
+     * This method returns all successful attempts of the user.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @param int $id  The ID of the user.
+     * @return JsonResponse The successful attempts of the user.
+     */
+    public function getSuccessfulAttempts(Request $request, int $id): JsonResponse
     {
         $successfulAttempts = SuccessfulAttempt::with([
             'assignment',
@@ -329,6 +388,14 @@ class LessonsController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * Get the hourly algorithm.
+     *
+     * This method returns the algorithm for the current hour.
+     *
+     * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse The hourly algorithm.
+     */
     public function getHourlyAlgorithm(Request $request): JsonResponse
     {
         //$hour = date('H');

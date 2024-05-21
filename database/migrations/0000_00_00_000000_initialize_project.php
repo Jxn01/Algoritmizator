@@ -193,8 +193,8 @@ return new class extends Migration
         Schema::create('attempt_answers', static function ($table) {
             $table->id()->autoIncrement();
             $table->foreignId('attempt_question_id');
-            $table->foreignId('answer_id');
-            $table->string('custom_answer');
+            $table->foreignId('answer_id')->nullable();
+            $table->string('custom_answer')->nullable();
             $table->timestamps();
         });
 

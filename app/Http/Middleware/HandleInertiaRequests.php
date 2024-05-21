@@ -5,6 +5,12 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
+/**
+ * Class HandleInertiaRequests
+ *
+ * The HandleInertiaRequests middleware is used to handle Inertia requests.
+ * It defines the root template and shared data that are used by the Inertia pages.
+ */
 class HandleInertiaRequests extends Middleware
 {
     /**

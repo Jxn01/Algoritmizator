@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,17 +16,30 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class AttemptAnswer extends Model
 {
+    use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'attempt_question_id',
         'answer_id',
         'custom_answer',
     ];
 
+    /**
+     * Get the attempt question that the answer is associated with.
+     */
     public function attemptQuestion(): BelongsTo
     {
         return $this->belongsTo(AttemptQuestion::class);
     }
 
+    /**
+     * Get the answer that the user provided.
+     */
     public function answer(): BelongsTo
     {
         return $this->belongsTo(Answer::class);

@@ -51,7 +51,7 @@ class CustomReset extends Notification
      * @param  mixed  $notifiable  The notifiable entity.
      * @return string The password reset URL.
      */
-    protected function verificationUrl(mixed $notifiable): string
+    public function verificationUrl(mixed $notifiable): string
     {
         return URL::temporarySignedRoute(
             'password.reset',
