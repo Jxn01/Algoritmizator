@@ -47,12 +47,12 @@ const Profile = memo(({ title, activeTab}) => {
                         setSuccessfulAttempts(attemptResponse.data);
                     })
                     .catch(attemptError => {
-                        alert(attemptError);
+                        alert("Hiba történt az adatok betöltése közben. Kérlek, próbáld újra később!");
                         setSuccessfulAttempts([]);
                     });
             })
             .catch(error => {
-                alert(error);
+                alert("Hiba történt az adatok betöltése közben. Kérlek, próbáld újra később!");
             });
     }, []);
 
@@ -119,7 +119,7 @@ const Profile = memo(({ title, activeTab}) => {
                 alert("A profilkép módosítása sikeres.")
             })
             .catch(error => {
-                alert(error);
+                alert("Hiba történt a profilkép módosítása közben.");
             });
     };
 

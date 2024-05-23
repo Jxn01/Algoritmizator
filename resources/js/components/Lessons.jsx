@@ -4,7 +4,7 @@ import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFileAlt, faCheck} from "@fortawesome/free-solid-svg-icons";
-import injectCodeEditors from "@/CodeEditorInjector.js";
+import injectCodeEditors from "@/CodeEditorInjector";
 
 /**
  * Lessons component
@@ -35,7 +35,7 @@ export const Lessons = memo(({title, activeTab}) => {
                 setSelectedSublesson(response.data[0].sublessons[0]);
             })
             .catch(error => {
-                alert(error)
+                alert("Hiba történt a leckék betöltése közben. Kérlek, próbáld újra később!");
             });
 
         axios.get('/algoritmizator/api/user')
@@ -46,12 +46,12 @@ export const Lessons = memo(({title, activeTab}) => {
                         setSuccessfulAttempts(response.data);
                     })
                     .catch(error => {
-                        alert(error);
+                        alert("Hiba történt az adatok betöltése közben. Kérlek, próbáld újra később!");
                         setSuccessfulAttempts([]);
                     });
             })
             .catch(e => {
-                alert(e);
+                alert("Hiba történt az adatok betöltése közben. Kérlek, próbáld újra később!");
             });
     }, []);
 

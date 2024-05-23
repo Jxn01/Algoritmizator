@@ -55,7 +55,7 @@ const Registration = memo(({title, activeTab}) => {
                     if (error.response.status === 422) {
                         setFormErrors(error.response.data.errors);
                     } else {
-                        alert(error);
+                        alert("Hiba történt a regisztráció közben. Kérlek, próbáld újra később!");
                     }
                 });
         }

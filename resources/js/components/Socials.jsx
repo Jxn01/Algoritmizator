@@ -63,7 +63,7 @@ export const FriendsComponent = memo(() => {
                 setFriends(response.data.sort((a, b) => (a.is_online < b.is_online) ? 1 : -1));
             })
             .catch(error => {
-                alert(error);
+                alert("Hiba történt a barátok betöltése közben. Kérlek, próbáld újra később!");
                 setFriends([]);
             });
     }, []);
@@ -137,7 +137,7 @@ export const FriendRequestsComponent = memo(() => {
                 setRequests(response.data);
             })
             .catch(error => {
-                alert(error);
+                alert("Hiba történt a barátkérelmek betöltése közben. Kérlek, próbáld újra később!");
                 setRequests([]);
             });
     }, []);
@@ -225,7 +225,7 @@ export const SearchComponent = memo(() => {
                 setResults(response.data);
             })
             .catch(error => {
-                alert(error);
+                alert("Hiba történt a keresés közben. Kérlek, próbáld újra később!");
                 setResults([]);
             });
     }

@@ -95,7 +95,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/api/task/attempts', [LessonsController::class, 'getAllAttempts']);
     Route::get('/api/task/attempt/{id}', [LessonsController::class, 'getAttempt']);
     Route::get('/api/task/attempts/successful/user/{id}', [LessonsController::class, 'getSuccessfulAttempts']);
-    Route::get('/api/algorithm-of-the-hour', [LessonsController::class, 'getHourlyAlgorithm']);
+    Route::get('/api/lesson-of-the-hour', [LessonsController::class, 'getHourlyLesson']);
 });
 
 // Routes that require the user to be a guest

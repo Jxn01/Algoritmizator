@@ -50,7 +50,7 @@ Route::middleware(['auth', 'verified', 'web'])->group(function () {
     Route::get('algoritmizator/api/task/attempts', [LessonsController::class, 'getAllAttempts']);
     Route::get('algoritmizator/api/task/attempt/{id}', [LessonsController::class, 'getAttempt']);
     Route::get('algoritmizator/api/task/attempts/successful/user/{id}', [LessonsController::class, 'getSuccessfulAttempts']);
-    Route::get('algoritmizator/api/algorithm-of-the-hour', [LessonsController::class, 'getHourlyAlgorithm']);
+    Route::get('algoritmizator/api/lesson-of-the-hour', [LessonsController::class, 'getHourlyLesson']);
 });
 
 // Routes that require the user to be a guest

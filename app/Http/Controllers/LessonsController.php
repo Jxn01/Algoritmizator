@@ -6,7 +6,6 @@ use App\Models\Assignment;
 use App\Models\Attempt;
 use App\Models\AttemptAnswer;
 use App\Models\AttemptQuestion;
-use App\Models\HourlyAlgorithm;
 use App\Models\Lesson;
 use App\Models\Question;
 use App\Models\Sublesson;
@@ -389,23 +388,25 @@ class LessonsController extends Controller
     }
 
     /**
-     * Get the hourly algorithm.
+     * Get the hourly lesson.
      *
-     * This method returns the algorithm for the current hour.
+     * This method returns the lessonfor the current hour.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse The hourly algorithm.
+     * @return JsonResponse The hourly lesson.
      */
-    public function getHourlyAlgorithm(Request $request): JsonResponse
+    public function getHourlyLesson(Request $request): JsonResponse
     {
-        //$hour = date('H');
-        $hour = 1;
-        $algorithm = HourlyAlgorithm::where('id', $hour)->first();
+        $hour = date('H') + 1;
+        if($hour > 21){
+            $hour -= 20;
+        }
+        $lesson = Sublesson::where('id', $hour)->first();
 
         return response()->json([
-            'id' => $algorithm->id,
-            'title' => $algorithm->title,
-            'markdown' => $algorithm->markdown,
+            'id' => $lesson->id,
+            'title' => $lesson->title,
+            'markdown' => $lesson->markdown,
         ]);
     }
 }

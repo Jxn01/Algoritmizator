@@ -2,7 +2,7 @@ import React, {memo, useEffect, useRef, useState} from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 import ReactMarkdown from "react-markdown";
-import injectCodeEditors from "@/CodeEditorInjector.js";
+import injectCodeEditors from "@/CodeEditorInjector";
 
 /**
  * Dashboard component
@@ -10,7 +10,7 @@ import injectCodeEditors from "@/CodeEditorInjector.js";
 const Dashboard = memo(({ title, activeTab}) => {
     const [friends, setFriends] = useState([]);
     const [successfulAttempts, setSuccessfulAttempts] = useState([]);
-    const [algorithm, setAlgorithm] = useState({});
+    const [lesson, setLesson] = useState({});
     const isFirstRun = useRef(true);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const Dashboard = memo(({ title, activeTab}) => {
                 setFriends(response.data);
             })
             .catch(error => {
-                alert(error);
+                alert("Hiba történt a barátok lekérdezése során. :(");
                 setFriends([]);
             });
 
@@ -31,21 +31,21 @@ const Dashboard = memo(({ title, activeTab}) => {
                         setSuccessfulAttempts(response.data);
                     })
                     .catch(error => {
-                        alert(error);
+                        alert("Hiba történt a feladatok lekérdezése során. :(");
                         setSuccessfulAttempts([]);
                     });
             })
             .catch(e => {
-                alert(e);
+                alert("Hiba történt a feladatok lekérdezése során. :(");
             });
 
-        axios.get('/algoritmizator/api/algorithm-of-the-hour')
+        axios.get('/algoritmizator/api/lesson-of-the-hour')
             .then(response => {
-                setAlgorithm(response.data);
+                setLesson(response.data);
             })
             .catch(error => {
-                alert(error);
-                setAlgorithm({});
+                alert("Hiba történt a lecke lekérdezése során. :(");
+                setLesson({});
             });
     }, []);
 
@@ -57,13 +57,13 @@ const Dashboard = memo(({ title, activeTab}) => {
 
         injectCodeEditors();
 
-    }, [algorithm]);
+    }, [lesson]);
 
     return (
         <div>
             <Navbar title={title} activeTab={activeTab}/>
             <div className="flex items-stretch min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 p-5">
-                <div className="w-1/4 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{maxHeight: 'calc(80vh)'}}>
+                <div className="w-1/4 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{maxHeight: 'calc(85vh)', position: 'sticky', top: '20px'}}>
                     <h3 className="text-xl font-bold mb-3">Teljesített Feladatok</h3>
                     <hr className="border-2 border-purple-700 mb-3"/>
                     <div className="overflow-auto" style={{maxHeight: 'calc(80vh)'}}>
@@ -99,19 +99,19 @@ const Dashboard = memo(({ title, activeTab}) => {
                     </div>
                     <div className="flex flex-col items-center m-10">
                         <div className="px-8 py-6 bg-gray-800 shadow-lg rounded-xl">
-                            <h1 className="text-2xl font-bold text-center text-white mb-4">Az óra algoritmusa</h1>
+                            <h1 className="text-2xl font-bold text-center text-white mb-4">Az óra leckéje</h1>
                             <hr className="border-2 border-purple-700 mb-4"/>
                             <div className="markdown">
-                                <h1 className="text-xl font-bold text-center text-white mb-2">{algorithm.title}</h1>
+                                <h1 className="text-xl font-bold text-center text-white mb-2">{lesson.title}</h1>
                                 <div className="markdown">
-                                    {algorithm ? <ReactMarkdown
-                                        children={algorithm.markdown}/> : 'Nincs megjeleníthető tartalom. :('}
+                                    {lesson ? <ReactMarkdown
+                                        children={lesson.markdown}/> : 'Nincs megjeleníthető tartalom. :('}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="w-1/4 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{maxHeight: 'calc(80vh)'}}>
+                <div className="w-1/4 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{maxHeight: 'calc(85vh)', position: 'sticky', top: '20px'}}>
                     <h3 className="text-xl font-bold mb-3">Online Barátok</h3>
                     <hr className="border-2 border-purple-700 mb-3"/>
                     <div className="overflow-auto" style={{maxHeight: 'calc(80vh)'}}>

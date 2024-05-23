@@ -3,7 +3,7 @@ import axios from 'axios';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 import ReactMarkdown from 'react-markdown';
-import injectCodeEditors from "@/CodeEditorInjector.js";
+import injectCodeEditors from "@/CodeEditorInjector";
 
 /**
  * Task component
@@ -25,7 +25,7 @@ export const Task = memo(({ id, title, activeTab }) => {
                 setCurrentTaskIndex(0);
             })
             .catch(error => {
-                alert(error);
+                alert("Hiba történt a feladat betöltése közben. Kérlek, próbáld újra később!");
             });
     }, [id]);
 
@@ -80,7 +80,7 @@ export const Task = memo(({ id, title, activeTab }) => {
                     window.location.href = `/algoritmizator/lessons/task/attempt/${response.data.attempt_id}`;
                 })
                 .catch(error => {
-                    alert(error);
+                    alert('Hiba történt a feladat beküldése közben. Kérlek, próbáld újra később!');
                 });
         }
     };

@@ -28,7 +28,7 @@ const Navbar = memo(({ title, activeTab}) => {
                 }
             })
             .catch(error => {
-                alert(error);
+                alert("Hiba történt az adatok betöltése közben. Kérlek, próbáld újra később!");
             });
     }, []);
 

@@ -29,13 +29,13 @@ const Login = memo(({ title, activeTab}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        /*
+
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
         if (!emailRegex.test(email)) {
             setEmailIsValid(false);
             return;
         }
-        */
+
         setEmailIsValid(true);
 
         const formData = new FormData();
@@ -48,7 +48,7 @@ const Login = memo(({ title, activeTab}) => {
                 window.location.href = '/algoritmizator/app';
             })
             .catch(error => {
-                alert(error);
+                alert('Hibás e-mail cím vagy jelszó. Kérjük, próbáld újra.');
                 setLoginAttempts(loginAttempts + 1);
             });
     };

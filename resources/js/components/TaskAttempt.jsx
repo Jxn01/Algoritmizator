@@ -3,7 +3,7 @@ import axios from 'axios';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 import ReactMarkdown from 'react-markdown';
-import injectCodeEditors from "@/CodeEditorInjector.js";
+import injectCodeEditors from "@/CodeEditorInjector";
 
 const TaskAttempt = ({ id, title, activeTab }) => {
     const [attempt, setAttempt] = useState(null);
@@ -17,7 +17,7 @@ const TaskAttempt = ({ id, title, activeTab }) => {
                 setLoading(false);
             })
             .catch(error => {
-                alert('Failed to fetch attempt data.');
+                alert('Hiba történt az adatok betöltése közben. Kérlek, próbáld újra később!');
                 setLoading(false);
             });
     }, [id]);
@@ -94,9 +94,6 @@ const TaskAttempt = ({ id, title, activeTab }) => {
                                                                 <span className="ml-2">
                                                                     {isCorrect ? '✔' : '✖'}
                                                                 </span>
-                                                            )}
-                                                            {!isSubmitted && task.type === 'checkbox' && isCorrect && (
-                                                                <span className="ml-2">✖</span>
                                                             )}
                                                         </div>
                                                     );

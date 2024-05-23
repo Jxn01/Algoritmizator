@@ -29,11 +29,11 @@ const UserProfile = memo(({title, activeTab, id}) => {
                         setSuccessfulAttempts(attemptResponse.data);
                     })
                     .catch(attemptError => {
-                        alert(attemptError);
+                        alert("Hiba történt a feladatok betöltése közben. Kérlek, próbáld újra később!");
                         setSuccessfulAttempts([]);
                     });
             }).catch(error => {
-                alert(error);
+                alert("Hiba történt az adatok betöltése közben. Kérlek, próbáld újra később!");
             });
     }, []);
 
