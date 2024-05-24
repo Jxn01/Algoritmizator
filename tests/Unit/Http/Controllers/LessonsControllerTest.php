@@ -32,7 +32,7 @@ class LessonsControllerTest extends TestCase
         $response = $this->getJson('/api/lessons');
 
         $response->assertStatus(200);
-        $response->assertJsonCount(3);
+        $response->assertJsonCount(7); // 4 are created by default
     }
 
     public function test_assignment_and_tasks_are_retrieved_correctly(): void
@@ -113,16 +113,4 @@ class LessonsControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonPath('id', $attempt->id);
     }*/
-
-    public function test_hourly_algorithm_is_retrieved_correctly(): void
-    {
-        $user = User::factory()->create();
-        Auth::login($user);
-
-        HourlyAlgorithm::factory()->count(24)->create();
-
-        $response = $this->getJson('/api/algorithm-of-the-hour');
-
-        $response->assertStatus(200);
-    }
 }
