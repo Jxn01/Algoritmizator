@@ -44,7 +44,7 @@ const chalky = "#e5c07b",
     selection = "#3E4451",
     cursor = "#528bff"
 
-export const color = {
+const color = {
     chalky,
     coral,
     cyan,
@@ -63,7 +63,7 @@ export const color = {
     cursor
 }
 
-export const oneDarkTheme = EditorView.theme({
+const oneDarkTheme = EditorView.theme({
     "&": {
         color: ivory,
         backgroundColor: background
@@ -131,7 +131,7 @@ export const oneDarkTheme = EditorView.theme({
     }
 }, {dark: true})
 
-export const oneDarkHighlightStyle = HighlightStyle.define([
+const oneDarkHighlightStyle = HighlightStyle.define([
     {tag: t.keyword,
         color: violet},
     {tag: [t.name, t.deleted, t.character, t.propertyName, t.macroName],

@@ -271,7 +271,7 @@ return new class extends Migration
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 1,
-                'title' => 'Tömbök kezelése C++ nyelven - Feladatok',
+                'title' => 'Tömbök',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/arrays/arrays.md'),
                 'assignment_xp' => 100
             ],
@@ -320,7 +320,7 @@ return new class extends Migration
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 2,
-                'title' => 'Listák kezelése programozásban - Feladatok',
+                'title' => 'Listák',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/lists/lists.md'),
                 'assignment_xp' => 100
             ],
@@ -368,7 +368,7 @@ return new class extends Migration
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 3,
-                'title' => 'Vermek kezelése programozásban - Feladatok',
+                'title' => 'Vermek',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/stacks/stacks.md'),
                 'assignment_xp' => 100
             ],
@@ -383,7 +383,7 @@ return new class extends Migration
 
         DB::table('questions')->insert([
             ['task_id' => 9, 'markdown' => 'Mi a verem szerepe a programozásban?'],
-            ['task_id' => 9, 'markdown' => 'Hogyan hozhatunk létre egy veremet?'],
+            ['task_id' => 9, 'markdown' => 'Hogyan hozhatunk létre egy vermet?'],
             ['task_id' => 10, 'markdown' => 'A verem elemeit LIFO (Last In, First Out) elv szerint kezeljük.'],
             ['task_id' => 10, 'markdown' => 'A verem elemeit FIFO (First In, First Out) elv szerint kezeljük.'],
             ['task_id' => 11, 'markdown' => 'Mely műveletek tartoznak a verem alapvető műveletei közé?'],
@@ -417,7 +417,7 @@ return new class extends Migration
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 4,
-                'title' => 'Sorok kezelése programozásban - Feladatok',
+                'title' => 'Sorok',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/queues/queues.md'),
                 'assignment_xp' => 100
             ],
@@ -465,7 +465,7 @@ return new class extends Migration
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 5,
-                'title' => 'Fák kezelése programozásban - Feladatok',
+                'title' => 'Fák',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/trees/trees.md'),
                 'assignment_xp' => 100
             ],
@@ -513,27 +513,27 @@ return new class extends Migration
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 6,
-                'title' => 'Grafok kezelése programozásban - Feladatok',
+                'title' => 'Gráfok',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/graphs/graphs.md'),
                 'assignment_xp' => 100
             ],
         ]);
 
         DB::table('tasks')->insert([
-            ['assignment_id' => 6, 'type' => 'quiz', 'title' => 'Grafok alapjai', 'markdown' => 'Ebben a részben a grafok alapvető használatával kapcsolatos kérdéseket találsz.'],
-            ['assignment_id' => 6, 'type' => 'true_false', 'title' => 'Grafok típusai', 'markdown' => 'Ebben a részben a grafok különböző típusairól szóló kérdéseket találsz.'],
-            ['assignment_id' => 6, 'type' => 'checkbox', 'title' => 'Graf reprezentációk', 'markdown' => 'Ebben a részben a graf különböző reprezentációival kapcsolatos kérdéseket találsz.'],
+            ['assignment_id' => 6, 'type' => 'quiz', 'title' => 'Gráfok alapjai', 'markdown' => 'Ebben a részben a gráfok alapvető használatával kapcsolatos kérdéseket találsz.'],
+            ['assignment_id' => 6, 'type' => 'true_false', 'title' => 'Gráfok típusai', 'markdown' => 'Ebben a részben a gráfok különböző típusairól szóló kérdéseket találsz.'],
+            ['assignment_id' => 6, 'type' => 'checkbox', 'title' => 'Gráf reprezentációk', 'markdown' => 'Ebben a részben a gráf különböző reprezentációival kapcsolatos kérdéseket találsz.'],
             ['assignment_id' => 6, 'type' => 'result', 'title' => 'Memóriakezelési gyakorlat', 'markdown' => Storage::get('markdowns/assignments/data_structures/graphs/code_task.md')],
         ]);
 
         DB::table('questions')->insert([
-            ['task_id' => 21, 'markdown' => 'Mi a graf szerepe a programozásban?'],
-            ['task_id' => 21, 'markdown' => 'Hogyan hozhatunk létre egy irányítatlan grafot?'],
-            ['task_id' => 22, 'markdown' => 'Az irányítatlan grafban az élek nem rendelkeznek iránnyal.'],
-            ['task_id' => 22, 'markdown' => 'A súlyozott grafban az élekhez súlyok vannak rendelve.'],
-            ['task_id' => 23, 'markdown' => 'Mely reprezentációk használatosak grafok ábrázolására?'],
+            ['task_id' => 21, 'markdown' => 'Mi a gráf szerepe a programozásban?'],
+            ['task_id' => 21, 'markdown' => 'Hogyan hozhatunk létre egy irányítatlan gráfot?'],
+            ['task_id' => 22, 'markdown' => 'Az irányítatlan gráfban az élek nem rendelkeznek iránnyal.'],
+            ['task_id' => 22, 'markdown' => 'A súlyozott gráfban az élekhez súlyok vannak rendelve.'],
+            ['task_id' => 23, 'markdown' => 'Mely reprezentációk használatosak gráfok ábrázolására?'],
             ['task_id' => 23, 'markdown' => 'Melyik állítás igaz a szomszédsági mátrixra?'],
-            ['task_id' => 24, 'markdown' => 'Mi lesz a graf tartalma a fenti műveletek után?'],
+            ['task_id' => 24, 'markdown' => 'Mi lesz a gráf tartalma a fenti műveletek után?'],
         ]);
 
         DB::table('answers')->insert([
@@ -560,7 +560,7 @@ return new class extends Migration
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 7,
-                'title' => 'Hasító táblák kezelése programozásban - Feladatok',
+                'title' => 'Hasító táblák',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/hash_tables/hash_tables.md'),
                 'assignment_xp' => 100
             ],
@@ -604,7 +604,7 @@ return new class extends Migration
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 8,
-                'title' => 'Beszúró rendezés programozásban - Feladatok',
+                'title' => 'Beszúró rendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/insertion_sort/insertion_sort.md'),
                 'assignment_xp' => 100
             ],
@@ -626,29 +626,29 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 50, 'answer' => 'Kis méretű vagy részben rendezett adatsorok hatékony rendezése', 'is_correct' => true],
-            ['question_id' => 50, 'answer' => 'Nagy méretű adatsorok hatékony rendezése', 'is_correct' => false],
-            ['question_id' => 50, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
-            ['question_id' => 51, 'answer' => 'Az algoritmus iterál a rendezetlen részen, és minden egyes elemét beilleszti a megfelelő helyre a rendezett részben.', 'is_correct' => true],
-            ['question_id' => 51, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
-            ['question_id' => 51, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
-            ['question_id' => 52, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 52, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 53, 'answer' => 'Igaz', 'is_correct' => false],
-            ['question_id' => 53, 'answer' => 'Hamis', 'is_correct' => true],
-            ['question_id' => 54, 'answer' => 'O(n^2) a legrosszabb esetben', 'is_correct' => true],
-            ['question_id' => 54, 'answer' => 'O(n) a legjobb esetben', 'is_correct' => true],
-            ['question_id' => 54, 'answer' => 'O(log n) az átlagos esetben', 'is_correct' => false],
-            ['question_id' => 54, 'answer' => 'O(1) a legjobb esetben', 'is_correct' => false],
-            ['question_id' => 55, 'answer' => 'O(1), mert csak egy kis mennyiségű extra memóriát használ', 'is_correct' => true],
-            ['question_id' => 55, 'answer' => 'O(n), mert az összes elemet újra kell rendezni', 'is_correct' => false],
-            ['question_id' => 55, 'answer' => 'O(log n), mert az algoritmus bináris keresést használ', 'is_correct' => false],
+            ['question_id' => 49, 'answer' => 'Kis méretű vagy részben rendezett adatsorok hatékony rendezése', 'is_correct' => true],
+            ['question_id' => 49, 'answer' => 'Nagy méretű adatsorok hatékony rendezése', 'is_correct' => false],
+            ['question_id' => 49, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
+            ['question_id' => 50, 'answer' => 'Az algoritmus iterál a rendezetlen részen, és minden egyes elemét beilleszti a megfelelő helyre a rendezett részben.', 'is_correct' => true],
+            ['question_id' => 50, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
+            ['question_id' => 50, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
+            ['question_id' => 51, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 51, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 52, 'answer' => 'Igaz', 'is_correct' => false],
+            ['question_id' => 52, 'answer' => 'Hamis', 'is_correct' => true],
+            ['question_id' => 53, 'answer' => 'O(n^2) a legrosszabb esetben', 'is_correct' => true],
+            ['question_id' => 53, 'answer' => 'O(n) a legjobb esetben', 'is_correct' => true],
+            ['question_id' => 53, 'answer' => 'O(log n) az átlagos esetben', 'is_correct' => false],
+            ['question_id' => 53, 'answer' => 'O(1) a legjobb esetben', 'is_correct' => false],
+            ['question_id' => 54, 'answer' => 'O(1), mert csak egy kis mennyiségű extra memóriát használ', 'is_correct' => true],
+            ['question_id' => 54, 'answer' => 'O(n), mert az összes elemet újra kell rendezni', 'is_correct' => false],
+            ['question_id' => 54, 'answer' => 'O(log n), mert az algoritmus bináris keresést használ', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 9,
-                'title' => 'Kiválasztásos rendezés programozásban - Feladatok',
+                'title' => 'Kiválasztásos rendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/selection_sort/selection_sort.md'),
                 'assignment_xp' => 100
             ],
@@ -670,29 +670,29 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 57, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => true],
-            ['question_id' => 57, 'answer' => 'Nagy méretű adatsorok hatékony rendezése', 'is_correct' => false],
-            ['question_id' => 57, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
-            ['question_id' => 58, 'answer' => 'Az algoritmus iterál a rendezetlen részen, kiválasztja a legkisebb elemet, és kicseréli azt a rendezetlen rész első elemével.', 'is_correct' => true],
-            ['question_id' => 58, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
-            ['question_id' => 58, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
-            ['question_id' => 59, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 59, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 60, 'answer' => 'Igaz', 'is_correct' => false],
-            ['question_id' => 60, 'answer' => 'Hamis', 'is_correct' => true],
-            ['question_id' => 61, 'answer' => 'O(n^2) a legrosszabb esetben', 'is_correct' => true],
-            ['question_id' => 61, 'answer' => 'O(n) a legjobb esetben', 'is_correct' => false],
-            ['question_id' => 61, 'answer' => 'O(n^2) az átlagos esetben', 'is_correct' => true],
-            ['question_id' => 61, 'answer' => 'O(1) a legjobb esetben', 'is_correct' => false],
-            ['question_id' => 62, 'answer' => 'O(1), mert csak egy kis mennyiségű extra memóriát használ', 'is_correct' => true],
-            ['question_id' => 62, 'answer' => 'O(n), mert az összes elemet újra kell rendezni', 'is_correct' => false],
-            ['question_id' => 62, 'answer' => 'O(log n), mert az algoritmus bináris keresést használ', 'is_correct' => false],
+            ['question_id' => 55, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => true],
+            ['question_id' => 55, 'answer' => 'Nagy méretű adatsorok hatékony rendezése', 'is_correct' => false],
+            ['question_id' => 55, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
+            ['question_id' => 56, 'answer' => 'Az algoritmus iterál a rendezetlen részen, kiválasztja a legkisebb elemet, és kicseréli azt a rendezetlen rész első elemével.', 'is_correct' => true],
+            ['question_id' => 56, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
+            ['question_id' => 56, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
+            ['question_id' => 57, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 57, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 58, 'answer' => 'Igaz', 'is_correct' => false],
+            ['question_id' => 58, 'answer' => 'Hamis', 'is_correct' => true],
+            ['question_id' => 59, 'answer' => 'O(n^2) a legrosszabb esetben', 'is_correct' => true],
+            ['question_id' => 59, 'answer' => 'O(n) a legjobb esetben', 'is_correct' => false],
+            ['question_id' => 59, 'answer' => 'O(n^2) az átlagos esetben', 'is_correct' => true],
+            ['question_id' => 59, 'answer' => 'O(1) a legjobb esetben', 'is_correct' => false],
+            ['question_id' => 60, 'answer' => 'O(1), mert csak egy kis mennyiségű extra memóriát használ', 'is_correct' => true],
+            ['question_id' => 60, 'answer' => 'O(n), mert az összes elemet újra kell rendezni', 'is_correct' => false],
+            ['question_id' => 60, 'answer' => 'O(log n), mert az algoritmus bináris keresést használ', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 10,
-                'title' => 'Összefésüléses rendezés programozásban - Feladatok',
+                'title' => 'Összefésüléses rendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/merge_sort/merge_sort.md'),
                 'assignment_xp' => 100
             ],
@@ -714,29 +714,29 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 64, 'answer' => 'Nagy méretű adatsorok hatékony rendezése', 'is_correct' => true],
-            ['question_id' => 64, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => false],
-            ['question_id' => 64, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
-            ['question_id' => 65, 'answer' => 'Az algoritmus az adatsort két részre bontja, majd azokat rendezi és összefésüli.', 'is_correct' => true],
-            ['question_id' => 65, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
-            ['question_id' => 65, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
-            ['question_id' => 66, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 66, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 67, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 67, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 68, 'answer' => 'O(n log n) a legrosszabb esetben', 'is_correct' => true],
-            ['question_id' => 68, 'answer' => 'O(n) a legjobb esetben', 'is_correct' => false],
-            ['question_id' => 68, 'answer' => 'O(n log n) az átlagos esetben', 'is_correct' => true],
-            ['question_id' => 68, 'answer' => 'O(1) a legjobb esetben', 'is_correct' => false],
-            ['question_id' => 69, 'answer' => 'O(n), mert szükség van kiegészítő memóriára az összefésülés során', 'is_correct' => true],
-            ['question_id' => 69, 'answer' => 'O(1), mert az összefésülés nem igényel extra memóriát', 'is_correct' => false],
-            ['question_id' => 69, 'answer' => 'O(n^2), mert az összefésülés hosszú időt vesz igénybe', 'is_correct' => false],
+            ['question_id' => 61, 'answer' => 'Nagy méretű adatsorok hatékony rendezése', 'is_correct' => true],
+            ['question_id' => 61, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => false],
+            ['question_id' => 61, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
+            ['question_id' => 62, 'answer' => 'Az algoritmus az adatsort két részre bontja, majd azokat rendezi és összefésüli.', 'is_correct' => true],
+            ['question_id' => 62, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
+            ['question_id' => 62, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
+            ['question_id' => 63, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 63, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 64, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 64, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 65, 'answer' => 'O(n log n) a legrosszabb esetben', 'is_correct' => true],
+            ['question_id' => 65, 'answer' => 'O(n) a legjobb esetben', 'is_correct' => false],
+            ['question_id' => 65, 'answer' => 'O(n log n) az átlagos esetben', 'is_correct' => true],
+            ['question_id' => 65, 'answer' => 'O(1) a legjobb esetben', 'is_correct' => false],
+            ['question_id' => 66, 'answer' => 'O(n), mert szükség van kiegészítő memóriára az összefésülés során', 'is_correct' => true],
+            ['question_id' => 66, 'answer' => 'O(1), mert az összefésülés nem igényel extra memóriát', 'is_correct' => false],
+            ['question_id' => 66, 'answer' => 'O(n^2), mert az összefésülés hosszú időt vesz igénybe', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 11,
-                'title' => 'Gyorsrendezés programozásban - Feladatok',
+                'title' => 'Gyorsrendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/quick_sort/quick_sort.md'),
                 'assignment_xp' => 100
             ],
@@ -758,29 +758,29 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 71, 'answer' => 'Nagy méretű adatsorok hatékony rendezése', 'is_correct' => true],
-            ['question_id' => 71, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => false],
-            ['question_id' => 71, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
-            ['question_id' => 72, 'answer' => 'Az algoritmus az adatsort két részre bontja, és a pivot elem alapján rendezi.', 'is_correct' => true],
-            ['question_id' => 72, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
-            ['question_id' => 72, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
-            ['question_id' => 73, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 73, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 74, 'answer' => 'Igaz', 'is_correct' => false],
-            ['question_id' => 74, 'answer' => 'Hamis', 'is_correct' => true],
-            ['question_id' => 75, 'answer' => 'O(n log n) a legrosszabb esetben', 'is_correct' => false],
-            ['question_id' => 75, 'answer' => 'O(n) a legjobb esetben', 'is_correct' => false],
-            ['question_id' => 75, 'answer' => 'O(n log n) az átlagos esetben', 'is_correct' => true],
-            ['question_id' => 75, 'answer' => 'O(1) a legjobb esetben', 'is_correct' => false],
-            ['question_id' => 76, 'answer' => 'O(log n), mert szükség van kiegészítő memóriára a rekurzív hívásokhoz', 'is_correct' => true],
-            ['question_id' => 76, 'answer' => 'O(1), mert az algoritmus nem igényel extra memóriát', 'is_correct' => false],
-            ['question_id' => 76, 'answer' => 'O(n^2), mert az összefésülés hosszú időt vesz igénybe', 'is_correct' => false],
+            ['question_id' => 67, 'answer' => 'Nagy méretű adatsorok hatékony rendezése', 'is_correct' => true],
+            ['question_id' => 67, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => false],
+            ['question_id' => 67, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
+            ['question_id' => 68, 'answer' => 'Az algoritmus az adatsort két részre bontja, és a pivot elem alapján rendezi.', 'is_correct' => true],
+            ['question_id' => 68, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
+            ['question_id' => 68, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
+            ['question_id' => 69, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 69, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 70, 'answer' => 'Igaz', 'is_correct' => false],
+            ['question_id' => 70, 'answer' => 'Hamis', 'is_correct' => true],
+            ['question_id' => 71, 'answer' => 'O(n log n) a legrosszabb esetben', 'is_correct' => false],
+            ['question_id' => 71, 'answer' => 'O(n) a legjobb esetben', 'is_correct' => false],
+            ['question_id' => 71, 'answer' => 'O(n log n) az átlagos esetben', 'is_correct' => true],
+            ['question_id' => 71, 'answer' => 'O(1) a legjobb esetben', 'is_correct' => false],
+            ['question_id' => 72, 'answer' => 'O(log n), mert szükség van kiegészítő memóriára a rekurzív hívásokhoz', 'is_correct' => true],
+            ['question_id' => 72, 'answer' => 'O(1), mert az algoritmus nem igényel extra memóriát', 'is_correct' => false],
+            ['question_id' => 72, 'answer' => 'O(n^2), mert az összefésülés hosszú időt vesz igénybe', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 12,
-                'title' => 'Kupacrendezés programozásban - Feladatok',
+                'title' => 'Kupacrendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/heap_sort/heap_sort.md'),
                 'assignment_xp' => 100
             ],
@@ -802,29 +802,29 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 78, 'answer' => 'Nagy méretű adatsorok hatékony rendezése', 'is_correct' => true],
-            ['question_id' => 78, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => false],
-            ['question_id' => 78, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
-            ['question_id' => 79, 'answer' => 'Az algoritmus az adatsort kupaccá alakítja, majd rendezi.', 'is_correct' => true],
-            ['question_id' => 79, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
-            ['question_id' => 79, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
-            ['question_id' => 80, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 80, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 81, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 81, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 82, 'answer' => 'O(n log n) a legrosszabb esetben', 'is_correct' => true],
-            ['question_id' => 82, 'answer' => 'O(n) a legjobb esetben', 'is_correct' => false],
-            ['question_id' => 82, 'answer' => 'O(n log n) az átlagos esetben', 'is_correct' => true],
-            ['question_id' => 82, 'answer' => 'O(1) a legjobb esetben', 'is_correct' => false],
-            ['question_id' => 83, 'answer' => 'O(1), mert in-place algoritmus', 'is_correct' => true],
-            ['question_id' => 83, 'answer' => 'O(n), mert szükség van kiegészítő memóriára', 'is_correct' => false],
-            ['question_id' => 83, 'answer' => 'O(n^2), mert az algoritmus sok időt vesz igénybe', 'is_correct' => false],
+            ['question_id' => 73, 'answer' => 'Nagy méretű adatsorok hatékony rendezése', 'is_correct' => true],
+            ['question_id' => 73, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => false],
+            ['question_id' => 73, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
+            ['question_id' => 74, 'answer' => 'Az algoritmus az adatsort kupaccá alakítja, majd rendezi.', 'is_correct' => true],
+            ['question_id' => 74, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
+            ['question_id' => 74, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
+            ['question_id' => 75, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 75, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 76, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 76, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 77, 'answer' => 'O(n log n) a legrosszabb esetben', 'is_correct' => true],
+            ['question_id' => 77, 'answer' => 'O(n) a legjobb esetben', 'is_correct' => false],
+            ['question_id' => 77, 'answer' => 'O(n log n) az átlagos esetben', 'is_correct' => true],
+            ['question_id' => 77, 'answer' => 'O(1) a legjobb esetben', 'is_correct' => false],
+            ['question_id' => 78, 'answer' => 'O(1), mert in-place algoritmus', 'is_correct' => true],
+            ['question_id' => 78, 'answer' => 'O(n), mert szükség van kiegészítő memóriára', 'is_correct' => false],
+            ['question_id' => 78, 'answer' => 'O(n^2), mert az algoritmus sok időt vesz igénybe', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 13,
-                'title' => 'Edényrendezés (Bucket Sort) programozásban - Feladatok',
+                'title' => 'Edényrendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/bucket_sort/bucket_sort.md'),
                 'assignment_xp' => 100
             ],
@@ -846,29 +846,29 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 85, 'answer' => 'Nagy méretű adatsorok hatékony rendezése ismert tartományban', 'is_correct' => true],
-            ['question_id' => 85, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => false],
-            ['question_id' => 85, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
-            ['question_id' => 86, 'answer' => 'Az algoritmus az adatsort edényekre bontja, majd azokat rendezi és összeilleszti.', 'is_correct' => true],
-            ['question_id' => 86, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
-            ['question_id' => 86, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
-            ['question_id' => 87, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 87, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 88, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 88, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 89, 'answer' => 'O(n + k), ahol n az elemek száma és k az edények száma', 'is_correct' => true],
-            ['question_id' => 89, 'answer' => 'O(n log n) a legjobb esetben', 'is_correct' => false],
-            ['question_id' => 89, 'answer' => 'O(n^2) az átlagos esetben', 'is_correct' => false],
-            ['question_id' => 89, 'answer' => 'O(1) a legrosszabb esetben', 'is_correct' => false],
-            ['question_id' => 90, 'answer' => 'O(n + k), mivel extra memóriát igényel az edények és az átmeneti tárolás számára', 'is_correct' => true],
-            ['question_id' => 90, 'answer' => 'O(1), mert in-place algoritmus', 'is_correct' => false],
-            ['question_id' => 90, 'answer' => 'O(n^2), mert az algoritmus sok időt vesz igénybe', 'is_correct' => false],
+            ['question_id' => 79, 'answer' => 'Nagy méretű adatsorok hatékony rendezése ismert tartományban', 'is_correct' => true],
+            ['question_id' => 79, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => false],
+            ['question_id' => 79, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
+            ['question_id' => 80, 'answer' => 'Az algoritmus az adatsort edényekre bontja, majd azokat rendezi és összeilleszti.', 'is_correct' => true],
+            ['question_id' => 80, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
+            ['question_id' => 80, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
+            ['question_id' => 81, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 81, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 82, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 82, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 83, 'answer' => 'O(n + k), ahol n az elemek száma és k az edények száma', 'is_correct' => true],
+            ['question_id' => 83, 'answer' => 'O(n log n) a legjobb esetben', 'is_correct' => false],
+            ['question_id' => 83, 'answer' => 'O(n^2) az átlagos esetben', 'is_correct' => false],
+            ['question_id' => 83, 'answer' => 'O(1) a legrosszabb esetben', 'is_correct' => false],
+            ['question_id' => 84, 'answer' => 'O(n + k), mivel extra memóriát igényel az edények és az átmeneti tárolás számára', 'is_correct' => true],
+            ['question_id' => 84, 'answer' => 'O(1), mert in-place algoritmus', 'is_correct' => false],
+            ['question_id' => 84, 'answer' => 'O(n^2), mert az algoritmus sok időt vesz igénybe', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 14,
-                'title' => 'Leszámláló rendezés (Counting Sort) programozásban - Feladatok',
+                'title' => 'Leszámláló rendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/counting_sort/counting_sort.md'),
                 'assignment_xp' => 100
             ],
@@ -890,29 +890,29 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 92, 'answer' => 'Nagy méretű adatsorok hatékony rendezése ismert tartományban', 'is_correct' => true],
-            ['question_id' => 92, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => false],
-            ['question_id' => 92, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
-            ['question_id' => 93, 'answer' => 'Az algoritmus az adatsort számláló tömbre bontja, majd azokat rendezi és összeilleszti.', 'is_correct' => true],
-            ['question_id' => 93, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
-            ['question_id' => 93, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
-            ['question_id' => 94, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 94, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 95, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 95, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 96, 'answer' => 'O(n + k), ahol n az elemek száma és k a legnagyobb érték az adatsorban', 'is_correct' => true],
-            ['question_id' => 96, 'answer' => 'O(n log n) a legjobb esetben', 'is_correct' => false],
-            ['question_id' => 96, 'answer' => 'O(n^2) az átlagos esetben', 'is_correct' => false],
-            ['question_id' => 96, 'answer' => 'O(1) a legrosszabb esetben', 'is_correct' => false],
-            ['question_id' => 97, 'answer' => 'O(n + k), mivel extra memóriát igényel a számláló és a kimeneti tömbök számára', 'is_correct' => true],
-            ['question_id' => 97, 'answer' => 'O(1), mert in-place algoritmus', 'is_correct' => false],
-            ['question_id' => 97, 'answer' => 'O(n^2), mert az algoritmus sok időt vesz igénybe', 'is_correct' => false],
+            ['question_id' => 85, 'answer' => 'Nagy méretű adatsorok hatékony rendezése ismert tartományban', 'is_correct' => true],
+            ['question_id' => 85, 'answer' => 'Kis méretű adatsorok hatékony rendezése', 'is_correct' => false],
+            ['question_id' => 85, 'answer' => 'Csak szöveges adatok rendezése', 'is_correct' => false],
+            ['question_id' => 86, 'answer' => 'Az algoritmus az adatsort számláló tömbre bontja, majd azokat rendezi és összeilleszti.', 'is_correct' => true],
+            ['question_id' => 86, 'answer' => 'Az algoritmus minden elemet egy új listába másol.', 'is_correct' => false],
+            ['question_id' => 86, 'answer' => 'Az algoritmus két részre osztja az adatsort, és párhuzamosan rendezi őket.', 'is_correct' => false],
+            ['question_id' => 87, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 87, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 88, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 88, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 89, 'answer' => 'O(n + k), ahol n az elemek száma és k a legnagyobb érték az adatsorban', 'is_correct' => true],
+            ['question_id' => 89, 'answer' => 'O(n log n) a legjobb esetben', 'is_correct' => false],
+            ['question_id' => 89, 'answer' => 'O(n^2) az átlagos esetben', 'is_correct' => false],
+            ['question_id' => 89, 'answer' => 'O(1) a legrosszabb esetben', 'is_correct' => false],
+            ['question_id' => 90, 'answer' => 'O(n + k), mivel extra memóriát igényel a számláló és a kimeneti tömbök számára', 'is_correct' => true],
+            ['question_id' => 90, 'answer' => 'O(1), mert in-place algoritmus', 'is_correct' => false],
+            ['question_id' => 90, 'answer' => 'O(n^2), mert az algoritmus sok időt vesz igénybe', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 15,
-                'title' => 'Radix rendezés - Feladatok',
+                'title' => 'Radix rendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/radix_sort/radix_sort.md'),
                 'assignment_xp' => 100
             ],
@@ -934,30 +934,30 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 99, 'answer' => 'Adatok csoportos tárolása', 'is_correct' => false],
-            ['question_id' => 99, 'answer' => 'Adatok komparatív rendezése', 'is_correct' => false],
-            ['question_id' => 99, 'answer' => 'Adatok nem-komparatív rendezése', 'is_correct' => true],
-            ['question_id' => 100, 'answer' => 'Quicksort', 'is_correct' => false],
-            ['question_id' => 100, 'answer' => 'Mergesort', 'is_correct' => false],
-            ['question_id' => 100, 'answer' => 'Countingsort', 'is_correct' => true],
-            ['question_id' => 101, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 101, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 102, 'answer' => 'Igaz', 'is_correct' => false],
-            ['question_id' => 102, 'answer' => 'Hamis', 'is_correct' => true],
-            ['question_id' => 103, 'answer' => 'Különösen hatékony fix hosszúságú adatok rendezésére.', 'is_correct' => true],
-            ['question_id' => 103, 'answer' => 'Jól skálázható nagy adatsorok esetén.', 'is_correct' => true],
-            ['question_id' => 103, 'answer' => 'Mindig gyorsabb, mint a quicksort.', 'is_correct' => false],
-            ['question_id' => 103, 'answer' => 'Komparatív rendezési algoritmus.', 'is_correct' => false],
-            ['question_id' => 104, 'answer' => 'Számok', 'is_correct' => true],
-            ['question_id' => 104, 'answer' => 'Szavak', 'is_correct' => true],
-            ['question_id' => 104, 'answer' => 'Bonyolult adatstruktúrák', 'is_correct' => false],
-            ['question_id' => 104, 'answer' => 'Lebegőpontos számok', 'is_correct' => false],
+            ['question_id' => 91, 'answer' => 'Adatok csoportos tárolása', 'is_correct' => false],
+            ['question_id' => 91, 'answer' => 'Adatok komparatív rendezése', 'is_correct' => false],
+            ['question_id' => 91, 'answer' => 'Adatok nem-komparatív rendezése', 'is_correct' => true],
+            ['question_id' => 92, 'answer' => 'Quicksort', 'is_correct' => false],
+            ['question_id' => 92, 'answer' => 'Mergesort', 'is_correct' => false],
+            ['question_id' => 92, 'answer' => 'Countingsort', 'is_correct' => true],
+            ['question_id' => 93, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 93, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 94, 'answer' => 'Igaz', 'is_correct' => false],
+            ['question_id' => 94, 'answer' => 'Hamis', 'is_correct' => true],
+            ['question_id' => 95, 'answer' => 'Különösen hatékony fix hosszúságú adatok rendezésére.', 'is_correct' => true],
+            ['question_id' => 95, 'answer' => 'Jól skálázható nagy adatsorok esetén.', 'is_correct' => true],
+            ['question_id' => 95, 'answer' => 'Mindig gyorsabb, mint a quicksort.', 'is_correct' => false],
+            ['question_id' => 95, 'answer' => 'Komparatív rendezési algoritmus.', 'is_correct' => false],
+            ['question_id' => 96, 'answer' => 'Számok', 'is_correct' => true],
+            ['question_id' => 96, 'answer' => 'Szavak', 'is_correct' => true],
+            ['question_id' => 96, 'answer' => 'Bonyolult adatstruktúrák', 'is_correct' => false],
+            ['question_id' => 96, 'answer' => 'Lebegőpontos számok', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 16,
-                'title' => 'Gráfok reprezentációja - Feladatok',
+                'title' => 'Gráfok reprezentációja',
                 'markdown' => Storage::get('markdowns/assignments/graph_algorithms/graph_representations/graph_representations.md'),
                 'assignment_xp' => 100
             ],
@@ -979,30 +979,30 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 106, 'answer' => 'Gyors keresést tesz lehetővé', 'is_correct' => true],
-            ['question_id' => 106, 'answer' => 'Kevesebb memóriát használ', 'is_correct' => false],
-            ['question_id' => 106, 'answer' => 'Egyszerű implementálni', 'is_correct' => false],
-            ['question_id' => 107, 'answer' => 'Ha a gráf ritka', 'is_correct' => true],
-            ['question_id' => 107, 'answer' => 'Ha a gráf sűrű', 'is_correct' => false],
-            ['question_id' => 107, 'answer' => 'Ha gyors keresésre van szükség', 'is_correct' => false],
-            ['question_id' => 108, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 108, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 109, 'answer' => 'Igaz', 'is_correct' => false],
-            ['question_id' => 109, 'answer' => 'Hamis', 'is_correct' => true],
-            ['question_id' => 110, 'answer' => 'Az él lista hatékonyan tárolja a ritka gráfokat', 'is_correct' => true],
-            ['question_id' => 110, 'answer' => 'Az él lista könnyen skálázható', 'is_correct' => true],
-            ['question_id' => 110, 'answer' => 'Az él lista gyors keresést biztosít', 'is_correct' => false],
-            ['question_id' => 110, 'answer' => 'Az él lista kevesebb memóriát használ, mint a szomszédsági mátrix', 'is_correct' => true],
-            ['question_id' => 111, 'answer' => 'Az él lista tárolása gyorsabb, mint a szomszédsági mátrix', 'is_correct' => false],
-            ['question_id' => 111, 'answer' => 'Az él lista hatékonyan tárolja a sűrű gráfokat', 'is_correct' => false],
-            ['question_id' => 111, 'answer' => 'Az él lista kevesebb memóriát használ ritka gráfok esetén', 'is_correct' => true],
-            ['question_id' => 111, 'answer' => 'Az él lista könnyen implementálható', 'is_correct' => false],
+            ['question_id' => 97, 'answer' => 'Gyors keresést tesz lehetővé', 'is_correct' => true],
+            ['question_id' => 97, 'answer' => 'Kevesebb memóriát használ', 'is_correct' => false],
+            ['question_id' => 97, 'answer' => 'Egyszerű implementálni', 'is_correct' => false],
+            ['question_id' => 98, 'answer' => 'Ha a gráf ritka', 'is_correct' => true],
+            ['question_id' => 98, 'answer' => 'Ha a gráf sűrű', 'is_correct' => false],
+            ['question_id' => 98, 'answer' => 'Ha gyors keresésre van szükség', 'is_correct' => false],
+            ['question_id' => 99, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 99, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 100, 'answer' => 'Igaz', 'is_correct' => false],
+            ['question_id' => 100, 'answer' => 'Hamis', 'is_correct' => true],
+            ['question_id' => 101, 'answer' => 'Az él lista hatékonyan tárolja a ritka gráfokat', 'is_correct' => true],
+            ['question_id' => 101, 'answer' => 'Az él lista könnyen skálázható', 'is_correct' => true],
+            ['question_id' => 101, 'answer' => 'Az él lista gyors keresést biztosít', 'is_correct' => false],
+            ['question_id' => 101, 'answer' => 'Az él lista kevesebb memóriát használ, mint a szomszédsági mátrix', 'is_correct' => true],
+            ['question_id' => 102, 'answer' => 'Az él lista tárolása gyorsabb, mint a szomszédsági mátrix', 'is_correct' => false],
+            ['question_id' => 102, 'answer' => 'Az él lista hatékonyan tárolja a sűrű gráfokat', 'is_correct' => false],
+            ['question_id' => 102, 'answer' => 'Az él lista kevesebb memóriát használ ritka gráfok esetén', 'is_correct' => true],
+            ['question_id' => 102, 'answer' => 'Az él lista könnyen implementálható', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 17,
-                'title' => 'Szélességi keresés - Feladatok',
+                'title' => 'Szélességi keresés',
                 'markdown' => Storage::get('markdowns/assignments/graph_algorithms/breadth_first_search/breadth_first_search.md'),
                 'assignment_xp' => 100
             ],
@@ -1024,30 +1024,30 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 113, 'answer' => 'Szintenként halad végig a gráfon', 'is_correct' => true],
-            ['question_id' => 113, 'answer' => 'Mélységi irányban halad végig a gráfon', 'is_correct' => false],
-            ['question_id' => 113, 'answer' => 'Véletlenszerűen halad végig a gráfon', 'is_correct' => false],
-            ['question_id' => 114, 'answer' => 'Verem', 'is_correct' => false],
-            ['question_id' => 114, 'answer' => 'Sor', 'is_correct' => true],
-            ['question_id' => 114, 'answer' => 'Lista', 'is_correct' => false],
-            ['question_id' => 115, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 115, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 116, 'answer' => 'Igaz', 'is_correct' => false],
-            ['question_id' => 116, 'answer' => 'Hamis', 'is_correct' => true],
-            ['question_id' => 117, 'answer' => 'Legkisebb költségű út megtalálása súlyozatlan gráfban', 'is_correct' => true],
-            ['question_id' => 117, 'answer' => 'Legnagyobb költségű út megtalálása súlyozott gráfban', 'is_correct' => false],
-            ['question_id' => 117, 'answer' => 'Gráf összefüggőség vizsgálata', 'is_correct' => true],
-            ['question_id' => 117, 'answer' => 'Gráf körmentességének ellenőrzése', 'is_correct' => true],
-            ['question_id' => 118, 'answer' => 'A BFS mindig megtalálja a legrövidebb utat bármilyen gráfban', 'is_correct' => false],
-            ['question_id' => 118, 'answer' => 'A BFS csak súlyozatlan gráfokban garantáltan találja meg a legrövidebb utat', 'is_correct' => true],
-            ['question_id' => 118, 'answer' => 'A BFS minden esetben kevesebb memóriát használ, mint a DFS', 'is_correct' => false],
-            ['question_id' => 118, 'answer' => 'A BFS működése nem függ a gráf struktúrájától', 'is_correct' => false],
+            ['question_id' => 103, 'answer' => 'Szintenként halad végig a gráfon', 'is_correct' => true],
+            ['question_id' => 103, 'answer' => 'Mélységi irányban halad végig a gráfon', 'is_correct' => false],
+            ['question_id' => 103, 'answer' => 'Véletlenszerűen halad végig a gráfon', 'is_correct' => false],
+            ['question_id' => 104, 'answer' => 'Verem', 'is_correct' => false],
+            ['question_id' => 104, 'answer' => 'Sor', 'is_correct' => true],
+            ['question_id' => 104, 'answer' => 'Lista', 'is_correct' => false],
+            ['question_id' => 105, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 105, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 106, 'answer' => 'Igaz', 'is_correct' => false],
+            ['question_id' => 106, 'answer' => 'Hamis', 'is_correct' => true],
+            ['question_id' => 107, 'answer' => 'Legkisebb költségű út megtalálása súlyozatlan gráfban', 'is_correct' => true],
+            ['question_id' => 107, 'answer' => 'Legnagyobb költségű út megtalálása súlyozott gráfban', 'is_correct' => false],
+            ['question_id' => 107, 'answer' => 'Gráf összefüggőség vizsgálata', 'is_correct' => true],
+            ['question_id' => 107, 'answer' => 'Gráf körmentességének ellenőrzése', 'is_correct' => true],
+            ['question_id' => 108, 'answer' => 'A BFS mindig megtalálja a legrövidebb utat bármilyen gráfban', 'is_correct' => false],
+            ['question_id' => 108, 'answer' => 'A BFS csak súlyozatlan gráfokban garantáltan találja meg a legrövidebb utat', 'is_correct' => true],
+            ['question_id' => 108, 'answer' => 'A BFS minden esetben kevesebb memóriát használ, mint a DFS', 'is_correct' => false],
+            ['question_id' => 108, 'answer' => 'A BFS működése nem függ a gráf struktúrájától', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 18,
-                'title' => 'Mélységi keresés - Feladatok',
+                'title' => 'Mélységi keresés',
                 'markdown' => Storage::get('markdowns/assignments/graph_algorithms/depth_first_search/depth_first_search.md'),
                 'assignment_xp' => 100
             ],
@@ -1069,30 +1069,30 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 120, 'answer' => 'Mélységi irányban halad végig a gráfon', 'is_correct' => true],
-            ['question_id' => 120, 'answer' => 'Szintenként halad végig a gráfon', 'is_correct' => false],
-            ['question_id' => 120, 'answer' => 'Véletlenszerűen halad végig a gráfon', 'is_correct' => false],
-            ['question_id' => 121, 'answer' => 'Verem', 'is_correct' => true],
-            ['question_id' => 121, 'answer' => 'Sor', 'is_correct' => false],
-            ['question_id' => 121, 'answer' => 'Lista', 'is_correct' => false],
-            ['question_id' => 122, 'answer' => 'Igaz', 'is_correct' => false],
-            ['question_id' => 122, 'answer' => 'Hamis', 'is_correct' => true],
-            ['question_id' => 123, 'answer' => 'Igaz', 'is_correct' => false],
-            ['question_id' => 123, 'answer' => 'Hamis', 'is_correct' => true],
-            ['question_id' => 124, 'answer' => 'Gráf körmentességének ellenőrzése', 'is_correct' => true],
-            ['question_id' => 124, 'answer' => 'Legkisebb költségű út megtalálása súlyozatlan gráfban', 'is_correct' => false],
-            ['question_id' => 124, 'answer' => 'Gráf összefüggőség vizsgálata', 'is_correct' => true],
-            ['question_id' => 124, 'answer' => 'Gráf minimális feszítőfájának megtalálása', 'is_correct' => false],
-            ['question_id' => 125, 'answer' => 'A DFS mindig megtalálja a legrövidebb utat bármilyen gráfban', 'is_correct' => false],
-            ['question_id' => 125, 'answer' => 'A DFS általában mélyebbre hatol a gráfban, mielőtt visszalépne', 'is_correct' => true],
-            ['question_id' => 125, 'answer' => 'A DFS mindig kevesebb memóriát használ, mint a BFS', 'is_correct' => false],
-            ['question_id' => 125, 'answer' => 'A DFS működése nem függ a gráf struktúrájától', 'is_correct' => false],
+            ['question_id' => 109, 'answer' => 'Mélységi irányban halad végig a gráfon', 'is_correct' => true],
+            ['question_id' => 109, 'answer' => 'Szintenként halad végig a gráfon', 'is_correct' => false],
+            ['question_id' => 109, 'answer' => 'Véletlenszerűen halad végig a gráfon', 'is_correct' => false],
+            ['question_id' => 110, 'answer' => 'Verem', 'is_correct' => true],
+            ['question_id' => 110, 'answer' => 'Sor', 'is_correct' => false],
+            ['question_id' => 110, 'answer' => 'Lista', 'is_correct' => false],
+            ['question_id' => 111, 'answer' => 'Igaz', 'is_correct' => false],
+            ['question_id' => 111, 'answer' => 'Hamis', 'is_correct' => true],
+            ['question_id' => 112, 'answer' => 'Igaz', 'is_correct' => false],
+            ['question_id' => 112, 'answer' => 'Hamis', 'is_correct' => true],
+            ['question_id' => 113, 'answer' => 'Gráf körmentességének ellenőrzése', 'is_correct' => true],
+            ['question_id' => 113, 'answer' => 'Legkisebb költségű út megtalálása súlyozatlan gráfban', 'is_correct' => false],
+            ['question_id' => 113, 'answer' => 'Gráf összefüggőség vizsgálata', 'is_correct' => true],
+            ['question_id' => 113, 'answer' => 'Gráf minimális feszítőfájának megtalálása', 'is_correct' => false],
+            ['question_id' => 114, 'answer' => 'A DFS mindig megtalálja a legrövidebb utat bármilyen gráfban', 'is_correct' => false],
+            ['question_id' => 114, 'answer' => 'A DFS általában mélyebbre hatol a gráfban, mielőtt visszalépne', 'is_correct' => true],
+            ['question_id' => 114, 'answer' => 'A DFS mindig kevesebb memóriát használ, mint a BFS', 'is_correct' => false],
+            ['question_id' => 114, 'answer' => 'A DFS működése nem függ a gráf struktúrájától', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 19,
-                'title' => 'Legrövidebb út algoritmusok - Feladatok',
+                'title' => 'Legrövidebb út algoritmusok',
                 'markdown' => Storage::get('markdowns/assignments/graph_algorithms/shortest_path_algorithms/shortest_path_algorithms.md'),
                 'assignment_xp' => 100
             ],
@@ -1114,31 +1114,31 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 127, 'answer' => 'A legkisebb súlyú út megtalálása két csomópont között', 'is_correct' => true],
-            ['question_id' => 127, 'answer' => 'A legnagyobb súlyú út megtalálása két csomópont között', 'is_correct' => false],
-            ['question_id' => 127, 'answer' => 'A legrövidebb ciklus megtalálása a gráfban', 'is_correct' => false],
-            ['question_id' => 128, 'answer' => 'Súlyozott gráfok', 'is_correct' => true],
-            ['question_id' => 128, 'answer' => 'Súlyozatlan gráfok', 'is_correct' => true],
-            ['question_id' => 128, 'answer' => 'Csak irányított gráfok', 'is_correct' => false],
-            ['question_id' => 128, 'answer' => 'Csak irányítatlan gráfok', 'is_correct' => false],
-            ['question_id' => 129, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 129, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 130, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 130, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 131, 'answer' => 'Minden lehetséges út megvizsgálása', 'is_correct' => true],
-            ['question_id' => 131, 'answer' => 'Csak a legrövidebb út megvizsgálása', 'is_correct' => false],
-            ['question_id' => 131, 'answer' => 'Csak pozitív súlyú élek kezelése', 'is_correct' => false],
-            ['question_id' => 131, 'answer' => 'Negatív súlyú élek kezelése', 'is_correct' => true],
-            ['question_id' => 132, 'answer' => 'A Bellman-Ford algoritmus minden típusú gráfban alkalmazható', 'is_correct' => true],
-            ['question_id' => 132, 'answer' => 'A Bellman-Ford algoritmus csak súlyozatlan gráfokban működik', 'is_correct' => false],
-            ['question_id' => 132, 'answer' => 'A Bellman-Ford algoritmus mindig hatékonyabb, mint a Dijkstra algoritmus', 'is_correct' => false],
-            ['question_id' => 132, 'answer' => 'A Bellman-Ford algoritmus nem működik negatív súlyú élekkel', 'is_correct' => false],
+            ['question_id' => 115, 'answer' => 'A legkisebb súlyú út megtalálása két csomópont között', 'is_correct' => true],
+            ['question_id' => 115, 'answer' => 'A legnagyobb súlyú út megtalálása két csomópont között', 'is_correct' => false],
+            ['question_id' => 115, 'answer' => 'A legrövidebb ciklus megtalálása a gráfban', 'is_correct' => false],
+            ['question_id' => 116, 'answer' => 'Súlyozott gráfok', 'is_correct' => true],
+            ['question_id' => 116, 'answer' => 'Súlyozatlan gráfok', 'is_correct' => true],
+            ['question_id' => 116, 'answer' => 'Csak irányított gráfok', 'is_correct' => false],
+            ['question_id' => 116, 'answer' => 'Csak irányítatlan gráfok', 'is_correct' => false],
+            ['question_id' => 117, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 117, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 118, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 118, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 119, 'answer' => 'Minden lehetséges út megvizsgálása', 'is_correct' => true],
+            ['question_id' => 119, 'answer' => 'Csak a legrövidebb út megvizsgálása', 'is_correct' => false],
+            ['question_id' => 119, 'answer' => 'Csak pozitív súlyú élek kezelése', 'is_correct' => false],
+            ['question_id' => 119, 'answer' => 'Negatív súlyú élek kezelése', 'is_correct' => true],
+            ['question_id' => 120, 'answer' => 'A Bellman-Ford algoritmus minden típusú gráfban alkalmazható', 'is_correct' => true],
+            ['question_id' => 120, 'answer' => 'A Bellman-Ford algoritmus csak súlyozatlan gráfokban működik', 'is_correct' => false],
+            ['question_id' => 120, 'answer' => 'A Bellman-Ford algoritmus mindig hatékonyabb, mint a Dijkstra algoritmus', 'is_correct' => false],
+            ['question_id' => 120, 'answer' => 'A Bellman-Ford algoritmus nem működik negatív súlyú élekkel', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 20,
-                'title' => 'Pointerek használata C++ nyelven - Feladatok',
+                'title' => 'Pointerek használata',
                 'markdown' => Storage::get('markdowns/assignments/c/pointers/pointers.md'),
                 'assignment_xp' => 100
             ],
@@ -1160,28 +1160,28 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 134, 'answer' => 'Adatok memóriacímének tárolása és kezelése', 'is_correct' => true],
-            ['question_id' => 134, 'answer' => 'Változók értékeinek tárolása', 'is_correct' => false],
-            ['question_id' => 134, 'answer' => 'Adatok rendezése', 'is_correct' => false],
-            ['question_id' => 135, 'answer' => 'int* ptr = &val;', 'is_correct' => true],
-            ['question_id' => 135, 'answer' => 'int ptr = &val;', 'is_correct' => false],
-            ['question_id' => 135, 'answer' => 'int ptr = val;', 'is_correct' => false],
-            ['question_id' => 136, 'answer' => 'Igaz', 'is_correct' => false],
-            ['question_id' => 136, 'answer' => 'Hamis', 'is_correct' => true],
-            ['question_id' => 137, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 137, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 138, 'answer' => 'new és delete', 'is_correct' => true],
-            ['question_id' => 138, 'answer' => 'malloc és free', 'is_correct' => false],
-            ['question_id' => 138, 'answer' => 'allocate és deallocate', 'is_correct' => false],
-            ['question_id' => 139, 'answer' => 'A pointer aritmetikával növelhetjük vagy csökkenthetjük a pointer értékét, hogy a memóriában más címekre mutasson.', 'is_correct' => true],
-            ['question_id' => 139, 'answer' => 'A pointer aritmetikával összeadhatjuk két pointer értékét.', 'is_correct' => false],
-            ['question_id' => 139, 'answer' => 'A pointer aritmetikával szorozhatjuk két pointer értékét.', 'is_correct' => false],
+            ['question_id' => 121, 'answer' => 'Adatok memóriacímének tárolása és kezelése', 'is_correct' => true],
+            ['question_id' => 121, 'answer' => 'Változók értékeinek tárolása', 'is_correct' => false],
+            ['question_id' => 121, 'answer' => 'Adatok rendezése', 'is_correct' => false],
+            ['question_id' => 122, 'answer' => 'int* ptr = &val;', 'is_correct' => true],
+            ['question_id' => 122, 'answer' => 'int ptr = &val;', 'is_correct' => false],
+            ['question_id' => 122, 'answer' => 'int ptr = val;', 'is_correct' => false],
+            ['question_id' => 123, 'answer' => 'Igaz', 'is_correct' => false],
+            ['question_id' => 123, 'answer' => 'Hamis', 'is_correct' => true],
+            ['question_id' => 124, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 124, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 125, 'answer' => 'new és delete', 'is_correct' => true],
+            ['question_id' => 125, 'answer' => 'malloc és free', 'is_correct' => false],
+            ['question_id' => 125, 'answer' => 'allocate és deallocate', 'is_correct' => false],
+            ['question_id' => 126, 'answer' => 'A pointer aritmetikával növelhetjük vagy csökkenthetjük a pointer értékét, hogy a memóriában más címekre mutasson.', 'is_correct' => true],
+            ['question_id' => 126, 'answer' => 'A pointer aritmetikával összeadhatjuk két pointer értékét.', 'is_correct' => false],
+            ['question_id' => 126, 'answer' => 'A pointer aritmetikával szorozhatjuk két pointer értékét.', 'is_correct' => false],
         ]);
 
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 21,
-                'title' => 'Memóriakezelés C++ nyelven - Feladatok',
+                'title' => 'Memóriakezelés',
                 'markdown' => Storage::get('markdowns/assignments/c/memory_management/memory_management.md'),
                 'assignment_xp' => 100
             ],
@@ -1203,23 +1203,23 @@ return new class extends Migration
         ]);
 
         DB::table('answers')->insert([
-            ['question_id' => 141, 'answer' => 'Adatok dinamikus tárolása és kezelése a futásidő alatt', 'is_correct' => true],
-            ['question_id' => 141, 'answer' => 'Változók értékeinek tárolása', 'is_correct' => false],
-            ['question_id' => 141, 'answer' => 'Adatok statikus tárolása', 'is_correct' => false],
-            ['question_id' => 142, 'answer' => 'int* arr = new int[10];', 'is_correct' => true],
-            ['question_id' => 142, 'answer' => 'int arr[10];', 'is_correct' => false],
-            ['question_id' => 142, 'answer' => 'int arr = malloc(10);', 'is_correct' => false],
-            ['question_id' => 143, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 143, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 144, 'answer' => 'Igaz', 'is_correct' => true],
-            ['question_id' => 144, 'answer' => 'Hamis', 'is_correct' => false],
-            ['question_id' => 145, 'answer' => 'new és delete', 'is_correct' => true],
-            ['question_id' => 145, 'answer' => 'malloc és free', 'is_correct' => true],
-            ['question_id' => 145, 'answer' => 'malloc és delete', 'is_correct' => false],
-            ['question_id' => 145, 'answer' => 'new és free', 'is_correct' => false],
-            ['question_id' => 146, 'answer' => 'A memóriaszivárgások akkor fordulnak elő, ha a dinamikusan foglalt memória felszabadítása elmarad.', 'is_correct' => true],
-            ['question_id' => 146, 'answer' => 'A memóriaszivárgások csak a statikusan foglalt memóriával kapcsolatban fordulnak elő.', 'is_correct' => false],
-            ['question_id' => 146, 'answer' => 'A memóriaszivárgások nem befolyásolják a program működését.', 'is_correct' => false],
+            ['question_id' => 127, 'answer' => 'Adatok dinamikus tárolása és kezelése a futásidő alatt', 'is_correct' => true],
+            ['question_id' => 127, 'answer' => 'Változók értékeinek tárolása', 'is_correct' => false],
+            ['question_id' => 127, 'answer' => 'Adatok statikus tárolása', 'is_correct' => false],
+            ['question_id' => 128, 'answer' => 'int* arr = new int[10];', 'is_correct' => true],
+            ['question_id' => 128, 'answer' => 'int arr[10];', 'is_correct' => false],
+            ['question_id' => 128, 'answer' => 'int arr = malloc(10);', 'is_correct' => false],
+            ['question_id' => 129, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 129, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 130, 'answer' => 'Igaz', 'is_correct' => true],
+            ['question_id' => 130, 'answer' => 'Hamis', 'is_correct' => false],
+            ['question_id' => 131, 'answer' => 'new és delete', 'is_correct' => true],
+            ['question_id' => 131, 'answer' => 'malloc és free', 'is_correct' => true],
+            ['question_id' => 131, 'answer' => 'malloc és delete', 'is_correct' => false],
+            ['question_id' => 132, 'answer' => 'new és free', 'is_correct' => false],
+            ['question_id' => 132, 'answer' => 'A memóriaszivárgások akkor fordulnak elő, ha a dinamikusan foglalt memória felszabadítása elmarad.', 'is_correct' => true],
+            ['question_id' => 132, 'answer' => 'A memóriaszivárgások csak a statikusan foglalt memóriával kapcsolatban fordulnak elő.', 'is_correct' => false],
+            ['question_id' => 132, 'answer' => 'A memóriaszivárgások nem befolyásolják a program működését.', 'is_correct' => false],
         ]);
     }
 

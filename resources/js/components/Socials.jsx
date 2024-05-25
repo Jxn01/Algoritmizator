@@ -26,13 +26,13 @@ const Socials = memo(({title, activeTab}) => {
                 <div className="w-full max-w-2xl mt-5 text-center">
                     <div className="flex space-x-2 mb-4">
                         <button onClick={() => setActiveSocialTab('friends')}
-                                className={`px-4 py-2 text-white rounded-lg ${activeSocialTab === 'friends' ? 'bg-gray-800' : 'bg-purple-900'}`}>Barátok
+                                className={`px-4 py-2 text-white rounded-lg hover:bg-gray-800 transition duration-300 ${activeSocialTab === 'friends' ? 'bg-gray-800' : 'bg-purple-800'}`}>Barátok
                         </button>
                         <button onClick={() => setActiveSocialTab('requests')}
-                                className={`px-4 py-2 text-white rounded-lg ${activeSocialTab === 'requests' ? 'bg-gray-800' : 'bg-purple-900'}`}>Kérelmek
+                                className={`px-4 py-2 text-white rounded-lg hover:bg-gray-800 transition duration-300 ${activeSocialTab === 'requests' ? 'bg-gray-800' : 'bg-purple-800'}`}>Kérelmek
                         </button>
                         <button onClick={() => setActiveSocialTab('search')}
-                                className={`px-4 py-2 text-white rounded-lg ${activeSocialTab === 'search' ? 'bg-gray-800' : 'bg-purple-900'}`}>Keresés
+                                className={`px-4 py-2 text-white rounded-lg hover:bg-gray-800 transition duration-300 ${activeSocialTab === 'search' ? 'bg-gray-800' : 'bg-purple-800'}`}>Keresés
                         </button>
                     </div>
                     {activeSocialTab === 'friends' && <FriendsComponent/>}
@@ -87,10 +87,9 @@ export const FriendsComponent = memo(() => {
                     <div className="overflow-auto" style={{ maxHeight: 'calc(100vh)' }}>
                         {friends.map(friend => (
                             <div key={friend.id}
-                                 className="flex items-center justify-between mx-4 p-3 border-b border-purple-500">
+                                 className="flex items-center justify-between mx-4 p-3 border-b border-purple-500 rounded-lg hover:bg-gray-900 transition duration-300">
                                 <div className="flex items-center flex-1">
                                     <img src={"/algoritmizator/storage/"+friend.avatar} alt={friend.name}
-                                         //green border if online
                                             className={`w-12 h-12 rounded-full mr-4 ${friend.is_online ? 'border-2 border-green-500' : ''}`}/>
                                     <div>
                                         <h3 className="text-lg">{friend.name}</h3>
@@ -106,13 +105,14 @@ export const FriendsComponent = memo(() => {
                                 </div>
                                 <div>
                                     <a href={`/algoritmizator/app/socials/profile/${friend.id}`}
-                                       className="px-6 py-2 mr-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800">Profil</a>
+                                       className="px-6 py-2 mr-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition duration-300">Profil</a>
                                     <button onClick={() => handleUnfriend(friend.id)}
-                                            className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700">Eltávolítás
+                                            className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700 transition duration-300">Eltávolítás
                                     </button>
                                 </div>
                             </div>
                         ))}
+                        {friends.length === 0 && <p className="text-center">Nincsenek barátok. :(</p>}
                     </div>
             </div>
         </div>
@@ -172,7 +172,7 @@ export const FriendRequestsComponent = memo(() => {
                 <div className="overflow-auto" style={{maxHeight: 'calc(100vh)'}}>
                     {requests.map(request => (
                         <div key={request.id}
-                             className="flex items-center justify-between p-3 mx-4 border-b border-purple-500">
+                             className="flex items-center justify-between p-3 mx-4 border-b border-purple-500 rounded-lg hover:bg-gray-900 transition duration-300">
                             <div className="flex items-center flex-1">
                                 <img src={"/algoritmizator/storage/"+request.avatar} alt={request.name}
                                      className="w-12 h-12 rounded-full mr-4"/>
@@ -184,16 +184,17 @@ export const FriendRequestsComponent = memo(() => {
                             </div>
                             <div>
                                 <a href={`/algoritmizator/app/socials/profile/${request.id}`}
-                                   className="px-6 py-2 mr-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800">Profil</a>
+                                   className="px-6 py-2 mr-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition duration-300">Profil</a>
                                 <button onClick={() => handleAccept(request.id)}
-                                        className="px-4 py-2 mr-3 bg-green-600 rounded-lg hover:bg-green-700">Elfogadás
+                                        className="px-4 py-2 mr-3 bg-green-600 rounded-lg hover:bg-green-700 transition duration-300">Elfogadás
                                 </button>
                                 <button onClick={() => handleDeny(request.id)}
-                                        className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700">Elutasítás
+                                        className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700 transition duration-300">Elutasítás
                                 </button>
                             </div>
                         </div>
                     ))}
+                    {requests.length === 0 && <p className="text-center">Nincsenek bejövő barátkérelmek. :(</p>}
                 </div>
             </div>
         </div>
@@ -262,7 +263,7 @@ export const SearchComponent = memo(() => {
                     <div className="overflow-auto" style={{maxHeight: 'calc(100vh)'}}>
                         {results.map(user => (
                             <div key={user.id}
-                                 className="flex items-center justify-between p-3 mx-4 border-b border-purple-500">
+                                 className="flex items-center justify-between p-3 mx-4 border-b border-purple-500 rounded-lg hover:bg-gray-900 transition duration-300">
                                 <div className="flex items-center flex-1">
                                     <img src={"/algoritmizator/storage/"+user.avatar} alt={user.name}
                                          className="w-12 h-12 rounded-full mr-4"/>
@@ -274,17 +275,18 @@ export const SearchComponent = memo(() => {
                                 </div>
                                 <div>
                                     <a href={`/algoritmizator/app/socials/profile/${user.id}`}
-                                       className="px-6 py-2 mr-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800">Profil
+                                       className="px-6 py-2 mr-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition duration-300">Profil
                                     </a>
                                     {!user.is_friend &&
                                         <button disabled={user.friend_request_sent || user.friend_request_received}
                                                 onClick={(e) => sendFriendRequest(user.id, e)}
-                                                className={`px-4 py-2 ${user.friend_request_sent || user.friend_request_received ? 'bg-gray-600' : 'bg-green-600 hover:bg-green-700'} rounded-lg`}> {user.friend_request_sent ? 'Barátkérelem elküldve' : user.friend_request_received ? 'Barátkérelem fogadva' : 'Barátkérelem küldése'}
+                                                className={`px-4 py-2 ${user.friend_request_sent || user.friend_request_received ? 'bg-gray-600' : 'bg-green-600 hover:bg-green-700 transition duration-300'} rounded-lg`}> {user.friend_request_sent ? 'Barátkérelem elküldve' : user.friend_request_received ? 'Barátkérelem fogadva' : 'Barátkérelem küldése'}
                                         </button>
                                     }
                                 </div>
                             </div>
                         ))}
+                        {results.length === 0 && <p className="text-center mt-10">Nincs találat. :(</p>}
                     </div>
                 </div>
             </div>

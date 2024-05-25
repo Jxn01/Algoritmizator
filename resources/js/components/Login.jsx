@@ -72,20 +72,21 @@ const Login = memo(({ title, activeTab}) => {
                         <form onSubmit={handleSubmit}>
                             <div className="mt-4">
                                 <div className="relative">
-                                    <label className="block text-gray-300" htmlFor="email">E-mail
-                                        <span className="ml-2 cursor-pointer">
-                                            <FontAwesomeIcon icon={faQuestionCircle} data-tip data-for="emailTip"/>
-                                            <ReactTooltip id="emailTip" place="right" effect="solid">
-                                                Csak inf.elte.hu e-maileket fogadunk el.
-                                            </ReactTooltip>
-                                        </span>
+                                    <label className="block text-gray-300" htmlFor="email">
+                                        E-mail cím
+                                        <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="emailTip"/>
+                                        <ReactTooltip anchorSelect={'#emailTip'} place="right" effect="solid">
+                                            Add meg az inf.elte.hu-s e-mail címed.
+                                        </ReactTooltip>
                                     </label>
-                                    <input type="text" placeholder="Email"
+                                    <input type="text" placeholder="E-mail cím"
                                            autoComplete="email"
                                            onChange={e => setEmail(e.target.value)}
                                            className={`w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white ${!emailIsValid ? 'border-red-500' : 'border-gray-600'}`}
                                            id="email"/>
-                                    {!emailIsValid && <p className="text-xs text-red-500 mt-1">Kérjük, adj meg egy érvényes inf.elte.hu e-mail címet.</p>}
+                                    {!emailIsValid &&
+                                        <p className="text-xs text-red-500 mt-1">Kérjük, adj meg egy érvényes
+                                            inf.elte.hu e-mail címet.</p>}
                                 </div>
                                 <div className="mt-4">
                                     <label className="block text-gray-300" htmlFor="password">Jelszó</label>
@@ -104,12 +105,12 @@ const Login = memo(({ title, activeTab}) => {
                                     <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-300">Emlékezz rám</label>
                                 </div>
                                 <div className="flex items-baseline justify-between mt-4">
-                                    <button type="submit" className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Bejelentkezés</button>
+                                    <button type="submit" className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Bejelentkezés</button>
                                     <a href="/algoritmizator/auth/forgot-password" className="text-sm text-purple-300 hover:underline">Elfelejtetted a jelszavad?</a>
                                 </div>
                                 <div className="mt-4 text-center">
                                     {loginAttempts > 1 && <p className="text-sm text-red-500">Gondjaid vannak a bejelentkezéssel? Ellenőrizd hitelesítő adataid, és próbáld meg újra.</p>}
-                                    <a href="/algoritmizator/auth/registration" className="text-purple-200 hover:text-purple-400">Nincs fiókod? Regisztrálj</a>
+                                    <a href="/algoritmizator/auth/registration" className="text-purple-200 hover:text-purple-400 transition duration-300">Nincs fiókod? Regisztrálj</a>
                                 </div>
                             </div>
                         </form>

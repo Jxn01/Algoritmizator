@@ -77,6 +77,7 @@ const Registration = memo(({title, activeTab}) => {
         if (formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword) {
             errors.confirmPassword = "A jelszavak nem egyeznek.";
         }
+        if(passwordStrength < 3) errors.password = "A jelszó túl gyenge, legalább erősnek kell lennie.";
 
         return errors;
     };
@@ -119,7 +120,7 @@ const Registration = memo(({title, activeTab}) => {
                                     Felhasználónév
                                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="usernameTip"/>
                                     <ReactTooltip anchorSelect={'#usernameTip'} place="right" effect="solid">
-                                        Add meg a felhasználóneved.
+                                        Add meg az egyedi felhasználóneved.
                                     </ReactTooltip>
                                 </label>
                                 <input
@@ -209,11 +210,11 @@ const Registration = memo(({title, activeTab}) => {
                             )}
                             <div className="flex items-center justify-between mt-6">
                                 <button type="submit"
-                                        className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Regisztráció
+                                        className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Regisztráció
                                 </button>
                             </div>
                             <div className="mt-4 text-center">
-                                <a href="/algoritmizator/auth/login" className="text-purple-200 hover:text-purple-400">Már van fiókod?
+                                <a href="/algoritmizator/auth/login" className="text-purple-200 hover:text-purple-400 transition duration-300">Már van fiókod?
                                     Jelentkezz be</a>
                             </div>
                         </form>

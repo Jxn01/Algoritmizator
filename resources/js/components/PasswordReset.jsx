@@ -28,6 +28,7 @@ const PasswordReset = memo(({title, activeTab, token}) => {
     const [passwordsMatch, setPasswordsMatch] = useState(true);
     const [emailIsValid, setEmailIsValid] = useState(true);
     const [passwordStrength, setPasswordStrength] = useState(0);
+    const [passwordStrong, setPasswordStrong] = useState(true);
     const [resetSuccess, setResetSuccess] = useState(false);
 
     const handleSubmit = (event) => {
@@ -37,22 +38,33 @@ const PasswordReset = memo(({title, activeTab, token}) => {
             return;
         }
         setPasswordsMatch(true);
+
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
         if (!emailRegex.test(email)) {
             setEmailIsValid(false);
             return;
         }
         setEmailIsValid(true);
-        if (calculatePasswordStrength(password) >= 2) {
-            const formData = new FormData();
-            formData.append('email', email);
-            formData.append('password', password);
-            formData.append('password_confirmation', confirmPassword);
-            formData.append('token', token);
 
-            axios.post('/algoritmizator/api/reset-password', formData)
-            setResetSuccess(true);
+        if(passwordStrength < 3) {
+            setPasswordStrong(false);
+            return;
         }
+        setPasswordStrong(true);
+
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('password_confirmation', confirmPassword);
+        formData.append('token', token);
+
+        axios.post('/algoritmizator/api/reset-password', formData)
+            .then(response => {
+                setResetSuccess(true);
+            })
+            .catch(error => {
+                alert("Hiba történt a jelszó-visszaállítás közben. Lehetséges, hogy a jelszó-visszaállítási link lejárt vagy rossz e-mail címet adtál meg.");
+            });
     };
 
     return (
@@ -100,6 +112,8 @@ const PasswordReset = memo(({title, activeTab, token}) => {
                                        }}
                                        className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white"
                                        id="password"/>
+                                {!passwordStrong &&
+                                    <p className="text-xs text-red-500 mt-1">A jelszó túl gyenge, legalább erősnek kell lennie.</p>}
                             </div>
                             <div className="mt-4">
                                 <label className="block text-gray-300" htmlFor="password">Új jelszó
@@ -131,7 +145,7 @@ const PasswordReset = memo(({title, activeTab, token}) => {
                             )}
                             <div className="flex items-center justify-between mt-6">
                                 <button type="submit"
-                                        className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Jelszó
+                                        className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Jelszó
                                     visszaállítása
                                 </button>
                             </div>

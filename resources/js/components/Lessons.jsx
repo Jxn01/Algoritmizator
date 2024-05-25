@@ -20,7 +20,7 @@ import injectCodeEditors from "@/CodeEditorInjector";
  *
  * @returns {JSX.Element} The Lessons component
  */
-export const Lessons = memo(({title, activeTab}) => {
+const Lessons = memo(({title, activeTab}) => {
     const [lessons, setLessons] = useState([]);
     const [selectedLesson, setSelectedLesson] = useState([]);
     const [selectedSublesson, setSelectedSublesson] = useState([]);
@@ -66,11 +66,11 @@ export const Lessons = memo(({title, activeTab}) => {
     }, [selectedSublesson]);
 
     return (
-        <div>
+        <div className="bg-gray-800">
             <Navbar title={title} activeTab={activeTab}/>
             <div className="flex">
-                <div className="w-64 min-h-screen bg-gray-800 text-white p-5">
-                    <h2 className="text-xl font-bold mb-3">Leckék</h2>
+                <div className="min-w-64 min-h-screen bg-gray-800 text-white p-5">
+                    <h2 className="text-xl font-bold mb-3 border-purple-800 border-b-3">Leckék</h2>
                     {lessons.map((lesson) => (
                         <div key={lesson.id}>
                             <button
@@ -102,7 +102,7 @@ export const Lessons = memo(({title, activeTab}) => {
                         </div>
                     ))}
                 </div>
-                <div className="flex-grow bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 p-20 pt-10">
+                <div className="flex-grow bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 p-20 pt-10 rounded-lg">
                     <div className="bg-gray-800 p-5 rounded-lg text-white">
                         <h1 className="text-3xl font-bold ml-7 mb-2">{selectedLesson ? selectedLesson.title : "Válassz ki egy leckét!"}</h1>
                         <h2 className="text-2xl ml-7">{selectedSublesson ? selectedSublesson.title : 'Válassz ki egy alleckét!'}</h2>
@@ -112,7 +112,7 @@ export const Lessons = memo(({title, activeTab}) => {
                         </div>
                         {selectedSublesson && selectedSublesson.has_quiz ? (
                             <div className="mt-4 text-center items-center">
-                                <button className="bg-purple-800 text-white px-4 py-2 rounded-lg" onClick={() => window.location.href = `/algoritmizator/lessons/task/${selectedSublesson.id}`}>Feladat megoldása</button>
+                                <button className="bg-purple-800 text-white px-4 py-2 rounded-lg hover:bg-purple-900 transition duration-300" onClick={() => window.location.href = `/algoritmizator/lessons/task/${selectedSublesson.id}`}>Feladat megoldása</button>
                             </div>
                         ) : null}
                     </div>

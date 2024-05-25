@@ -8,7 +8,7 @@ import injectCodeEditors from "@/CodeEditorInjector";
 /**
  * Task component
  */
-export const Task = memo(({ id, title, activeTab }) => {
+const Task = memo(({ id, title, activeTab }) => {
     const [assignment, setAssignment] = useState({});
     const [tasks, setTasks] = useState([]);
     const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
@@ -74,7 +74,6 @@ export const Task = memo(({ id, title, activeTab }) => {
                 })),
                 time: timePassed
             };
-            console.log(data);
             axios.post('/algoritmizator/api/task/submit', data)
                 .then(response => {
                     window.location.href = `/algoritmizator/lessons/task/attempt/${response.data.attempt_id}`;
@@ -212,7 +211,7 @@ export const Task = memo(({ id, title, activeTab }) => {
                                 <ReactMarkdown className="break-all">{assignment.markdown}</ReactMarkdown>
                             </div>
                             <button onClick={handleStartTask}
-                                    className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Feladat
+                                    className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Feladat
                                 indítása
                             </button>
                         </div>
@@ -226,7 +225,7 @@ export const Task = memo(({ id, title, activeTab }) => {
                             {renderTaskContent(currentTask)}
                             <div className="text-center mt-8">
                                 <button onClick={handleNextTask}
-                                        className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">
+                                        className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">
                                     {currentTaskIndex < tasks.length - 1 ? 'Következő feladat' : 'Feladat beküldése'}
                                 </button>
                             </div>

@@ -47,22 +47,22 @@ const Navbar = memo(({ title, activeTab}) => {
                         {authenticated && (
                             <>
                                 <a href="/algoritmizator/app"
-                                   className={`text-white px-3 py-2 rounded-lg text-sm ${activeTab === 'dashboard' ? 'font-bold border-1 border-white' : 'font-medium'}`}>
+                                   className={`text-white px-3 py-2 rounded-lg text-sm hover:bg-gray-900 transition duration-300 ${activeTab === 'dashboard' ? 'font-bold bg-gray-900' : 'font-medium'}`}>
                                     Vezérlőpult
                                 </a>
                                 <a href="/algoritmizator/app/lessons"
-                                   className={`text-white px-3 py-2 rounded-lg text-sm ${activeTab === 'lessons' ? 'font-bold border-1 border-white' : 'font-medium'}`}>
+                                   className={`text-white px-3 py-2 rounded-lg text-sm hover:bg-gray-900 transition duration-300 ${activeTab === 'lessons' ? 'font-bold bg-gray-900' : 'font-medium'}`}>
                                     Tananyag
                                 </a>
                                 <a href="/algoritmizator/app/socials"
-                                   className={`text-white px-3 py-2 rounded-lg text-sm ${activeTab === 'socials' ? 'font-bold border-1 border-white' : 'font-medium'}`}>
+                                   className={`text-white px-3 py-2 rounded-lg text-sm hover:bg-gray-900 transition duration-300 ${activeTab === 'socials' ? 'font-bold bg-gray-900' : 'font-medium'}`}>
                                     Közösség
                                 </a>
                                 <a href="/algoritmizator/auth/logout"
-                                   className={`text-white px-3 py-2 rounded-lg text-sm ${activeTab === 'logout' ? 'font-bold border-1 border-white' : 'font-medium'}`}>
+                                   className={`text-white px-3 py-2 rounded-lg text-sm hover:bg-gray-900 transition duration-300 ${activeTab === 'logout' ? 'font-bold bg-gray-900' : 'font-medium'}`}>
                                     Kijelentkezés
                                 </a>
-                                <a className="flex items-center flex-1" href="/algoritmizator/app/profile">
+                                <a className={`flex items-center rounded-lg mx-5 my-2 pr-5 flex-1 hover:bg-gray-900 transition duration-300 ${activeTab === 'profile' ? 'bg-gray-900' : ''}`} href="/algoritmizator/app/profile">
                                     <div
                                        className={`flex items-center text-white px-3 py-2 rounded-md text-sm font-medium`}>
                                         <img src={"/algoritmizator/storage/" + avatar} alt="Profile"
@@ -79,11 +79,11 @@ const Navbar = memo(({ title, activeTab}) => {
                         {!authenticated && (
                             <>
                                 <a href="/algoritmizator/auth/login"
-                                   className={`text-white px-3 py-2 rounded-md text-sm ${activeTab === 'login' ? 'font-bold' : 'font-medium'}`}>
+                                   className={`text-white px-3 py-2 rounded-lg text-sm hover:bg-gray-900 transition duration-300 ${activeTab === 'login' ? 'font-bold bg-gray-900' : 'font-medium'}`}>
                                     Bejelentkezés
                                 </a>
                                 <a href="/algoritmizator/auth/registration"
-                                   className={`text-white px-3 py-2 rounded-md text-sm ${activeTab === 'registration' ? 'font-bold' : 'font-medium'}`}>
+                                   className={`text-white px-3 py-2 rounded-lg text-sm hover:bg-gray-900 transition duration-300 ${activeTab === 'registration' ? 'font-bold bg-gray-900' : 'font-medium'}`}>
                                     Regisztráció
                                 </a>
                             </>

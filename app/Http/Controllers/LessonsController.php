@@ -286,6 +286,7 @@ class LessonsController extends Controller
             'max_score' => $attempt->max_score,
             'time' => $attempt->time,
             'passed' => $attempt->passed,
+            'created_at' => $attempt->created_at,
         ];
 
         return response()->json($data);

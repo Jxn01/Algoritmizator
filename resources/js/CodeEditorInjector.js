@@ -52,7 +52,7 @@ function groupCodeBlocks(){
     return groupedBlocks;
 }
 
-export default function injectCodeEditors() {
+function injectCodeEditors() {
     const languageExtensions = {
         'python': python(),
         'javascript': javascript(),
@@ -128,3 +128,5 @@ export default function injectCodeEditors() {
         });
     });
 }
+
+export default injectCodeEditors;

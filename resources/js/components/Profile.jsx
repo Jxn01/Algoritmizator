@@ -33,6 +33,12 @@ const Profile = memo(({ title, activeTab}) => {
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [successMessage, setSuccessMessage] = useState('');
     const [profilePicture, setProfilePicture] = useState('/algoritmizator/storage/default.png');
+    const selectedFormTitles = {
+        name: 'teljes név',
+        username: 'felhasználónév',
+        email: 'e-mail cím',
+        password: 'jelszó'
+    };
 
     useEffect(() => {
         axios.get('/algoritmizator/api/user')
@@ -104,6 +110,7 @@ const Profile = memo(({ title, activeTab}) => {
             if (!formData.oldPassword.trim()) errors.oldPassword = "Az aktuális jelszó megadása kötelező.";
             if (!formData.newPassword.trim()) errors.newPassword = "Az új jelszó megadása kötelező.";
             if (formData.newPassword !== formData.confirmPassword) errors.confirmPassword = "A jelszavak nem egyeznek.";
+            if (passwordStrength < 3) errors.newPassword = "A jelszó túl gyenge, legalább erősnek kell lennie.";
         }
         return errors;
     };
@@ -119,7 +126,7 @@ const Profile = memo(({ title, activeTab}) => {
                 alert("A profilkép módosítása sikeres.")
             })
             .catch(error => {
-                alert("Hiba történt a profilkép módosítása közben.");
+                alert("Hiba történt a profilkép módosítása közben. A feltöltött kép maximum 2 MB lehet. A következő formátumokat fogadjuk el: .jpg, .jpeg, .png, .gif, .svg. Kérlek, próbáld újra!");
             });
     };
 
@@ -205,19 +212,19 @@ const Profile = memo(({ title, activeTab}) => {
     const renderSelectionButtons = () => (
         <>
             <button type="button" onClick={() => openModal('name')}
-                    className="block w-full text-center bg-purple-700 py-2 rounded-md hover:bg-purple-800 text-white">Teljes
+                    className="block w-full text-center bg-purple-700 py-2 rounded-md hover:bg-purple-800 transition duration-300 text-white">Teljes
                 név módosítása
             </button>
             <button type="button" onClick={() => openModal('username')}
-                    className="block w-full text-center bg-purple-700 py-2 rounded-md hover:bg-purple-800 text-white">Felhasználónév
+                    className="block w-full text-center bg-purple-700 py-2 rounded-md hover:bg-purple-800 transition duration-300 text-white">Felhasználónév
                 módosítása
             </button>
             <button type="button" onClick={() => openModal('email')}
-                    className="block w-full text-center bg-purple-700 py-2 rounded-md hover:bg-purple-800 text-white">E-mail
+                    className="block w-full text-center bg-purple-700 py-2 rounded-md hover:bg-purple-800 transition duration-300 text-white">E-mail
                 cím módosítása
             </button>
             <button type="button" onClick={() => openModal('password')}
-                    className="block w-full text-center bg-purple-700 py-2 rounded-md hover:bg-purple-800 text-white">Jelszó
+                    className="block w-full text-center bg-purple-700 py-2 rounded-md hover:bg-purple-800 transition duration-300 text-white">Jelszó
                 módosítása
             </button>
         </>
@@ -249,10 +256,10 @@ const Profile = memo(({ title, activeTab}) => {
         <>
             <div className="mb-4">
                 <label htmlFor={selectedForm} className="block text-white text-sm font-bold mb-2">
-                    'E-mail cím'
+                    E-mail cím
                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2 text-white" id="emailTip"/>
                     <ReactTooltip anchorSelect={'#emailTip'} place="right" effect="solid">
-                        'Az inf.elte.hu-s e-mail címed.'
+                        Az inf.elte.hu-s e-mail címed.
                     </ReactTooltip>
                 </label>
                 <input
@@ -266,7 +273,7 @@ const Profile = memo(({ title, activeTab}) => {
                 {formErrors['email'] && <p className="text-xs text-red-500">{formErrors['email']}</p>}
             </div>
             <div className="mb-4">
-                <label htmlFor="password" className="block text-white text-sm font-bold mb-2">Régi jelszó
+                <label htmlFor="password" className="block text-white text-sm font-bold mb-2">Jelenlegi jelszó
                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2 text-white" id="oldPassTip"/>
                     <ReactTooltip anchorSelect={'#oldPassTip'} place="right" effect="solid">
                         A jelenlegi jelszavad.
@@ -299,7 +306,7 @@ const Profile = memo(({ title, activeTab}) => {
                     autoComplete={'current-password'}
                     type="password"
                     name="oldPassword"
-                    placeholder="Régi jelszó"
+                    placeholder="Jelenlegi jelszó"
                     value={formData.oldPassword}
                     onChange={handleChange}
                     className="mt-1 block w-full px-3 py-2 bg-gray-700 text-white rounded-md border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
@@ -411,7 +418,7 @@ const Profile = memo(({ title, activeTab}) => {
                             {successfulAttempts.length === 0 && <p>Még nem teljesítettél feladatot. :(</p>}
                             {successfulAttempts.map(attempt => (
                                 <a key={attempt.id} href={`/algoritmizator/lessons/task/attempt/${attempt.id}`}
-                                   className="flex items-center justify-between mx-4 p-3 border-t border-purple-500">
+                                   className="flex items-center justify-between mx-4 p-3 border-t border-purple-500 hover:bg-gray-900 transition duration-300 rounded-lg">
                                     <div className="flex items-center flex-1">
                                         <div>
                                             <h3 className="text-lg">{attempt.title}</h3>
@@ -435,7 +442,7 @@ const Profile = memo(({ title, activeTab}) => {
                     </div>
                     <hr className={'border-purple-600 border-2 mx-auto'}/>
                     <button onClick={() => setModalIsOpen(true)}
-                            className="self-end px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Profiladatok
+                            className="self-end px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Profiladatok
                         módosítása
                     </button>
                     <Modal
@@ -444,7 +451,7 @@ const Profile = memo(({ title, activeTab}) => {
                         className="bg-gray-800 p-6 rounded-lg outline-none mx-auto my-auto max-w-lg"
                         overlayClassName="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center">
                         <div className="flex justify-between items-center">
-                            <h2 className="text-xl text-white font-bold mb-4">Profiladatok módosítása</h2>
+                            <h2 className="text-xl text-white font-bold mb-4">Profiladatok módosítása {selectedForm && ` - ${selectedFormTitles[selectedForm]}`}</h2>
                             <button onClick={closeModal} className="text-white mb-3 ml-3"><FontAwesomeIcon
                                 icon={faTimes}/></button>
                         </div>
@@ -452,9 +459,9 @@ const Profile = memo(({ title, activeTab}) => {
                             {renderForm()}
                             <div className="flex justify-between">
                                 {selectedForm && <button type="submit"
-                                                         className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Mentés</button>}
+                                                         className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Mentés</button>}
                                 {selectedForm && <button onClick={goBackToSelection}
-                                                         className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Mégsem</button>}
+                                                         className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-300">Vissza</button>}
                             </div>
                             {successMessage && <p className="text-green-500">{successMessage}</p>}
                         </form>

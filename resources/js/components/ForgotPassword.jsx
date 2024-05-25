@@ -29,9 +29,15 @@ const ForgotPassword = memo(({title, activeTab}) => {
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
         if (emailRegex.test(email)) {
             setEmailIsValid(true);
-            setEmailSent(true);
             axios.post('/algoritmizator/api/forgot-password', {email})
-            alert('Jelszó-visszaállítási e-mailt küldtünk az e-mail címedre.');
+                .then(response => {
+                    alert('Jelszó-visszaállítási e-mailt küldtünk az e-mail címedre.');
+                    setEmailSent(true);
+                })
+                .catch(error => {
+                    alert("Hiba történt a jelszó-visszaállítási e-mail küldése közben. Lehetséges, hogy ezzel az e-mail címmel nem regisztráltál még a rendszerbe.");
+                });
+
         } else {
             setEmailIsValid(false);
         }
@@ -69,11 +75,11 @@ const ForgotPassword = memo(({title, activeTab}) => {
                                 </div>
                                 :
                                 <div className="flex items-center justify-between mt-6">
-                                    <button type="submit" className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Visszaállítási e-mail küldése</button>
+                                    <button type="submit" className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Visszaállítási e-mail küldése</button>
                                 </div>
                             }
                             <div className="mt-4 text-center">
-                                <a href="/algoritmizator/auth/login" className="text-purple-200 hover:text-purple-400">Vissza a bejelentkezéshez</a>
+                                <a href="/algoritmizator/auth/login" className="text-purple-200 hover:text-purple-400 transition duration-300">Vissza a bejelentkezéshez</a>
                             </div>
                         </form>
                     </div>

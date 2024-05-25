@@ -90,7 +90,7 @@ class AuthControllerTest extends TestCase
             'password_confirmation' => 'new-password',
         ]);
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
         $this->assertTrue(Hash::check('new-password', $user->fresh()->password));
     }
 
@@ -107,7 +107,7 @@ class AuthControllerTest extends TestCase
             'password_confirmation' => 'new-password',
         ]);
 
-        $response->assertStatus(302);
+        $response->assertStatus(400);
         $this->assertTrue(Hash::check('old-password', $user->fresh()->password));
     }
 }

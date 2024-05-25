@@ -7,12 +7,11 @@ use App\Models\Assignment;
 use App\Models\Attempt;
 use App\Models\AttemptAnswer;
 use App\Models\AttemptQuestion;
-use App\Models\HourlyAlgorithm;
+use App\Models\TaskAttempt;
 use App\Models\Lesson;
 use App\Models\Question;
 use App\Models\Sublesson;
 use App\Models\Task;
-use App\Models\TaskAttempt;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
@@ -89,7 +88,7 @@ class LessonsControllerTest extends TestCase
         ]);
     }
 
-/*    public function test_attempt_is_retrieved_correctly(): void
+    public function test_attempt_is_retrieved_correctly(): void
     {
         $user = User::factory()->create();
         Auth::login($user);
@@ -108,9 +107,7 @@ class LessonsControllerTest extends TestCase
 
         $response = $this->getJson('/api/task/attempt/' . $attempt->id);
 
-        echo $response->getContent();
-
         $response->assertStatus(200);
         $response->assertJsonPath('id', $attempt->id);
-    }*/
+    }
 }

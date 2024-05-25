@@ -79,7 +79,7 @@ const UserProfile = memo(({title, activeTab, id}) => {
                             {successfulAttempts.length === 0 && <p>Még nem teljesített feladatot. :(</p>}
                             {successfulAttempts.map(attempt => (
                                 <div key={attempt.id}
-                                   className="flex items-center justify-between mx-4 p-3 border-t border-purple-500">
+                                   className="flex items-center justify-between mx-4 p-3 border-t border-purple-500 hover:bg-gray-900 transition duration-300 rounded-lg">
                                     <div className="flex items-center flex-1">
                                         <div>
                                             <h3 className="text-lg">{attempt.title}</h3>
@@ -104,7 +104,7 @@ const UserProfile = memo(({title, activeTab, id}) => {
                     <hr className="border-purple-600 border-2 mx-auto"/>
                     <div className="flex w-full">
                         <a href="/algoritmizator/app/socials"
-                           className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Vissza</a>
+                           className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Vissza</a>
                         <div className="flex-grow"></div>
                     </div>
                 </div>

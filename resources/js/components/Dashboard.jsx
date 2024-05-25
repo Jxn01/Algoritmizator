@@ -4,9 +4,7 @@ import Footer from "./Footer.jsx";
 import ReactMarkdown from "react-markdown";
 import injectCodeEditors from "@/CodeEditorInjector";
 
-/**
- * Dashboard component
- */
+
 const Dashboard = memo(({ title, activeTab}) => {
     const [friends, setFriends] = useState([]);
     const [successfulAttempts, setSuccessfulAttempts] = useState([]);
@@ -63,14 +61,14 @@ const Dashboard = memo(({ title, activeTab}) => {
         <div>
             <Navbar title={title} activeTab={activeTab}/>
             <div className="flex items-stretch min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 p-5">
-                <div className="w-1/4 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{maxHeight: 'calc(85vh)', position: 'sticky', top: '20px'}}>
-                    <h3 className="text-xl font-bold mb-3">Teljesített Feladatok</h3>
+                <div className="w-1/3 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{maxHeight: 'calc(85vh)', position: 'sticky', top: '20px'}}>
+                    <h3 className="text-xl font-bold mb-3 text-center">Teljesített feladatok</h3>
                     <hr className="border-2 border-purple-700 mb-3"/>
                     <div className="overflow-auto" style={{maxHeight: 'calc(80vh)'}}>
-                        {successfulAttempts.length === 0 && <p>Még nem teljesítettél feladatot. :(</p>}
+                        {successfulAttempts.length === 0 && <p className="text-center">Még nem teljesítettél feladatot. :(</p>}
                         {successfulAttempts.map(attempt => (
                             <a key={attempt.id} href={`/algoritmizator/lessons/task/attempt/${attempt.id}`}
-                                 className="flex items-center justify-between mx-4 p-3 border-b border-purple-500">
+                                 className="flex items-center justify-between mx-4 p-3 border-b border-purple-500 hover:bg-gray-900 transition duration-300 rounded-lg">
                                 <div className="flex items-center flex-1">
                                     <div>
                                         <h3 className="text-lg">{attempt.title}</h3>
@@ -95,7 +93,7 @@ const Dashboard = memo(({ title, activeTab}) => {
                 <div className="w-full m-5">
                     <div className="flex flex-col items-center text-center mb-8">
                         <h2 className="text-3xl font-bold text-white mb-2">Vezérlőpult</h2>
-                        <p className="text-lg text-gray-300">Üdvözlünk újra! Készen állsz a mai tanulásra?</p>
+                        <p className="text-lg font-bold text-gray-300">Üdvözlünk újra! Készen állsz a mai tanulásra?</p>
                     </div>
                     <div className="flex flex-col items-center m-10">
                         <div className="px-8 py-6 bg-gray-800 shadow-lg rounded-xl">
@@ -111,14 +109,14 @@ const Dashboard = memo(({ title, activeTab}) => {
                         </div>
                     </div>
                 </div>
-                <div className="w-1/4 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{maxHeight: 'calc(85vh)', position: 'sticky', top: '20px'}}>
-                    <h3 className="text-xl font-bold mb-3">Online Barátok</h3>
+                <div className="w-1/3 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{maxHeight: 'calc(85vh)', position: 'sticky', top: '20px'}}>
+                    <h3 className="text-xl font-bold mb-3 text-center">Online barátok</h3>
                     <hr className="border-2 border-purple-700 mb-3"/>
                     <div className="overflow-auto" style={{maxHeight: 'calc(80vh)'}}>
-                        {friends.length === 0 && <p>Nincsenek online barátok. :(</p>}
+                        {friends.length === 0 && <p className="text-center">Nincsenek online barátok. :(</p>}
                         {friends.map(friend => (
                             <a key={friend.id} href={"/algoritmizator/app/socials/profile/" + friend.id}
-                                 className="flex items-center justify-between mx-4 p-3 border-b border-purple-500">
+                                 className="flex items-center justify-between mx-4 p-3 border-b border-purple-500 hover:bg-gray-900 transition duration-300 rounded-lg">
                                 <div className="flex items-center flex-1">
                                     <img src={"/algoritmizator/storage/" + friend.avatar} alt={friend.name}
                                          className={`w-12 h-12 rounded-full mr-4 border-2 border-green-500`}/>

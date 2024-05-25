@@ -63,7 +63,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'username' => 'required|string',
+            'username' => 'required|string|unique:users',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string',
         ]);
@@ -107,11 +107,11 @@ class AuthController extends Controller
      *
      * @param  Request  $request  The incoming HTTP request.
      */
-    public function resetPassword(Request $request): RedirectResponse
+    public function resetPassword(Request $request): JsonResponse
     {
         $request->validate([
             'token' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|exists:users,email',
             'password' => 'required|min:8|confirmed',
         ]);
 
@@ -127,8 +127,12 @@ class AuthController extends Controller
         );
 
         return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+            ? response()->json([
+                'message' => __($status),
+            ])
+            : response()->json([
+                'message' => __($status),
+            ], 400);
     }
 
     /**
@@ -136,19 +140,29 @@ class AuthController extends Controller
      *
      * @param  Request  $request  The incoming HTTP request.
      */
-    public function forgotPassword(Request $request): RedirectResponse
+    public function forgotPassword(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email',
         ]);
+
+        if(User::where('email', $request->email)->doesntExist()) {
+            return response()->json([
+                'message' => 'User does not exist',
+            ], 404);
+        }
 
         $status = Password::sendResetLink(
             $request->only('email')
         );
 
         return $status === Password::RESET_LINK_SENT
-            ? back()->with(['status' => __($status)])
-            : back()->withErrors(['email' => __($status)]);
+            ? response()->json([
+                'message' => __($status),
+            ])
+            : response()->json([
+                'message' => __($status),
+            ], 400);
     }
 
     /**
@@ -185,7 +199,8 @@ class AuthController extends Controller
         $user->save();
 
         if ($oldAvatar !== 'default.png') {
-            unlink(storage_path('public/avatars/'.$oldAvatar));
+            //unlink from storage/app/public/avatars
+            unlink(storage_path('app/public/avatars/'.$oldAvatar));
         }
 
         return response()->json([

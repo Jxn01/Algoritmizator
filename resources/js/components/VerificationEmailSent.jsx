@@ -41,8 +41,8 @@ const VerificationEmailSent = memo(({ title, activeTab}) => {
                     <div className="px-8 py-6 bg-gray-800 shadow-lg rounded-lg">
                         <h3 className="text-2xl font-bold text-center text-white mb-4">Megerősítő e-mail elküldve</h3>
                         <p className="text-lg text-gray-300 mb-4">Kérjük, ellenőrizd az e-mail címed, hogy hitelesíthesd a fiókod és befejezhesd a regisztrációs folyamatot.</p>
-                        <button onClick={handleResendEmail} className="px-6 py-2 m-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Újraküldés</button>
-                        <a href="/algoritmizator/app" className="px-6 py-2 m-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Tovább a főoldalra</a>
+                        <button onClick={handleResendEmail} className="px-6 py-2 m-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Újraküldés</button>
+                        <a href="/algoritmizator/app" className="px-6 py-2 m-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Tovább a főoldalra</a>
                     </div>
                 </div>
             </div>
