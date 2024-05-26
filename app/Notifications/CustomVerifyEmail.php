@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\URL;
  *
  * The CustomVerifyEmail notification class is used to handle email verification notifications.
  * It generates a verification URL and sends it to the user's email.
- *
- * @package App\Notifications
  */
 class CustomVerifyEmail extends VerifyEmail
 {

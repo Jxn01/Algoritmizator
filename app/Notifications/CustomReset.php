@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\URL;
  *
  * The CustomReset notification class is used to handle password reset notifications.
  * It generates a password reset link and sends it to the user's email.
- *
- * @package App\Notifications
  */
 class CustomReset extends Notification
 {

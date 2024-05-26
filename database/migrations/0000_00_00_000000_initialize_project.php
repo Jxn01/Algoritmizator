@@ -299,7 +299,7 @@ return new class extends Migration
                 'sublesson_id' => 1,
                 'title' => 'Tömbök',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/arrays/arrays.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -348,7 +348,7 @@ return new class extends Migration
                 'sublesson_id' => 2,
                 'title' => 'Listák',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/lists/lists.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -396,7 +396,7 @@ return new class extends Migration
                 'sublesson_id' => 3,
                 'title' => 'Vermek',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/stacks/stacks.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -439,13 +439,12 @@ return new class extends Migration
             ['question_id' => 21, 'answer' => '1 2 4', 'is_correct' => true],
         ]);
 
-
         DB::table('assignments')->insert([
             [
                 'sublesson_id' => 4,
                 'title' => 'Sorok',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/queues/queues.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -493,7 +492,7 @@ return new class extends Migration
                 'sublesson_id' => 5,
                 'title' => 'Fák',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/trees/trees.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -541,7 +540,7 @@ return new class extends Migration
                 'sublesson_id' => 6,
                 'title' => 'Gráfok',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/graphs/graphs.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -588,7 +587,7 @@ return new class extends Migration
                 'sublesson_id' => 7,
                 'title' => 'Hasító táblák',
                 'markdown' => Storage::get('markdowns/assignments/data_structures/hash_tables/hash_tables.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -632,7 +631,7 @@ return new class extends Migration
                 'sublesson_id' => 8,
                 'title' => 'Beszúró rendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/insertion_sort/insertion_sort.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -676,7 +675,7 @@ return new class extends Migration
                 'sublesson_id' => 9,
                 'title' => 'Kiválasztásos rendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/selection_sort/selection_sort.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -720,7 +719,7 @@ return new class extends Migration
                 'sublesson_id' => 10,
                 'title' => 'Összefésüléses rendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/merge_sort/merge_sort.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -764,7 +763,7 @@ return new class extends Migration
                 'sublesson_id' => 11,
                 'title' => 'Gyorsrendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/quick_sort/quick_sort.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -808,7 +807,7 @@ return new class extends Migration
                 'sublesson_id' => 12,
                 'title' => 'Kupacrendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/heap_sort/heap_sort.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -852,7 +851,7 @@ return new class extends Migration
                 'sublesson_id' => 13,
                 'title' => 'Edényrendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/bucket_sort/bucket_sort.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -896,7 +895,7 @@ return new class extends Migration
                 'sublesson_id' => 14,
                 'title' => 'Leszámláló rendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/counting_sort/counting_sort.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -940,7 +939,7 @@ return new class extends Migration
                 'sublesson_id' => 15,
                 'title' => 'Radix rendezés',
                 'markdown' => Storage::get('markdowns/assignments/sorting_algorithms/radix_sort/radix_sort.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -985,7 +984,7 @@ return new class extends Migration
                 'sublesson_id' => 16,
                 'title' => 'Gráfok reprezentációja',
                 'markdown' => Storage::get('markdowns/assignments/graph_algorithms/graph_representations/graph_representations.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -1030,7 +1029,7 @@ return new class extends Migration
                 'sublesson_id' => 17,
                 'title' => 'Szélességi keresés',
                 'markdown' => Storage::get('markdowns/assignments/graph_algorithms/breadth_first_search/breadth_first_search.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -1075,7 +1074,7 @@ return new class extends Migration
                 'sublesson_id' => 18,
                 'title' => 'Mélységi keresés',
                 'markdown' => Storage::get('markdowns/assignments/graph_algorithms/depth_first_search/depth_first_search.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -1120,7 +1119,7 @@ return new class extends Migration
                 'sublesson_id' => 19,
                 'title' => 'Legrövidebb út algoritmusok',
                 'markdown' => Storage::get('markdowns/assignments/graph_algorithms/shortest_path_algorithms/shortest_path_algorithms.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -1166,7 +1165,7 @@ return new class extends Migration
                 'sublesson_id' => 20,
                 'title' => 'Pointerek használata',
                 'markdown' => Storage::get('markdowns/assignments/c/pointers/pointers.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 
@@ -1209,7 +1208,7 @@ return new class extends Migration
                 'sublesson_id' => 21,
                 'title' => 'Memóriakezelés',
                 'markdown' => Storage::get('markdowns/assignments/c/memory_management/memory_management.md'),
-                'assignment_xp' => 100
+                'assignment_xp' => 100,
             ],
         ]);
 

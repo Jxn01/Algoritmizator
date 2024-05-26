@@ -14,8 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * Each question is associated with a specific task.
  * The Question records the markdown content of the question.
- *
- * @package App\Models
  */
 class Question extends Model
 {

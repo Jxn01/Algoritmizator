@@ -21,8 +21,6 @@ use Illuminate\Http\Request;
  *
  * The LessonsController handles actions related to lessons in the application.
  * This includes getting lessons, assignments, tasks, and submitting assignments.
- *
- * @package App\Http\Controllers
  */
 class LessonsController extends Controller
 {
@@ -58,7 +56,7 @@ class LessonsController extends Controller
      * The lesson includes information about the sublessons associated with it.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @param int $id  The ID of the lesson.
+     * @param  int  $id  The ID of the lesson.
      * @return JsonResponse The lesson.
      */
     public function getAssignmentAndTasks(Request $request, int $id): JsonResponse
@@ -231,7 +229,7 @@ class LessonsController extends Controller
      *
      * This method returns an attempt with the user's answers.
      *
-     * @param int $id  The ID of the attempt.
+     * @param  int  $id  The ID of the attempt.
      * @return JsonResponse The attempt.
      */
     public function getAttempt(int $id): JsonResponse
@@ -363,7 +361,7 @@ class LessonsController extends Controller
      * This method returns all successful attempts of the user.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @param int $id  The ID of the user.
+     * @param  int  $id  The ID of the user.
      * @return JsonResponse The successful attempts of the user.
      */
     public function getSuccessfulAttempts(Request $request, int $id): JsonResponse

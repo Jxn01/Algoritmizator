@@ -23,7 +23,7 @@ Route::get('algoritmizator/api/user', static function () {
 /**
  * Route to verify email.
  *
- * @param EmailVerificationRequest $request
+ * @param  EmailVerificationRequest  $request
  * @return \Illuminate\Http\RedirectResponse
  */
 Route::get('algoritmizator/auth/email/verify/{id}/{hash}', static function (EmailVerificationRequest $request) {

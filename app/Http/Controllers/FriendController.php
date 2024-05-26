@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Auth;
  *
  * The FriendController handles actions related to friend management in the application.
  * This includes accepting and rejecting friend requests, sending friend requests, and removing friends.
- *
- * @package App\Http\Controllers
  */
 class FriendController extends Controller
 {
@@ -26,7 +24,6 @@ class FriendController extends Controller
      * It creates a new Friendship record and deletes the corresponding FriendRequest record.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function acceptFriendRequest(Request $request): JsonResponse
     {
@@ -57,7 +54,6 @@ class FriendController extends Controller
      * It deletes the corresponding FriendRequest record.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function rejectFriendRequest(Request $request): JsonResponse
     {
@@ -83,7 +79,6 @@ class FriendController extends Controller
      * It creates a new FriendRequest record.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function sendFriendRequest(Request $request): JsonResponse
     {
@@ -109,7 +104,6 @@ class FriendController extends Controller
      * It deletes the corresponding Friendship record.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function removeFriend(Request $request): JsonResponse
     {

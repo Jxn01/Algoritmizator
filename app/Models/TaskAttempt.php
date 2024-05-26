@@ -14,8 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * Each task attempt is associated with a specific attempt and task.
  * The TaskAttempt records the attempt that the user is making and the task that the user is attempting to complete.
- *
- * @package App\Models
  */
 class TaskAttempt extends Model
 {

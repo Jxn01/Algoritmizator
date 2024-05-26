@@ -18,8 +18,6 @@ use Illuminate\Support\Str;
  * Class AuthController
  *
  * The AuthController handles authentication related actions such as login, registration, password reset, and more.
- *
- * @package App\Http\Controllers
  */
 class AuthController extends Controller
 {
@@ -27,7 +25,6 @@ class AuthController extends Controller
      * Handle user login.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function login(Request $request): JsonResponse
     {
@@ -61,7 +58,6 @@ class AuthController extends Controller
      * Handle user registration.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function register(Request $request): JsonResponse
     {
@@ -110,7 +106,6 @@ class AuthController extends Controller
      * Handle password reset.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function resetPassword(Request $request): JsonResponse
     {
@@ -144,7 +139,6 @@ class AuthController extends Controller
      * Handle password reset link request.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function forgotPassword(Request $request): JsonResponse
     {
@@ -175,7 +169,6 @@ class AuthController extends Controller
      * Send email verification notification.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return RedirectResponse
      */
     public function emailVerificationNotification(Request $request): RedirectResponse
     {
@@ -188,7 +181,6 @@ class AuthController extends Controller
      * Handle avatar update.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function updateAvatar(Request $request): JsonResponse
     {
@@ -221,7 +213,6 @@ class AuthController extends Controller
      * Handle password update.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function updatePassword(Request $request): JsonResponse
     {
@@ -250,7 +241,6 @@ class AuthController extends Controller
      * Handle name update.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function updateName(Request $request): JsonResponse
     {
@@ -272,7 +262,6 @@ class AuthController extends Controller
      * Handle username update.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function updateUsername(Request $request): JsonResponse
     {
@@ -301,7 +290,6 @@ class AuthController extends Controller
      * Handle email update.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse
      */
     public function updateEmail(Request $request): JsonResponse
     {

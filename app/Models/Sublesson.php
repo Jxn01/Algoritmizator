@@ -14,8 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * Each sublesson is associated with a specific lesson.
  * The Sublesson records the title, markdown content, and whether it has a quiz.
- *
- * @package App\Models
  */
 class Sublesson extends Model
 {

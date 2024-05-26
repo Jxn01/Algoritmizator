@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * Each friendship is associated with two users.
  * The Friendship records the two users who are friends.
- *
- * @package App\Models
  */
 class Friendship extends Model
 {

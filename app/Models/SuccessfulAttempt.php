@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * Each successful attempt is associated with a specific user, assignment, and attempt.
  * The SuccessfulAttempt records the user who successfully completed the assignment and the attempt they made.
- *
- * @package App\Models
  */
 class SuccessfulAttempt extends Model
 {

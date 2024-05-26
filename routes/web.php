@@ -30,21 +30,21 @@ Route::middleware('inertia')->group(function () {
         /**
          * Route to show a specific user's profile.
          *
-         * @param int $id
+         * @param  int  $id
          */
         Route::get('/app/socials/profile/{id}', [PageController::class, 'showUserProfile'])->middleware('redirectFromOwnProfile')->name('user-profile');
 
         /**
          * Route to show a specific task.
          *
-         * @param int $id
+         * @param  int  $id
          */
         Route::get('/lessons/task/{id}', [PageController::class, 'showTask'])->name('task');
 
         /**
          * Route to show a specific task attempt.
          *
-         * @param int $id
+         * @param  int  $id
          */
         Route::get('/lessons/task/attempt/{id}', [PageController::class, 'showTaskAttempt'])->name('task-attempt');
 
@@ -106,7 +106,7 @@ Route::middleware('inertia')->group(function () {
         /**
          * Route to show reset password page.
          *
-         * @param string $token
+         * @param  string  $token
          */
         Route::get('/auth/reset-password/{token}', [PageController::class, 'showResetPassword'])->name('password.reset');
     });
@@ -114,7 +114,7 @@ Route::middleware('inertia')->group(function () {
     /**
      * Route to show error page.
      *
-     * @param string $type
+     * @param  string  $type
      */
     Route::get('/error/{type}', [PageController::class, 'showError']);
 
@@ -134,11 +134,12 @@ Route::get('/api/user', static function () {
 /**
  * Route to verify email.
  *
- * @param EmailVerificationRequest $request
+ * @param  EmailVerificationRequest  $request
  * @return \Illuminate\Http\RedirectResponse
  */
 Route::get('/auth/email/verify/{id}/{hash}', static function (EmailVerificationRequest $request) {
     $request->fulfill();
+
     return redirect('/auth/email-confirmed');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
@@ -204,7 +205,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /**
      * Route to get user by ID.
      *
-     * @param int $id
+     * @param  int  $id
      */
     Route::get('/api/users/{id}', [SearchController::class, 'getUser']);
 
@@ -236,7 +237,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /**
      * Route to get assignment and tasks by ID.
      *
-     * @param int $id
+     * @param  int  $id
      */
     Route::get('/api/task/{id}', [LessonsController::class, 'getAssignmentAndTasks']);
 
@@ -253,14 +254,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /**
      * Route to get an attempt by ID.
      *
-     * @param int $id
+     * @param  int  $id
      */
     Route::get('/api/task/attempt/{id}', [LessonsController::class, 'getAttempt']);
 
     /**
      * Route to get successful attempts by user ID.
      *
-     * @param int $id
+     * @param  int  $id
      */
     Route::get('/api/task/attempts/successful/user/{id}', [LessonsController::class, 'getSuccessfulAttempts']);
 

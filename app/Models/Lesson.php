@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * Each lesson can have a title and a description.
  * A lesson can have multiple sublessons.
- *
- * @package App\Models
  */
 class Lesson extends Model
 {
@@ -32,7 +30,7 @@ class Lesson extends Model
     /**
      * Find a lesson by its title.
      *
-     * @param string $title The title of the lesson to find.
+     * @param  string  $title  The title of the lesson to find.
      * @return Lesson|null The lesson with the specified title, or null if not found.
      */
     public static function findLessonByTitle(string $title): ?Lesson

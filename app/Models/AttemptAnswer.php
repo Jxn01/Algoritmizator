@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * Each AttemptAnswer is associated with a specific attempt question and answer.
  * The AttemptAnswer records the attempt made by the user and the answer they provided.
- *
- * @package App\Models
  */
 class AttemptAnswer extends Model
 {

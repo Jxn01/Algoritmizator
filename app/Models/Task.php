@@ -14,8 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * Each task is associated with a specific assignment.
  * The Task records the type, title, and description of the task.
- *
- * @package App\Models
  */
 class Task extends Model
 {

@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Class Answer
  *
  * The Answer model represents the answer to a question.
- *
- * @package App\Models
  */
 class Answer extends Model
 {

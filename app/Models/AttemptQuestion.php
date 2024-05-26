@@ -14,8 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * Each attempt question is associated with a task attempt and a question.
  * The AttemptQuestion records the task attempt that the question is associated with and the question that the user is attempting to answer.
- *
- * @package App\Models
  */
 class AttemptQuestion extends Model
 {

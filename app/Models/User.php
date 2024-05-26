@@ -17,8 +17,6 @@ use Illuminate\Notifications\Notifiable;
  *
  * Each user has a name, username, email, password, level, total experience, online status, last online time, and avatar.
  * The User model also implements CanResetPassword and MustVerifyEmail contracts.
- *
- * @package App\Models
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -82,8 +80,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Send the email verification notification.
-     *
-     * @return void
      */
     public function sendEmailVerificationNotification(): void
     {
@@ -93,8 +89,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token The password reset token.
-     * @return void
+     * @param  string  $token  The password reset token.
      */
     public function sendPasswordResetNotification($token): void
     {
@@ -104,7 +99,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Find a user by their ID.
      *
-     * @param  int  $id The ID of the user.
+     * @param  int  $id  The ID of the user.
      * @return User|null The user, or null if not found.
      */
     public static function findById(int $id): ?User

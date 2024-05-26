@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * Each friend request is associated with a sender and a receiver.
  * The FriendRequest records the user who sent the request and the user who received the request.
- *
- * @package App\Models
  */
 class FriendRequest extends Model
 {

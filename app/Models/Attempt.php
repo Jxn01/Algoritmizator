@@ -15,8 +15,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Each attempt is associated with a specific user and assignment.
  * The attempt records the total score achieved by the user, the maximum possible score,
  * the time taken to complete the attempt, and whether the attempt was a pass or fail.
- *
- * @package App\Models
  */
 class Attempt extends Model
 {

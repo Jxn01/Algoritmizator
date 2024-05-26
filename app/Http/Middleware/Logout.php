@@ -19,7 +19,6 @@ class Logout
      * Handle an incoming request.
      *
      * @param  Closure(Request): (Response)  $next
-     * @return Response
      */
     public function handle(Request $request, Closure $next): Response
     {

@@ -15,8 +15,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * An assignment is a task or set of tasks given to students as part of their course work.
  * Each assignment belongs to a specific sublesson and can have multiple tasks.
  * Students can complete assignments and make attempts at them.
- *
- * @package App\Models
  */
 class Assignment extends Model
 {
