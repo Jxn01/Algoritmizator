@@ -14,6 +14,8 @@ use Throwable;
  *
  * The Handler class is responsible for handling exceptions that are not caught by the application.
  * It extends the base Handler class provided by Laravel.
+ *
+ * @package App\Exceptions
  */
 class Handler extends ExceptionHandler
 {

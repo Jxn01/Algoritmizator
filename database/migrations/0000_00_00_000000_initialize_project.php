@@ -12,195 +12,217 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Create the 'sessions' table for managing user sessions
         Schema::create('sessions', static function ($table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity');
+            $table->string('id')->primary(); // Primary key
+            $table->foreignId('user_id')->nullable()->index(); // Foreign key to the user
+            $table->string('ip_address', 45)->nullable(); // IP address of the user
+            $table->text('user_agent')->nullable(); // User agent of the user
+            $table->longText('payload'); // Session payload
+            $table->integer('last_activity'); // Timestamp of the last activity
         });
 
+        // Create the 'password_reset_tokens' table for managing password reset tokens
         Schema::create('password_reset_tokens', static function ($table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->string('email')->index(); // Email address
+            $table->string('token'); // Token for password reset
+            $table->timestamp('created_at')->nullable(); // Timestamp when the token was created
         });
 
+        // Create the 'jobs' table for managing jobs
         Schema::create('jobs', static function ($table) {
-            $table->id();
-            $table->string('queue');
-            $table->longText('payload');
-            $table->tinyInteger('attempts');
-            $table->unsignedInteger('reserved_at')->nullable();
-            $table->unsignedInteger('available_at');
-            $table->unsignedInteger('created_at');
+            $table->id(); // Primary key with auto-increment
+            $table->string('queue'); // Name of the queue
+            $table->longText('payload'); // Payload for the job
+            $table->tinyInteger('attempts'); // Number of attempts
+            $table->unsignedInteger('reserved_at')->nullable(); // Timestamp when the job was reserved
+            $table->unsignedInteger('available_at'); // Timestamp when the job is available
+            $table->unsignedInteger('created_at'); // Timestamp when the job was created
         });
 
+        // Create the 'job_batches' table for managing batches of jobs
         Schema::create('job_batches', static function ($table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('total_jobs');
-            $table->integer('pending_jobs');
-            $table->integer('failed_jobs');
-            $table->longText('failed_job_ids');
-            $table->mediumText('options');
-            $table->integer('cancelled_at')->nullable();
-            $table->integer('created_at');
-            $table->integer('finished_at');
+            $table->id(); // Primary key with auto-increment
+            $table->string('name'); // Name of the batch
+            $table->integer('total_jobs'); // Total number of jobs
+            $table->integer('pending_jobs'); // Number of pending jobs
+            $table->integer('failed_jobs'); // Number of failed jobs
+            $table->longText('failed_job_ids'); // IDs of the failed jobs
+            $table->mediumText('options'); // Options for the batch
+            $table->integer('cancelled_at')->nullable(); // Timestamp when the batch was cancelled
+            $table->integer('created_at'); // Timestamp when the batch was created
+            $table->integer('finished_at'); // Timestamp when the batch was finished
         });
 
+        // Create the 'failed_jobs' table for managing failed jobs
         Schema::create('failed_jobs', static function ($table) {
-            $table->id();
-            $table->string('uuid')->unique();
-            $table->text('connection');
-            $table->text('queue');
-            $table->longText('payload');
-            $table->longText('exception');
-            $table->timestamp('failed_at')->useCurrent();
+            $table->id(); // Primary key with auto-increment
+            $table->string('uuid')->unique(); // Unique identifier for the job
+            $table->text('connection'); // Connection name
+            $table->text('queue'); // Queue name
+            $table->longText('payload'); // Payload for the job
+            $table->longText('exception'); // Exception message
+            $table->timestamp('failed_at')->useCurrent(); // Timestamp when the job failed
         });
 
+        // Create the 'cache' table for managing cache
         Schema::create('cache', static function ($table) {
-            $table->string('key')->primary();
-            $table->longText('value');
-            $table->integer('expiration');
+            $table->string('key')->primary(); // Primary key
+            $table->longText('value'); // Cached value
+            $table->integer('expiration'); // Expiration time
         });
 
+        // Create the 'cache_locks' table for managing cache locks
         Schema::create('cache_locks', static function ($table) {
-            $table->string('name')->primary();
-            $table->string('owner');
-            $table->integer('expiration');
+            $table->string('name')->primary(); // Primary key
+            $table->string('owner'); // Owner of the lock
+            $table->integer('expiration'); // Expiration time
         });
 
+        // Create the 'users' table for managing users
         Schema::create('users', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->string('name');
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken()->nullable();
-            $table->timestamps();
-            $table->integer('total_xp')->default(0);
-            $table->boolean('is_online')->default(false);
-            $table->dateTime('last_online')->nullable();
-            $table->string('avatar')->default('default.png');
-            $table->string('last_seen_at')->nullable();
-            $table->string('last_activity')->nullable();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->string('name'); // User's name
+            $table->string('username')->unique(); // Unique username
+            $table->string('email')->unique(); // Unique email
+            $table->timestamp('email_verified_at')->nullable(); // Timestamp when email was verified
+            $table->string('password'); // User's password
+            $table->rememberToken()->nullable(); // Remember token
+            $table->timestamps(); // Timestamps for created and updated
+            $table->integer('total_xp')->default(0); // Total experience points
+            $table->boolean('is_online')->default(false); // User's online status
+            $table->dateTime('last_online')->nullable(); // Timestamp of the last online
+            $table->string('avatar')->default('default.png'); // User's avatar
+            $table->string('last_seen_at')->nullable(); // Timestamp of the last seen
+            $table->string('last_activity')->nullable(); // Last activity of the user
         });
 
+        // Create the 'levels' table for managing levels
         Schema::create('levels', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->integer('level');
-            $table->integer('xp_start');
-            $table->integer('xp_end');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->integer('level'); // Level number
+            $table->integer('xp_start'); // Experience points to start the level
+            $table->integer('xp_end'); // Experience points to end the level
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'friendships' table for managing friendships
         Schema::create('friendships', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('party1');
-            $table->foreignId('party2');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('party1'); // Foreign key to the first party
+            $table->foreignId('party2'); // Foreign key to the second party
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'friend_requests' table for managing friend requests
         Schema::create('friend_requests', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('sender_id');
-            $table->foreignId('receiver_id');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('sender_id'); // Foreign key to the sender
+            $table->foreignId('receiver_id'); // Foreign key to the receiver
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'lessons' table for managing lessons
         Schema::create('lessons', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->string('title');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->string('title'); // Title of the lesson
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'sublessons' table for managing sublessons
         Schema::create('sublessons', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('lesson_id');
-            $table->string('title');
-            $table->text('markdown');
-            $table->boolean('has_quiz')->default(false);
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('lesson_id'); // Foreign key to the lesson
+            $table->string('title'); // Title of the sublesson
+            $table->text('markdown'); // Markdown content for the sublesson
+            $table->boolean('has_quiz')->default(false); // Whether the sublesson has a quiz
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'assignments' table for managing assignments
         Schema::create('assignments', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('sublesson_id');
-            $table->string('title');
-            $table->text('markdown');
-            $table->integer('assignment_xp');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('sublesson_id'); // Foreign key to the sublesson
+            $table->string('title'); // Title of the assignment
+            $table->text('markdown'); // Markdown content for the assignment
+            $table->integer('assignment_xp'); // Experience points for completing the assignment
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'tasks' table for managing tasks within assignments
         Schema::create('tasks', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('assignment_id');
-            $table->string('type');
-            $table->string('title');
-            $table->text('markdown');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('assignment_id'); // Foreign key to the assignment
+            $table->string('type'); // Type of the task (e.g., quiz, true_false, checkbox, etc.)
+            $table->string('title'); // Title of the task
+            $table->text('markdown'); // Markdown content for the task
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'questions' table for managing questions within tasks
         Schema::create('questions', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('task_id');
-            $table->text('markdown');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('task_id'); // Foreign key to the task
+            $table->text('markdown'); // Markdown content for the question
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'answers' table for managing answers to questions within tasks
         Schema::create('answers', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('question_id');
-            $table->string('answer');
-            $table->boolean('is_correct');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('question_id'); // Foreign key to the question
+            $table->string('answer'); // The answer text
+            $table->boolean('is_correct'); // Whether the answer is correct
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'attempts' table for managing user attempts at assignments
         Schema::create('attempts', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('user_id');
-            $table->foreignId('assignment_id');
-            $table->integer('total_score');
-            $table->integer('max_score');
-            $table->time('time');
-            $table->boolean('passed');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('user_id'); // Foreign key to the user
+            $table->foreignId('assignment_id'); // Foreign key to the assignment
+            $table->integer('total_score'); // Total score achieved
+            $table->integer('max_score'); // Maximum possible score
+            $table->time('time'); // Time taken for the attempt
+            $table->boolean('passed'); // Whether the user passed the assignment
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'task_attempts' table for managing user attempts at tasks within assignments
         Schema::create('task_attempts', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('attempt_id');
-            $table->foreignId('task_id');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('attempt_id'); // Foreign key to the attempt
+            $table->foreignId('task_id'); // Foreign key to the task
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'attempt_questions' table for managing user responses to questions within tasks
         Schema::create('attempt_questions', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('task_attempt_id');
-            $table->foreignId('question_id');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('task_attempt_id'); // Foreign key to the task attempt
+            $table->foreignId('question_id'); // Foreign key to the question
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'attempt_answers' table for managing user answers to questions within tasks
         Schema::create('attempt_answers', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('attempt_question_id');
-            $table->foreignId('answer_id')->nullable();
-            $table->string('custom_answer')->nullable();
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('attempt_question_id'); // Foreign key to the attempt question
+            $table->foreignId('answer_id')->nullable(); // Foreign key to the answer
+            $table->string('custom_answer')->nullable(); // Custom answer provided by the user
+            $table->timestamps(); // Timestamps for created and updated
         });
 
+        // Create the 'successful_attempts' table for managing successful user attempts at assignments
         Schema::create('successful_attempts', static function ($table) {
-            $table->id()->autoIncrement();
-            $table->foreignId('user_id');
-            $table->foreignId('assignment_id');
-            $table->foreignId('attempt_id');
-            $table->timestamps();
+            $table->id()->autoIncrement(); // Primary key with auto-increment
+            $table->foreignId('user_id'); // Foreign key to the user
+            $table->foreignId('assignment_id'); // Foreign key to the assignment
+            $table->foreignId('attempt_id'); // Foreign key to the attempt
+            $table->timestamps(); // Timestamps for created and updated
         });
 
-        // Seed the levels table
+        // Seed the levels table with initial data
         DB::table('levels')->insert([
             ['level' => 1, 'xp_start' => 0, 'xp_end' => 100],
             ['level' => 2, 'xp_start' => 101, 'xp_end' => 200],
@@ -234,6 +256,7 @@ return new class extends Migration
             ['level' => 30, 'xp_start' => 2901, 'xp_end' => 3000],
         ]);
 
+        // Seed the lessons table with initial data
         DB::table('lessons')->insert([
             ['title' => 'Adatszerkezetek'],
             ['title' => 'Rendező algoritmusok'],
@@ -241,6 +264,7 @@ return new class extends Migration
             ['title' => 'Memóriakezelés és pointerek'],
         ]);
 
+        // Seed the sublessons table with initial data
         DB::table('sublessons')->insert([
             ['lesson_id' => 1, 'title' => 'Tömbök', 'markdown' => Storage::get('markdowns/lessons/data_structures/arrays.md'), 'has_quiz' => true],
             ['lesson_id' => 1, 'title' => 'Listák', 'markdown' => Storage::get('markdowns/lessons/data_structures/lists.md'), 'has_quiz' => true],
@@ -267,6 +291,8 @@ return new class extends Migration
             ['lesson_id' => 4, 'title' => 'Mutatók', 'markdown' => Storage::get('markdowns/lessons/c/pointers.md'), 'has_quiz' => true],
             ['lesson_id' => 4, 'title' => 'Memóriakezelés', 'markdown' => Storage::get('markdowns/lessons/c/memory_management.md'), 'has_quiz' => true],
         ]);
+
+        // Seed the assignments, tasks, questions, and answers tables with initial data
 
         DB::table('assignments')->insert([
             [

@@ -9,10 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Class Answer
  *
- * The Answer model represents an answer to a task in the system.
+ * The Answer model represents the answer to a question.
  *
- * Each answer is associated with a specific task.
- * The Answer records the answer text and whether it is the correct answer for the task.
+ * @package App\Models
  */
 class Answer extends Model
 {
@@ -30,7 +29,9 @@ class Answer extends Model
     ];
 
     /**
-     * Get the task that the answer is associated with.
+     * Get the question that the answer belongs to.
+     *
+     * @return BelongsTo The question that the answer belongs to.
      */
     public function question(): BelongsTo
     {

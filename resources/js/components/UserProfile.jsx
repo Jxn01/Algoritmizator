@@ -5,19 +5,18 @@ import Footer from "./Footer.jsx";
 /**
  * UserProfile component
  *
- * This is a functional component that renders a user's profile page.
- * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
- *
- * @param {Object} props - The properties passed to the component
+ * This component displays a user's profile information and their successful task attempts.
+ * @param {object} props - The component props
  * @param {string} props.title - The title of the page
- * @param {string} props.activeTab - The currently active tab in the navbar
- *
- * @returns {JSX.Element} The UserProfile component
+ * @param {string} props.activeTab - The active tab in the navigation
+ * @param {string} props.id - The ID of the user whose profile is to be displayed
+ * @returns {JSX.Element} UserProfile component
  */
 const UserProfile = memo(({title, activeTab, id}) => {
     const [profileUser, setProfileUser] = useState({});
     const [successfulAttempts, setSuccessfulAttempts] = useState([]);
 
+    // Fetch user profile data and their successful task attempts when the component mounts
     useEffect(() => {
         axios.get('/algoritmizator/api/users/' + id)
             .then(response => {
@@ -33,15 +32,14 @@ const UserProfile = memo(({title, activeTab, id}) => {
                         setSuccessfulAttempts([]);
                     });
             }).catch(error => {
-                alert("Hiba történt az adatok betöltése közben. Kérlek, próbáld újra később!");
-            });
-    }, []);
+            alert("Hiba történt az adatok betöltése közben. Kérlek, próbáld újra később!");
+        });
+    }, [id]);
 
     return (
         <div>
             <Navbar title={title} activeTab={activeTab}/>
-            <div
-                className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
+            <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-4xl bg-gray-800 p-6 rounded-lg shadow-lg text-white space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div>
@@ -56,14 +54,15 @@ const UserProfile = memo(({title, activeTab, id}) => {
                             <h1 className="text-3xl font-bold">{profileUser.name}</h1>
                             <p className="text-xl">{profileUser.username}</p>
                             <p className="text-md">{profileUser.email}</p>
-                            <p className="text-sm">Regisztráció
-                                dátuma: {new Date(profileUser.created_at).toLocaleString('hu-HU', {
-                                    year: 'numeric',
-                                    month: '2-digit',
-                                    day: '2-digit',
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                })}</p>
+                            <p className="text-sm">
+                                Regisztráció dátuma: {new Date(profileUser.created_at).toLocaleString('hu-HU', {
+                                year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            })}
+                            </p>
                             <p className="text-sm text-gray-500">ID: {profileUser.id}</p>
                         </div>
                         <div>
@@ -79,7 +78,7 @@ const UserProfile = memo(({title, activeTab, id}) => {
                             {successfulAttempts.length === 0 && <p>Még nem teljesített feladatot. :(</p>}
                             {successfulAttempts.map(attempt => (
                                 <div key={attempt.id}
-                                   className="flex items-center justify-between mx-4 p-3 border-t border-purple-500 hover:bg-gray-900 transition duration-300 rounded-lg">
+                                     className="flex items-center justify-between mx-4 p-3 border-t border-purple-500 hover:bg-gray-900 transition duration-300 rounded-lg">
                                     <div className="flex items-center flex-1">
                                         <div>
                                             <h3 className="text-lg">{attempt.title}</h3>

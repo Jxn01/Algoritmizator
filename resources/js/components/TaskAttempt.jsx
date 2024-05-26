@@ -5,11 +5,22 @@ import Footer from "./Footer.jsx";
 import ReactMarkdown from 'react-markdown';
 import injectCodeEditors from "@/CodeEditorInjector";
 
+/**
+ * TaskAttempt component
+ *
+ * This component displays the details of a user's attempt at a task, including their answers, scores, and status.
+ * @param {object} props - The component props
+ * @param {string} props.id - The ID of the task attempt
+ * @param {string} props.title - The title of the page
+ * @param {string} props.activeTab - The active tab in the navigation
+ * @returns {JSX.Element} TaskAttempt component
+ */
 const TaskAttempt = ({ id, title, activeTab }) => {
     const [attempt, setAttempt] = useState(null);
     const [loading, setLoading] = useState(true);
     const isFirstRun = useRef(true);
 
+    // Fetch task attempt data from the API when the component mounts or the attempt ID changes
     useEffect(() => {
         axios.get(`/algoritmizator/api/task/attempt/${id}`)
             .then(response => {
@@ -22,6 +33,7 @@ const TaskAttempt = ({ id, title, activeTab }) => {
             });
     }, [id]);
 
+    // Inject code editors once the loading is complete (but not on first run)
     useEffect(() => {
         if (isFirstRun.current) {
             isFirstRun.current = false;
@@ -29,17 +41,23 @@ const TaskAttempt = ({ id, title, activeTab }) => {
         }
 
         injectCodeEditors();
-
     }, [loading]);
 
+    // Display a loading message while data is being fetched
     if (loading) {
         return <div>Betöltés...</div>;
     }
 
+    // Display an error message if the attempt data could not be fetched
     if (!attempt) {
         return <div>Betöltés sikertelen.</div>;
     }
 
+    /**
+     * Format the given time string.
+     * @param {string} timeString - The time string to format
+     * @returns {string} - The formatted time string
+     */
     const formatTime = (timeString) => {
         return timeString;
     };

@@ -21,6 +21,8 @@ use Illuminate\Http\Request;
  *
  * The LessonsController handles actions related to lessons in the application.
  * This includes getting lessons, assignments, tasks, and submitting assignments.
+ *
+ * @package App\Http\Controllers
  */
 class LessonsController extends Controller
 {
@@ -391,7 +393,7 @@ class LessonsController extends Controller
     /**
      * Get the hourly lesson.
      *
-     * This method returns the lessonfor the current hour.
+     * This method returns the lesson for the current hour.
      *
      * @param  Request  $request  The incoming HTTP request.
      * @return JsonResponse The hourly lesson.
@@ -399,7 +401,7 @@ class LessonsController extends Controller
     public function getHourlyLesson(Request $request): JsonResponse
     {
         $hour = date('H') + 1;
-        if($hour > 21){
+        if ($hour > 21) {
             $hour -= 20;
         }
         $lesson = Sublesson::where('id', $hour)->first();

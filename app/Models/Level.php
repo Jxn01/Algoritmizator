@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * Each level is associated with a range of XP values.
  * The Level records the level number and the range of XP values that correspond to that level.
+ *
+ * @package App\Models
  */
 class Level extends Model
 {
@@ -30,6 +32,9 @@ class Level extends Model
 
     /**
      * Find the level that corresponds to the given XP value.
+     *
+     * @param int $xp The XP value to find the corresponding level for.
+     * @return int|null The level that corresponds to the given XP value, or null if no level is found.
      */
     public static function findLevelByXp(int $xp): ?int
     {

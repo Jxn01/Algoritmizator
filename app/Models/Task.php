@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * Each task is associated with a specific assignment.
  * The Task records the type, title, and description of the task.
+ *
+ * @package App\Models
  */
 class Task extends Model
 {
@@ -32,7 +34,9 @@ class Task extends Model
     ];
 
     /**
-     * Get the answers associated with the task.
+     * Get the questions associated with the task.
+     *
+     * @return HasMany The questions associated with the task.
      */
     public function questions(): HasMany
     {
@@ -41,6 +45,8 @@ class Task extends Model
 
     /**
      * Get the assignment that the task is associated with.
+     *
+     * @return BelongsTo The assignment that the task is associated with.
      */
     public function assignment(): BelongsTo
     {

@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * Each sublesson is associated with a specific lesson.
  * The Sublesson records the title, markdown content, and whether it has a quiz.
+ *
+ * @package App\Models
  */
 class Sublesson extends Model
 {
@@ -33,6 +35,8 @@ class Sublesson extends Model
 
     /**
      * Get the lesson that the sublesson is associated with.
+     *
+     * @return BelongsTo The lesson that the sublesson belongs to.
      */
     public function lesson(): BelongsTo
     {
@@ -41,6 +45,8 @@ class Sublesson extends Model
 
     /**
      * Get the quiz associated with the sublesson.
+     *
+     * @return HasOne The quiz associated with the sublesson.
      */
     public function assignment(): HasOne
     {

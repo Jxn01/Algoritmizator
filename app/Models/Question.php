@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * Each question is associated with a specific task.
  * The Question records the markdown content of the question.
+ *
+ * @package App\Models
  */
 class Question extends Model
 {
@@ -31,6 +33,8 @@ class Question extends Model
 
     /**
      * Get the task that the question is associated with.
+     *
+     * @return BelongsTo The task that the question belongs to.
      */
     public function task(): BelongsTo
     {
@@ -39,6 +43,8 @@ class Question extends Model
 
     /**
      * Get the answers to the question.
+     *
+     * @return HasMany The answers associated with the question.
      */
     public function answers(): HasMany
     {

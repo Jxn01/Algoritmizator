@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * Each task attempt is associated with a specific attempt and task.
  * The TaskAttempt records the attempt that the user is making and the task that the user is attempting to complete.
+ *
+ * @package App\Models
  */
 class TaskAttempt extends Model
 {
@@ -31,6 +33,8 @@ class TaskAttempt extends Model
 
     /**
      * Get the attempt that the task attempt is associated with.
+     *
+     * @return BelongsTo The attempt that the task attempt is associated with.
      */
     public function attempt(): BelongsTo
     {
@@ -39,6 +43,8 @@ class TaskAttempt extends Model
 
     /**
      * Get the task that the user is attempting to complete.
+     *
+     * @return BelongsTo The task that the user is attempting to complete.
      */
     public function task(): BelongsTo
     {
@@ -47,6 +53,8 @@ class TaskAttempt extends Model
 
     /**
      * Get the questions that the user is attempting to answer.
+     *
+     * @return HasMany The questions that the user is attempting to answer.
      */
     public function questions(): HasMany
     {

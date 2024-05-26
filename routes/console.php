@@ -5,20 +5,21 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 
 /**
- * Register the "inspire" console command.
- *
- * This command displays an inspiring quote when it is run.
- * It is scheduled to run hourly.
+ * Registers an artisan command to display an inspiring quote.
  */
 Artisan::command('inspire', function () {
+    // Display an inspiring quote
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
 /**
- * Schedule the "auth:clear-resets" command.
- *
- * This command clears expired password reset tokens.
- * It is scheduled to run every fifteen minutes.
+ * Schedules the command to clear auth resets every fifteen minutes,
+ * even during maintenance mode.
  */
 Schedule::command('auth:clear-resets')->everyFifteenMinutes()->evenInMaintenanceMode();
+
+/**
+ * Schedules the command to set people offline every minute,
+ * even during maintenance mode.
+ */
 Schedule::command('app:set-people-offline')->everyMinute()->evenInMaintenanceMode();

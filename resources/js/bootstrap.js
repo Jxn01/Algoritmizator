@@ -1,17 +1,16 @@
-// Import the axios library
 import axios from 'axios';
 
-// Make axios available globally
+// Make the axios instance globally available via the window object.
 window.axios = axios;
 
-// Set the default 'X-Requested-With' header for all axios requests
-// This header is used to identify Ajax requests. Most JavaScript frameworks send this header with value of 'XMLHttpRequest'
+// Set the default headers for all axios requests to include 'X-Requested-With' header with the value 'XMLHttpRequest'.
+// This is commonly used to identify Ajax requests and can be useful for handling them differently on the server.
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-// Enable the sending of cross-site credentials in axios
-// This means that cookies will be included in requests to different domains
+// Configure axios to include credentials (such as cookies, authorization headers, or TLS client certificates) in requests by default.
+// This is useful for cross-site requests that require authentication.
 axios.defaults.withCredentials = true;
 
-// Enable the sending of the XSRF token in axios
-// This is a security measure to prevent cross-site request forgery attacks
+// Enable the inclusion of XSRF (Cross-Site Request Forgery) tokens in axios requests by default.
+// This helps protect against CSRF attacks by ensuring that the token is sent with requests.
 axios.defaults.withXSRFToken = true;

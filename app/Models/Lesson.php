@@ -12,7 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * The Lesson model represents a lesson in the system.
  *
  * Each lesson can have a title and a description.
- * A lesson can have one assignment and multiple completed lessons.
+ * A lesson can have multiple sublessons.
+ *
+ * @package App\Models
  */
 class Lesson extends Model
 {
@@ -29,6 +31,9 @@ class Lesson extends Model
 
     /**
      * Find a lesson by its title.
+     *
+     * @param string $title The title of the lesson to find.
+     * @return Lesson|null The lesson with the specified title, or null if not found.
      */
     public static function findLessonByTitle(string $title): ?Lesson
     {
@@ -37,6 +42,8 @@ class Lesson extends Model
 
     /**
      * Get the sublessons for the lesson.
+     *
+     * @return HasMany The sublessons associated with the lesson.
      */
     public function sublessons(): HasMany
     {

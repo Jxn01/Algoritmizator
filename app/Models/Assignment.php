@@ -13,8 +13,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * The Assignment model represents an assignment in the system.
  *
  * An assignment is a task or set of tasks given to students as part of their course work.
- * Each assignment belongs to a specific lesson and can have multiple tasks.
+ * Each assignment belongs to a specific sublesson and can have multiple tasks.
  * Students can complete assignments and make attempts at them.
+ *
+ * @package App\Models
  */
 class Assignment extends Model
 {
@@ -33,7 +35,9 @@ class Assignment extends Model
     ];
 
     /**
-     * Get the lesson that owns the assignment.
+     * Get the sublesson that the assignment belongs to.
+     *
+     * @return BelongsTo The sublesson that the assignment belongs to.
      */
     public function sublesson(): BelongsTo
     {
@@ -42,6 +46,8 @@ class Assignment extends Model
 
     /**
      * Get the tasks for the assignment.
+     *
+     * @return HasMany The tasks for the assignment.
      */
     public function tasks(): HasMany
     {
@@ -50,6 +56,8 @@ class Assignment extends Model
 
     /**
      * Get the attempts for the assignment.
+     *
+     * @return HasMany The attempts for the assignment.
      */
     public function attempts(): HasMany
     {
@@ -58,6 +66,8 @@ class Assignment extends Model
 
     /**
      * Get the successful attempts for the assignment.
+     *
+     * @return HasMany The successful attempts for the assignment.
      */
     public function successfulAttempts(): HasMany
     {

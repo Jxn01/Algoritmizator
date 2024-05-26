@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * Each friendship is associated with two users.
  * The Friendship records the two users who are friends.
+ *
+ * @package App\Models
  */
 class Friendship extends Model
 {
@@ -30,6 +32,8 @@ class Friendship extends Model
 
     /**
      * Get the first user in the friendship.
+     *
+     * @return BelongsTo The first user in the friendship.
      */
     public function user1(): BelongsTo
     {
@@ -38,6 +42,8 @@ class Friendship extends Model
 
     /**
      * Get the second user in the friendship.
+     *
+     * @return BelongsTo The second user in the friendship.
      */
     public function user2(): BelongsTo
     {

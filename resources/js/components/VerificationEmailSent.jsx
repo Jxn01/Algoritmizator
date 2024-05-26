@@ -6,18 +6,17 @@ import axios from 'axios';
 /**
  * VerificationEmailSent component
  *
- * This is a functional component that renders a page informing the user that a verification email has been sent.
- * It uses React's memo function to optimize rendering by avoiding re-rendering when props haven't changed.
- * It also provides a function to resend the verification email.
- *
- * @param {Object} props - The properties passed to the component
+ * This component displays a message informing the user that a verification email has been sent
+ * and provides options to resend the email or navigate to the homepage.
+ * @param {object} props - The component props
  * @param {string} props.title - The title of the page
- * @param {string} props.activeTab - The currently active tab in the navbar
- * @param {Object} props.user - The currently logged in user
- *
- * @returns {JSX.Element} The VerificationEmailSent component
+ * @param {string} props.activeTab - The active tab in the navigation
+ * @returns {JSX.Element} VerificationEmailSent component
  */
-const VerificationEmailSent = memo(({ title, activeTab}) => {
+const VerificationEmailSent = memo(({ title, activeTab }) => {
+    /**
+     * Handles the click event to resend the verification email.
+     */
     const handleResendEmail = () => {
         axios.post('/algoritmizator/api/email-verification-notification')
             .then(response => {
@@ -30,12 +29,12 @@ const VerificationEmailSent = memo(({ title, activeTab}) => {
 
     return (
         <div>
-            <Navbar title={title} activeTab={activeTab}/>
+            <Navbar title={title} activeTab={activeTab} />
             <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-md text-center">
                     <div className="flex flex-col items-center mb-8">
                         <img src="/algoritmizator/storage/logo.png" alt="Logo"
-                             className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"/>
+                             className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800" />
                         <h2 className="text-3xl font-bold text-white mb-2">Erősítsd meg az e-mail címed</h2>
                     </div>
                     <div className="px-8 py-6 bg-gray-800 shadow-lg rounded-lg">

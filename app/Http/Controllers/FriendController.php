@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
  *
  * The FriendController handles actions related to friend management in the application.
  * This includes accepting and rejecting friend requests, sending friend requests, and removing friends.
+ *
+ * @package App\Http\Controllers
  */
 class FriendController extends Controller
 {
@@ -24,6 +26,7 @@ class FriendController extends Controller
      * It creates a new Friendship record and deletes the corresponding FriendRequest record.
      *
      * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
      */
     public function acceptFriendRequest(Request $request): JsonResponse
     {
@@ -40,7 +43,9 @@ class FriendController extends Controller
         $friendship->save();
 
         $friendRequest = FriendRequest::where('sender_id', $friendId)->where('receiver_id', $currentUserId)->first();
-        $friendRequest->delete();
+        if ($friendRequest) {
+            $friendRequest->delete();
+        }
 
         return response()->json(['message' => 'Friend request accepted']);
     }
@@ -52,6 +57,7 @@ class FriendController extends Controller
      * It deletes the corresponding FriendRequest record.
      *
      * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
      */
     public function rejectFriendRequest(Request $request): JsonResponse
     {
@@ -63,7 +69,9 @@ class FriendController extends Controller
         }
 
         $friendRequest = FriendRequest::where('sender_id', $friendId)->where('receiver_id', $currentUserId)->first();
-        $friendRequest->delete();
+        if ($friendRequest) {
+            $friendRequest->delete();
+        }
 
         return response()->json(['message' => 'Friend request rejected']);
     }
@@ -75,6 +83,7 @@ class FriendController extends Controller
      * It creates a new FriendRequest record.
      *
      * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
      */
     public function sendFriendRequest(Request $request): JsonResponse
     {
@@ -100,6 +109,7 @@ class FriendController extends Controller
      * It deletes the corresponding Friendship record.
      *
      * @param  Request  $request  The incoming HTTP request.
+     * @return JsonResponse
      */
     public function removeFriend(Request $request): JsonResponse
     {
@@ -116,7 +126,9 @@ class FriendController extends Controller
             $q->where('party1', $friendId)->where('party2', $currentUserId);
         })->first();
 
-        $friendship->delete();
+        if ($friendship) {
+            $friendship->delete();
+        }
 
         return response()->json(['message' => 'Friend removed']);
     }

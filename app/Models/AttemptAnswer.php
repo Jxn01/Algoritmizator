@@ -11,8 +11,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * The AttemptAnswer model represents an answer given by a user during an attempt at an assignment.
  *
- * Each AttemptAnswer is associated with a specific attempt and answer.
+ * Each AttemptAnswer is associated with a specific attempt question and answer.
  * The AttemptAnswer records the attempt made by the user and the answer they provided.
+ *
+ * @package App\Models
  */
 class AttemptAnswer extends Model
 {
@@ -31,6 +33,8 @@ class AttemptAnswer extends Model
 
     /**
      * Get the attempt question that the answer is associated with.
+     *
+     * @return BelongsTo The attempt question that the answer is associated with.
      */
     public function attemptQuestion(): BelongsTo
     {
@@ -39,6 +43,8 @@ class AttemptAnswer extends Model
 
     /**
      * Get the answer that the user provided.
+     *
+     * @return BelongsTo The answer that the user provided.
      */
     public function answer(): BelongsTo
     {
