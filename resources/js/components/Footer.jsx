@@ -16,7 +16,7 @@ const Footer = memo(() => {
                     <div>
                         <p className="text-sm">Készítette: Oláh Norbert (PST8RA)</p>
                         <p className="text-sm">
-                            Email: <a href="mailto:pst8ra@inf.elte.hu" className="underline">pst8ra@inf.elte.hu</a>
+                            E-mail: <a href="mailto:pst8ra@inf.elte.hu" className="underline">pst8ra@inf.elte.hu</a>
                         </p>
                     </div>
 

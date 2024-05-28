@@ -45,12 +45,12 @@ class AuthController extends Controller
             $request->user()->save();
 
             return response()->json([
-                'message' => 'Successfully logged in!',
+                'message' => 'Sikeres bejelentkezés!',
             ])->withCookie('XRSF-TOKEN', csrf_token());
         }
 
         return response()->json([
-            'message' => 'Invalid credentials',
+            'message' => 'Helytelen adatok!',
         ], 401);
     }
 
@@ -93,12 +93,12 @@ class AuthController extends Controller
             event(new Registered($user));
 
             return response()->json([
-                'message' => 'Successfully registered and logged in!',
+                'message' => 'Sikerült a regisztráció!',
             ])->withCookie('XRSF-TOKEN', csrf_token());
         }
 
         return response()->json([
-            'message' => 'Invalid credentials',
+            'message' => 'Helytelen adatok!',
         ], 401);
     }
 
@@ -148,7 +148,7 @@ class AuthController extends Controller
 
         if (User::where('email', $request->email)->doesntExist()) {
             return response()->json([
-                'message' => 'User does not exist',
+                'message' => 'A felhasználó nem található!',
             ], 404);
         }
 
@@ -174,7 +174,7 @@ class AuthController extends Controller
     {
         $request->user()->sendEmailVerificationNotification();
 
-        return back()->with('message', 'Verification link sent!');
+        return back()->with('message', 'Megerősítő e-mail elküldve!');
     }
 
     /**
@@ -204,7 +204,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'message' => 'Successfully updated avatar!',
+            'message' => 'Avatar sikeresen frissítve!',
             'avatar' => $avatarName,
         ]);
     }
@@ -225,7 +225,7 @@ class AuthController extends Controller
 
         if (! Hash::check($request->oldPassword, $user->password)) {
             return response()->json([
-                'message' => 'Current password is incorrect',
+                'message' => 'Rossz régi jelszó!',
             ], 400);
         }
 
@@ -233,7 +233,7 @@ class AuthController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'Successfully updated password!',
+            'message' => 'Jelszó sikeresen frissítve!',
         ]);
     }
 
@@ -254,7 +254,7 @@ class AuthController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'Successfully updated name!',
+            'message' => 'Név sikeresen frissítve!',
         ]);
     }
 
@@ -274,7 +274,7 @@ class AuthController extends Controller
         $existingUser = User::where('username', $request->username)->first();
         if ($existingUser) {
             return response()->json([
-                'message' => 'Username is already taken',
+                'message' => 'Ez a felhasználónév már foglalt!',
             ], 400);
         }
 
@@ -282,7 +282,7 @@ class AuthController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'Successfully updated username!',
+            'message' => 'Felhasználónév sikeresen frissítve!',
         ]);
     }
 
@@ -302,14 +302,14 @@ class AuthController extends Controller
 
         if (! Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => 'Password is incorrect',
+                'message' => 'Rossz jelszó!',
             ], 401);
         }
 
         $existingUser = User::where('email', $request->email)->first();
         if ($existingUser) {
             return response()->json([
-                'message' => 'E-mail is already taken',
+                'message' => 'Ez az e-mail cím már foglalt!',
             ], 400);
         }
 
@@ -317,7 +317,7 @@ class AuthController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'Successfully updated e-mail!',
+            'message' => 'E-mail cím sikeresen frissítve!',
         ]);
     }
 }

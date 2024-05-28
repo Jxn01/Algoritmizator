@@ -101,20 +101,20 @@ function injectCodeEditors() {
             button.textContent = language;
 
             // Set the initial button style.
-            button.className = segmentIndex === 0 ? 'px-4 py-2 text-white rounded-lg bg-gray-700' : 'px-4 py-2 text-white rounded-lg bg-gray-900';
+            button.className = segmentIndex === 0 ? 'px-4 py-2 text-white rounded-lg bg-gray-900' : 'px-4 py-2 text-white rounded-lg bg-gray-700 hover:bg-gray-900 transition duration-300';
 
             // Add event listener to toggle visibility of code editors.
             button.addEventListener('click', () => {
-                if (!button.classList.contains('bg-gray-700')) {
+                if (!button.classList.contains('bg-gray-900')) {
                     document.querySelectorAll('.buttonDiv button').forEach((button) => {
                         if (button.id.includes(`editor-button-${blockIndex}`)) {
-                            button.classList.remove('bg-gray-700');
-                            button.classList.add('bg-gray-900');
+                            button.classList.remove('bg-gray-900');
+                            button.classList.add('bg-gray-700');
                         }
                     });
 
-                    button.classList.remove('bg-gray-900');
-                    button.classList.add('bg-gray-700');
+                    button.classList.remove('bg-gray-700');
+                    button.classList.add('bg-gray-900');
 
                     document.querySelectorAll('.editor-container').forEach((editor) => {
                         if (editor.id === `editor-container-${blockIndex}-${segmentIndex}`) {

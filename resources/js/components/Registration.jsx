@@ -105,7 +105,7 @@ const Registration = memo(({ title, activeTab }) => {
                         <img
                             src="/algoritmizator/storage/logo.png"
                             alt="Logo"
-                            className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"
+                            className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800 animate-pulse"
                         />
                         <h2 className="text-3xl font-bold text-white mb-2">Fiók létrehozása</h2>
                     </div>
@@ -116,7 +116,7 @@ const Registration = memo(({ title, activeTab }) => {
                             <div className="mt-4">
                                 <label className="block text-gray-300" htmlFor="name">
                                     Név
-                                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="nameTip" />
+                                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2" id="nameTip" />
                                     <ReactTooltip anchorSelect={'#nameTip'} place="right" effect="solid">
                                         Add meg a neved.
                                     </ReactTooltip>
@@ -137,7 +137,7 @@ const Registration = memo(({ title, activeTab }) => {
                             <div className="mt-4">
                                 <label className="block text-gray-300" htmlFor="username">
                                     Felhasználónév
-                                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="usernameTip" />
+                                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2" id="usernameTip" />
                                     <ReactTooltip anchorSelect={'#usernameTip'} place="right" effect="solid">
                                         Add meg az egyedi felhasználóneved.
                                     </ReactTooltip>
@@ -157,15 +157,15 @@ const Registration = memo(({ title, activeTab }) => {
                             {/* Email field */}
                             <div className="mt-4">
                                 <label className="block text-gray-300" htmlFor="email">
-                                    Email
-                                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="emailTip" />
+                                    E-mail cím
+                                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2" id="emailTip" />
                                     <ReactTooltip anchorSelect={'#emailTip'} place="right" effect="solid">
                                         Add meg az e-mail címed. Csak inf.elte.hu e-maileket fogadunk el.
                                     </ReactTooltip>
                                 </label>
                                 <input
                                     type="email"
-                                    placeholder="Email"
+                                    placeholder="E-mail cím"
                                     onChange={handleChange}
                                     name="email"
                                     value={formData.email}
@@ -180,7 +180,7 @@ const Registration = memo(({ title, activeTab }) => {
                             <div className="mt-4">
                                 <label className="block text-gray-300" htmlFor="password">
                                     Jelszó
-                                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="passwordTip" />
+                                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2" id="passwordTip" />
                                     <ReactTooltip anchorSelect={'#passwordTip'} place="right" effect="solid">
                                         Adj meg egy erős jelszót, amely betűk, számok és szimbólumok keverékét tartalmazza.
                                     </ReactTooltip>
@@ -202,7 +202,7 @@ const Registration = memo(({ title, activeTab }) => {
                             <div className="mt-4">
                                 <label className="block text-gray-300" htmlFor="confirmPassword">
                                     Jelszó megerősítése
-                                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="confirmPasswordTip" />
+                                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2" id="confirmPasswordTip" />
                                     <ReactTooltip anchorSelect={'#confirmPasswordTip'} place="right" effect="solid">
                                         Add meg újra a jelszót a megerősítéshez.
                                     </ReactTooltip>

@@ -34,7 +34,7 @@ const VerificationEmailSent = memo(({ title, activeTab }) => {
                 <div className="w-full max-w-md text-center">
                     <div className="flex flex-col items-center mb-8">
                         <img src="/algoritmizator/storage/logo.png" alt="Logo"
-                             className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800" />
+                             className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800 animate-pulse" />
                         <h2 className="text-3xl font-bold text-white mb-2">Erősítsd meg az e-mail címed</h2>
                     </div>
                     <div className="px-8 py-6 bg-gray-800 shadow-lg rounded-lg">

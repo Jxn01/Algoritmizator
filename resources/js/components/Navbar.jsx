@@ -41,7 +41,7 @@ const Navbar = memo(({ title, activeTab }) => {
                             <img
                                 src="/algoritmizator/storage/logo.png"
                                 alt="Logo"
-                                className="h-10 w-10 rounded-full mr-3 object-cover border-2 border-purple-800"
+                                className="h-10 w-10 rounded-full mr-3 object-cover border-2 border-purple-800 animate-pulse"
                             />
                             <span className="text-lg font-bold">Algoritmizátor - {title}</span>
                         </div>

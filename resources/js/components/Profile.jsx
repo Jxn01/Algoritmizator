@@ -241,7 +241,7 @@ const Profile = memo(({ title, activeTab }) => {
             <label htmlFor={selectedForm}
                    className="block text-white text-sm font-bold mb-2">
                 {selectedForm === 'name' ? 'Teljes név' : 'Felhasználónév'}
-                <FontAwesomeIcon icon={faQuestionCircle} className="ml-2 text-white" id="textTip" />
+                <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2 text-white" id="textTip" />
                 <ReactTooltip anchorSelect={'#textTip'} place="right" effect="solid">
                     {selectedForm === 'name' ? 'A teljes neved, amit a többi felhasználó látni fog.' : 'Az új felhasználóneved.'}
                 </ReactTooltip>
@@ -264,7 +264,7 @@ const Profile = memo(({ title, activeTab }) => {
             <div className="mb-4">
                 <label htmlFor={selectedForm} className="block text-white text-sm font-bold mb-2">
                     E-mail cím
-                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2 text-white" id="emailTip" />
+                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2 text-white" id="emailTip" />
                     <ReactTooltip anchorSelect={'#emailTip'} place="right" effect="solid">
                         Az inf.elte.hu-s e-mail címed.
                     </ReactTooltip>
@@ -282,7 +282,7 @@ const Profile = memo(({ title, activeTab }) => {
             <div className="mb-4">
                 <label htmlFor="password" className="block text-white text-sm font-bold mb-2">
                     Jelenlegi jelszó
-                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2 text-white" id="oldPassTip" />
+                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2 text-white" id="oldPassTip" />
                     <ReactTooltip anchorSelect={'#oldPassTip'} place="right" effect="solid">
                         A jelenlegi jelszavad.
                     </ReactTooltip>
@@ -307,7 +307,7 @@ const Profile = memo(({ title, activeTab }) => {
             <div className="mb-4">
                 <label htmlFor="oldPassword" className="block text-white text-sm font-bold mb-2">
                     Jelenlegi jelszó
-                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2 text-white" id="oldPassTip" />
+                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2 text-white" id="oldPassTip" />
                     <ReactTooltip anchorSelect={'#oldPassTip'} place="right" effect="solid">
                         A jelenlegi jelszavad.
                     </ReactTooltip>
@@ -345,7 +345,7 @@ const Profile = memo(({ title, activeTab }) => {
             <div className="mb-4">
                 <label htmlFor="confirmPassword" className="block text-white text-sm font-bold mb-2">
                     Jelszó megerősítése
-                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2 text-white" id="newPassAgainTip" />
+                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2 text-white" id="newPassAgainTip" />
                     <ReactTooltip anchorSelect={'#newPassAgainTip'} place="right" effect="solid">
                         A jelszó megerősítése.
                     </ReactTooltip>
@@ -378,8 +378,9 @@ const Profile = memo(({ title, activeTab }) => {
 
     return (
         <div>
-            <Navbar title={title} activeTab={activeTab} />
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
+            <Navbar title={title} activeTab={activeTab}/>
+            <div
+                className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800">
                 <div className="w-full max-w-4xl bg-gray-800 p-6 rounded-lg shadow-lg text-white space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div>
@@ -397,103 +398,91 @@ const Profile = memo(({ title, activeTab }) => {
                                 />
                                 <div
                                     onClick={() => document.getElementById('fileInput').click()}
-                                    className="overlay absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500 cursor-pointer"
-                                >
+                                    className="overlay absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500 cursor-pointer">
                                     <span className="text-white">Megváltoztatás</span>
                                 </div>
                             </div>
+
                             <h1 className="text-3xl font-bold">{currentUser.name}</h1>
                             <p className="text-xl">{currentUser.username}</p>
                             <p className="text-md">{currentUser.email}</p>
-                            <p className="text-sm">
-                                Regisztráció dátuma: {new Date(currentUser.created_at).toLocaleString('hu-HU', {
-                                year: 'numeric',
-                                month: '2-digit',
-                                day: '2-digit',
-                                hour: '2-digit',
-                                minute: '2-digit'
-                            })}
-                            </p>
+                            <p className="text-sm">Regisztráció
+                                dátuma: {new Date(currentUser.created_at).toLocaleString('hu-HU', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                })}</p>
                             <p className="text-sm text-gray-500">ID: {currentUser.id}</p>
-                            <div>
-                                <h2 className="text-2xl font-bold">Statisztikák</h2>
-                                <p className="text-xl">Tapasztalatpontok: {currentUser.total_xp} XP</p>
-                                <p className="text-xl">Szint: LVL {currentUser.level}</p>
-                            </div>
                         </div>
-                        <hr className={'border-purple-600 border-2 mx-auto'} />
-                        <div className="flex flex-col items-center justify-center">
-                            <h2 className="text-2xl font-bold">Teljesített leckék</h2>
-                            <div className="overflow-auto w-full mt-2" style={{ maxHeight: 'calc(50vh)' }}>
-                                {successfulAttempts.length === 0 && <p>Még nem teljesítettél feladatot. :(</p>}
-                                {successfulAttempts.map(attempt => (
-                                    <a key={attempt.id} href={`/algoritmizator/lessons/task/attempt/${attempt.id}`}
-                                       className="flex items-center justify-between mx-4 p-3 border-t border-purple-500 hover:bg-gray-900 transition duration-300 rounded-lg">
-                                        <div className="flex items-center flex-1">
-                                            <div>
-                                                <h3 className="text-lg">{attempt.title}</h3>
-                                            </div>
-                                        </div>
-                                        <div className="flex flex-col items-end">
-                                            <p className="text-gray-400 text-sm">{attempt.total_score}/{attempt.max_score} pont</p>
-                                            <p className="text-green-500 font-bold text-sm">+{attempt.assignment_xp} XP</p>
-                                            <p className="text-gray-400 text-sm">Idő: {attempt.time}</p>
-                                            <p className="text-gray-400 text-sm">
-                                                {new Date(attempt.created_at).toLocaleString('hu-HU', {
-                                                    year: 'numeric',
-                                                    month: '2-digit',
-                                                    day: '2-digit',
-                                                    hour: '2-digit',
-                                                    minute: '2-digit'
-                                                })}
-                                            </p>
-                                        </div>
-                                    </a>
-                                ))}
-                            </div>
+                        {/* Stats */}
+                        <div>
+                            <h2 className="text-2xl font-bold">Statisztikák</h2>
+                            <p className="text-xl">Tapasztalatpontok: {currentUser.total_xp} XP</p>
+                            <p className="text-xl">Szint: LVL {currentUser.level}</p>
                         </div>
                     </div>
-                    <hr className={'border-purple-600 border-2 mx-auto'} />
+                    <hr className={'border-purple-600 border-2 mx-auto'}/>
+                    <div className="flex flex-col items-center justify-center">
+                        <h2 className="text-2xl font-bold">Teljesített leckék</h2>
+                        <div className="overflow-auto w-full mt-2" style={{maxHeight: 'calc(50vh)'}}>
+                            {successfulAttempts.length === 0 && <p className="text-center">Még nem teljesítettél feladatot. :(</p>}
+                            {successfulAttempts.map(attempt => (
+                                <a key={attempt.id} href={`/algoritmizator/lessons/task/attempt/${attempt.id}`}
+                                   className="flex items-center justify-between mx-4 p-3 border-t border-purple-500 rounded-lg hover:bg-gray-900 transition duration-300">
+                                    <div className="flex items-center flex-1">
+                                        <div>
+                                            <h3 className="text-lg">{attempt.title}</h3>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col items-end">
+                                        <p className="text-gray-400 text-sm">{attempt.total_score}/{attempt.max_score} pont</p>
+                                        <p className="text-green-500 font-bold text-sm">+{attempt.assignment_xp} XP</p>
+                                        <p className="text-gray-400 text-sm">Idő: {attempt.time}</p>
+                                        <p className="text-gray-400 text-sm">{new Date(attempt.created_at).toLocaleString('hu-HU', {
+                                            year: 'numeric',
+                                            month: '2-digit',
+                                            day: '2-digit',
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        })}</p>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                    <hr className={'border-purple-600 border-2 mx-auto'}/>
                     <button onClick={() => setModalIsOpen(true)}
-                            className="self-end px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">
-                        Profiladatok módosítása
+                            className="self-end px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Profiladatok
+                        módosítása
                     </button>
                     <Modal
                         isOpen={modalIsOpen}
                         onRequestClose={closeModal}
                         className="bg-gray-800 p-6 rounded-lg outline-none mx-auto my-auto max-w-lg"
-                        overlayClassName="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center"
-                    >
+                        overlayClassName="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center">
                         <div className="flex justify-between items-center">
                             <h2 className="text-xl text-white font-bold mb-4">
-                                Profiladatok módosítása {selectedForm && ` - ${selectedFormTitles[selectedForm]}`}
+                                Profiladatok módosítása {selectedForm && `– ${selectedFormTitles[selectedForm]}`}
                             </h2>
-                            <button onClick={closeModal} className="text-white mb-3 ml-3">
-                                <FontAwesomeIcon icon={faTimes} />
-                            </button>
+                            <button onClick={closeModal} className="text-white mb-3 ml-3"><FontAwesomeIcon
+                                icon={faTimes}/></button>
                         </div>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             {renderForm()}
                             <div className="flex justify-between">
-                                {selectedForm && (
-                                    <button type="submit"
-                                            className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">
-                                        Mentés
-                                    </button>
-                                )}
-                                {selectedForm && (
-                                    <button onClick={goBackToSelection}
-                                            className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-300">
-                                        Vissza
-                                    </button>
-                                )}
+                                {selectedForm && <button type="submit"
+                                                         className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Mentés</button>}
+                                {selectedForm && <button onClick={goBackToSelection}
+                                                         className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-300">Vissza</button>}
                             </div>
                             {successMessage && <p className="text-green-500">{successMessage}</p>}
                         </form>
                     </Modal>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </div>
     );
 });

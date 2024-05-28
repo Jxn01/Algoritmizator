@@ -73,7 +73,7 @@ const Login = memo(({ title, activeTab }) => {
                         <img
                             src="/algoritmizator/storage/logo.png"
                             alt="Logo"
-                            className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"
+                            className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800 animate-pulse"
                         />
                         <h2 className="text-3xl font-bold text-white mb-2">Üdvözlünk újra!</h2>
                     </div>
@@ -86,7 +86,7 @@ const Login = memo(({ title, activeTab }) => {
                                 <div className="relative">
                                     <label className="block text-gray-300" htmlFor="email">
                                         E-mail cím
-                                        <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="emailTip" />
+                                        <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2" id="emailTip" />
                                         <ReactTooltip anchorSelect={'#emailTip'} place="right" effect="solid">
                                             Add meg az inf.elte.hu-s e-mail címed.
                                         </ReactTooltip>

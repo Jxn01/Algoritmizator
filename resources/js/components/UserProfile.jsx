@@ -47,7 +47,7 @@ const UserProfile = memo(({title, activeTab, id}) => {
                                 <img
                                     src={"/algoritmizator/storage/" + profileUser.avatar}
                                     alt="Profile"
-                                    className="w-32 h-32 rounded-full object-cover border-4 border-purple-800 cursor-pointer"
+                                    className="w-32 h-32 rounded-full object-cover border-4 border-purple-800"
                                 />
                             </div>
 
@@ -75,7 +75,7 @@ const UserProfile = memo(({title, activeTab, id}) => {
                     <div className="flex flex-col items-center justify-center">
                         <h2 className="text-2xl font-bold">Teljesített leckék</h2>
                         <div className="overflow-auto w-full mt-2" style={{maxHeight: 'calc(50vh)'}}>
-                            {successfulAttempts.length === 0 && <p>Még nem teljesített feladatot. :(</p>}
+                            {successfulAttempts.length === 0 && <p className="text-center">Még nem teljesített feladatot. :(</p>}
                             {successfulAttempts.map(attempt => (
                                 <div key={attempt.id}
                                      className="flex items-center justify-between mx-4 p-3 border-t border-purple-500 hover:bg-gray-900 transition duration-300 rounded-lg">

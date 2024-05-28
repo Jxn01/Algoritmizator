@@ -79,7 +79,7 @@ const PasswordReset = memo(({ title, activeTab, token }) => {
                         <img
                             src="/algoritmizator/storage/logo.png"
                             alt="Logo"
-                            className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"
+                            className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800 animate-pulse"
                         />
                         <h2 className="text-3xl font-bold text-white mb-2">Jelszó visszaállítása</h2>
                     </div>
@@ -91,7 +91,7 @@ const PasswordReset = memo(({ title, activeTab, token }) => {
                             <div className="mt-4">
                                 <label className="block text-gray-300" htmlFor="email">
                                     E-mail cím
-                                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="emailTip" />
+                                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2" id="emailTip" />
                                     <ReactTooltip anchorSelect="#emailTip" place="right" effect="solid">
                                         Add meg a jelenlegi inf.elte.hu-s e-mail címét!
                                     </ReactTooltip>
@@ -105,13 +105,13 @@ const PasswordReset = memo(({ title, activeTab, token }) => {
                                     id="email"
                                 />
                                 {!emailIsValid && (
-                                    <p className="text-xs text-red-500 mt-1">Kérjük, adj meg egy érvényes inf.elte.hu e-mail címet.</p>
+                                    <p className="text-xs text-red-500 mt-1">Kérjük, add meg az érvényes inf.elte.hu e-mail címed.</p>
                                 )}
                             </div>
                             <div className="mt-4">
                                 <label className="block text-gray-300" htmlFor="password">
                                     Új jelszó
-                                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="newPasswordTip" />
+                                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2" id="newPasswordTip" />
                                     <ReactTooltip anchorSelect="#newPasswordTip" place="right" effect="solid">
                                         Adj meg egy erős jelszót, amely betűk, számok és szimbólumok keverékét tartalmazza.
                                     </ReactTooltip>
@@ -134,7 +134,7 @@ const PasswordReset = memo(({ title, activeTab, token }) => {
                             <div className="mt-4">
                                 <label className="block text-gray-300" htmlFor="confirmPassword">
                                     Új jelszó megerősítése
-                                    <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="newPasswordConfirmationTip" />
+                                    <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2" id="newPasswordConfirmationTip" />
                                     <ReactTooltip anchorSelect="#newPasswordConfirmationTip" place="right" effect="solid">
                                         Add meg ugyanazt a jelszót még egyszer!
                                     </ReactTooltip>

@@ -4,6 +4,8 @@ import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 import ReactMarkdown from 'react-markdown';
 import injectCodeEditors from "@/CodeEditorInjector";
+import Loading from "@/components/Loading.jsx";
+import FailedToLoad from "@/components/FailedToLoad.jsx";
 
 /**
  * TaskAttempt component
@@ -45,12 +47,12 @@ const TaskAttempt = ({ id, title, activeTab }) => {
 
     // Display a loading message while data is being fetched
     if (loading) {
-        return <div>Betöltés...</div>;
+        return <Loading />;
     }
 
     // Display an error message if the attempt data could not be fetched
     if (!attempt) {
-        return <div>Betöltés sikertelen.</div>;
+        return <FailedToLoad />;
     }
 
     /**

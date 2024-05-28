@@ -16,7 +16,7 @@ const NotFoundPage = memo(() => {
                     <img
                         src="/algoritmizator/storage/logo.png"
                         alt="Logo"
-                        className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800"
+                        className="h-16 w-16 rounded-full mb-5 object-cover border-2 border-purple-800 animate-pulse"
                     />
                     <h2 className="text-3xl font-bold text-white mb-2">Az oldal nem található</h2>
                 </div>
