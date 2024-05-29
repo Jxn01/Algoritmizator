@@ -32,7 +32,9 @@ class Task extends Model
     ];
 
     /**
-     * Get the answers associated with the task.
+     * Get the questions associated with the task.
+     *
+     * @return HasMany The questions associated with the task.
      */
     public function questions(): HasMany
     {
@@ -41,6 +43,8 @@ class Task extends Model
 
     /**
      * Get the assignment that the task is associated with.
+     *
+     * @return BelongsTo The assignment that the task is associated with.
      */
     public function assignment(): BelongsTo
     {

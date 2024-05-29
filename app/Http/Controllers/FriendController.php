@@ -40,7 +40,9 @@ class FriendController extends Controller
         $friendship->save();
 
         $friendRequest = FriendRequest::where('sender_id', $friendId)->where('receiver_id', $currentUserId)->first();
-        $friendRequest->delete();
+        if ($friendRequest) {
+            $friendRequest->delete();
+        }
 
         return response()->json(['message' => 'Friend request accepted']);
     }
@@ -63,7 +65,9 @@ class FriendController extends Controller
         }
 
         $friendRequest = FriendRequest::where('sender_id', $friendId)->where('receiver_id', $currentUserId)->first();
-        $friendRequest->delete();
+        if ($friendRequest) {
+            $friendRequest->delete();
+        }
 
         return response()->json(['message' => 'Friend request rejected']);
     }
@@ -116,7 +120,9 @@ class FriendController extends Controller
             $q->where('party1', $friendId)->where('party2', $currentUserId);
         })->first();
 
-        $friendship->delete();
+        if ($friendship) {
+            $friendship->delete();
+        }
 
         return response()->json(['message' => 'Friend removed']);
     }

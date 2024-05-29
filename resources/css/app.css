@@ -1,100 +1,88 @@
+/* Import Tailwind CSS base, components, and utilities */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* Customize the scrollbar for all elements */
 * {
-    scrollbar-color: #6d28d9 #1a202c;
-    scrollbar-width: auto;
+    /* Define the scrollbar thumb and track colors for Firefox */
+    scrollbar-color: #6d28d9 #1a202c; /* thumb color #6d28d9 (purple), track color #1a202c (dark gray) */
+    scrollbar-width: auto; /* Use the default width for the scrollbar */
 }
 
+/* Customize the scrollbar for WebKit-based browsers (e.g., Chrome, Safari) */
 *::-webkit-scrollbar {
-    width: 12px;
+    width: 12px; /* Set the width of the scrollbar */
 }
 
 *::-webkit-scrollbar-track {
-    background: #1a202c;
+    background: #1a202c; /* Set the background color of the scrollbar track to dark gray */
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #6d28d9;
-    border-radius: 20px;
-    border: 3px solid #1a202c;
+    background-color: #6d28d9; /* Set the color of the scrollbar thumb to purple */
+    border-radius: 20px; /* Round the corners of the scrollbar thumb */
+    border: 3px solid #1a202c; /* Add a border around the scrollbar thumb with the same color as the track */
 }
 
-.border-1{
+/* Define a utility class for setting a 1px border width */
+.border-1 {
     border-width: 1px;
 }
 
+/* Style for elements with the 'markdown' class */
 .markdown {
-    padding: 6px 28px 28px;
-    color: white;
-    font-family: inherit;
+    padding: 6px 28px 28px; /* Add padding around the content */
+    color: white; /* Set the text color to white */
+    font-family: inherit; /* Inherit the font family from the parent element */
 
+    /* Style unordered and ordered lists */
     ul, ol {
-        padding-left: 20px;
-        list-style-position: outside;
+        padding-left: 20px; /* Add padding to the left of list items */
+        list-style-position: outside; /* Position list markers outside the list item content */
     }
     ol {
-        list-style-type: decimal;
+        list-style-type: decimal; /* Use decimal numbers for ordered list markers */
     }
     ul {
-        list-style-type: disc;
+        list-style-type: disc; /* Use disc markers for unordered list items */
     }
 
-    h1 {
-        font-size: 2.25rem;
-        font-weight: bold;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-    }
-    h2 {
-        font-size: 1.875rem;
-        font-weight: bold;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-    }
-    h3 {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-    }
-    h4 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-    }
-    h5 {
-        font-size: 1.125rem;
-        font-weight: bold;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-    }
-    h6 {
-        font-size: 1rem;
-        font-weight: bold;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
+    /* Style headers (h1 to h6) */
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: bold; /* Make the font weight bold for all headers */
+        margin-top: 1em; /* Add margin above each header */
+        margin-bottom: 0.5em; /* Add margin below each header */
     }
 
+    /* Set specific font sizes for each header */
+    h1 { font-size: 2.25rem; }
+    h2 { font-size: 1.875rem; }
+    h3 { font-size: 1.5rem; }
+    h4 { font-size: 1.25rem; }
+    h5 { font-size: 1.125rem; }
+    h6 { font-size: 1rem; }
+
+    /* Style paragraphs */
     p {
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
+        margin-top: 0.5em; /* Add margin above each paragraph */
+        margin-bottom: 0.5em; /* Add margin below each paragraph */
     }
 
+    /* Style links */
     a {
-        color: #3182ce;
-        text-decoration: underline;
+        color: #3182ce; /* Set the link color to a shade of blue */
+        text-decoration: underline; /* Underline links */
     }
 
+    /* Style images */
     img {
-        max-width: 100%;
-        height: auto;
+        max-width: 100%; /* Ensure images do not exceed the width of their container */
+        height: auto; /* Maintain the aspect ratio of images */
     }
 
+    /* Hide code blocks within pre elements */
     pre code {
-        display: none;
+        display: none; /* Hide the code blocks */
     }
-
 }

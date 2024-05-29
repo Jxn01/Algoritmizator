@@ -33,6 +33,8 @@ class Sublesson extends Model
 
     /**
      * Get the lesson that the sublesson is associated with.
+     *
+     * @return BelongsTo The lesson that the sublesson belongs to.
      */
     public function lesson(): BelongsTo
     {
@@ -41,6 +43,8 @@ class Sublesson extends Model
 
     /**
      * Get the quiz associated with the sublesson.
+     *
+     * @return HasOne The quiz associated with the sublesson.
      */
     public function assignment(): HasOne
     {

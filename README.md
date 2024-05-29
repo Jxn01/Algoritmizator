@@ -88,19 +88,25 @@ MAIL_FROM_NAME=
 php artisan migrate
 ```
 
-7. Indítsd el a Laravel szerver a következő paranccsal:
+7. Állíts be egy cron job-ot a Laravel Task Scheduler futtatásához a következő paranccsal:
+
+```bash
+* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+```
+
+8Indítsd el a Laravel szerver a következő paranccsal:
 
 ```bash
 php artisan serve
 ```
 
-8. Indítsd el a React alkalmazást a következő paranccsal:
+9. Indítsd el a React alkalmazást a következő paranccsal:
 
 ```bash
 npm run dev
 ```
 
-9. Nyisd meg a böngészőt a `http://localhost:8000` címen.
+10. Nyisd meg a böngészőt a `http://localhost:8000` címen.
 
 ### Tesztelés
 

@@ -9,10 +9,21 @@ use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Class AttemptTest
+ *
+ * This class contains unit tests for the Attempt model.
+ */
 class AttemptTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Test that an attempt can be created with valid data.
+     *
+     * This test verifies that an attempt can be successfully created and saved in the database
+     * with valid data.
+     */
     public function test_attempt_can_be_created_with_valid_data(): void
     {
         $user = User::factory()->create();
@@ -36,6 +47,12 @@ class AttemptTest extends TestCase
         ]);
     }
 
+    /**
+     * Test that an attempt belongs to a user and an assignment.
+     *
+     * This test verifies the relationships between the Attempt model, the User model,
+     * and the Assignment model.
+     */
     public function test_attempt_belongs_to_user_and_assignment(): void
     {
         $user = User::factory()->create();
@@ -46,6 +63,12 @@ class AttemptTest extends TestCase
         $this->assertEquals($assignment->id, $attempt->assignment->id);
     }
 
+    /**
+     * Test that an attempt cannot be created without a user or an assignment.
+     *
+     * This test verifies that a QueryException is thrown when attempting to create an attempt
+     * without associating it with a user or an assignment.
+     */
     public function test_attempt_cannot_be_created_without_user_or_assignment(): void
     {
         $this->expectException(QueryException::class);

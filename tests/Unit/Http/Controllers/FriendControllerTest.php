@@ -9,10 +9,20 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
+/**
+ * Class FriendControllerTest
+ *
+ * This class contains unit tests for the FriendController.
+ */
 class FriendControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Test that a friend request can be accepted.
+     *
+     * This test verifies that a user can accept a friend request.
+     */
     public function test_friend_request_can_be_accepted(): void
     {
         $user1 = User::factory()->create();
@@ -36,6 +46,11 @@ class FriendControllerTest extends TestCase
         ]);
     }
 
+    /**
+     * Test that a friend request can be rejected.
+     *
+     * This test verifies that a user can reject a friend request.
+     */
     public function test_friend_request_can_be_rejected(): void
     {
         $user1 = User::factory()->create();
@@ -55,6 +70,11 @@ class FriendControllerTest extends TestCase
         ]);
     }
 
+    /**
+     * Test that a friend request can be sent.
+     *
+     * This test verifies that a user can send a friend request.
+     */
     public function test_friend_request_can_be_sent(): void
     {
         $user1 = User::factory()->create();
@@ -70,6 +90,11 @@ class FriendControllerTest extends TestCase
         ]);
     }
 
+    /**
+     * Test that a friend can be removed.
+     *
+     * This test verifies that a user can remove a friend.
+     */
     public function test_friend_can_be_removed(): void
     {
         $user1 = User::factory()->create();

@@ -30,6 +30,8 @@ class Friendship extends Model
 
     /**
      * Get the first user in the friendship.
+     *
+     * @return BelongsTo The first user in the friendship.
      */
     public function user1(): BelongsTo
     {
@@ -38,6 +40,8 @@ class Friendship extends Model
 
     /**
      * Get the second user in the friendship.
+     *
+     * @return BelongsTo The second user in the friendship.
      */
     public function user2(): BelongsTo
     {

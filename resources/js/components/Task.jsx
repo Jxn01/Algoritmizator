@@ -1,14 +1,20 @@
-import React, {memo, useEffect, useRef, useState} from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 import ReactMarkdown from 'react-markdown';
-import injectCodeEditors from "@/CodeEditorInjector.js";
+import injectCodeEditors from "@/CodeEditorInjector";
 
 /**
  * Task component
+ *
+ * This component renders a task assignment interface, fetching data from an API and allowing users to navigate through and complete tasks.
+ * @param {object} props - The component props
+ * @param {string} props.id - The ID of the task
+ * @param {string} props.title - The title of the task
+ * @param {string} props.activeTab - The active tab in the navigation
  */
-export const Task = memo(({ id, title, activeTab }) => {
+const Task = memo(({ id, title, activeTab }) => {
     const [assignment, setAssignment] = useState({});
     const [tasks, setTasks] = useState([]);
     const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
@@ -17,6 +23,7 @@ export const Task = memo(({ id, title, activeTab }) => {
     const [answers, setAnswers] = useState({});
     const isFirstRun = useRef(true);
 
+    // Fetch task data from API when the component mounts or the task ID changes
     useEffect(() => {
         axios.get(`/algoritmizator/api/task/${id}`)
             .then(response => {
@@ -25,21 +32,20 @@ export const Task = memo(({ id, title, activeTab }) => {
                 setCurrentTaskIndex(0);
             })
             .catch(error => {
-                alert(error);
+                alert("Hiba történt a feladat betöltése közben. Kérlek, próbáld újra később!");
             });
     }, [id]);
 
+    // Inject code editors when the current task index changes (but not on first run)
     useEffect(() => {
         if (isFirstRun.current) {
             isFirstRun.current = false;
             return;
         }
-
         injectCodeEditors();
-
     }, [currentTaskIndex]);
 
-
+    // Start a timer when the task is started
     useEffect(() => {
         let timer;
         if (timerStarted) {
@@ -50,10 +56,12 @@ export const Task = memo(({ id, title, activeTab }) => {
         return () => clearInterval(timer);
     }, [timerStarted]);
 
+    // Start the task by setting the timerStarted state to true
     const handleStartTask = () => {
         setTimerStarted(true);
     };
 
+    // Handle navigation to the next task or submission of the final task
     const handleNextTask = () => {
         if (!validateCurrentTask()) {
             alert('Kérlek az összes kérdésre válaszolj!');
@@ -74,17 +82,17 @@ export const Task = memo(({ id, title, activeTab }) => {
                 })),
                 time: timePassed
             };
-            console.log(data);
             axios.post('/algoritmizator/api/task/submit', data)
                 .then(response => {
                     window.location.href = `/algoritmizator/lessons/task/attempt/${response.data.attempt_id}`;
                 })
                 .catch(error => {
-                    alert(error);
+                    alert('Hiba történt a feladat beküldése közben. Kérlek, próbáld újra később!');
                 });
         }
     };
 
+    // Validate the current task's answers
     const validateCurrentTask = () => {
         const currentTask = tasks[currentTaskIndex];
         return currentTask.questions.every(question => {
@@ -96,6 +104,7 @@ export const Task = memo(({ id, title, activeTab }) => {
         });
     };
 
+    // Handle changes to task answers
     const handleAnswerChange = (questionId, value) => {
         setAnswers({
             ...answers,
@@ -103,6 +112,7 @@ export const Task = memo(({ id, title, activeTab }) => {
         });
     };
 
+    // Render the content of a task, including questions and answer options
     const renderTaskContent = (task) => {
         return (
             <div>
@@ -194,17 +204,17 @@ export const Task = memo(({ id, title, activeTab }) => {
                     <div className="w-full h-2 relative">
                         <div className="flex justify-between absolute top-0 left-0 w-full">
                             {tasks.map((task, index) => (
-                                <div className="z-20">
+                                <div className="z-20" key={index}>
                                     <br></br>
-                                    <div key={index}
-                                         className={`w-4 h-4 rounded-full ${index <= currentTaskIndex ? 'bg-green-500' : 'bg-gray-300'}`}
-                                         style={{marginLeft: index === 0 ? '0' : '-8px'}}></div>
+                                    <div
+                                        className={`w-4 h-4 rounded-full ${index <= currentTaskIndex ? 'bg-green-500' : 'bg-gray-300'}`}
+                                        style={{ marginLeft: index === 0 ? '0' : '-8px' }}></div>
                                 </div>
                             ))}
                         </div>
                         <div className="w-full bg-gray-300 h-2 absolute top-0 left-0 mt-7"></div>
                     </div>
-                    <div className="w-full bg-green-500 h-2 relative mt-5 mb-5" style={{width: `${progress}%`}}></div>
+                    <div className="w-full bg-green-500 h-2 relative mt-5 mb-5" style={{ width: `${progress}%` }}></div>
                     {!timerStarted ? (
                         <div className="text-center mt-5 mb-8">
                             <h2 className="text-3xl font-bold mb-4">{assignment.title}</h2>
@@ -212,7 +222,7 @@ export const Task = memo(({ id, title, activeTab }) => {
                                 <ReactMarkdown className="break-all">{assignment.markdown}</ReactMarkdown>
                             </div>
                             <button onClick={handleStartTask}
-                                    className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">Feladat
+                                    className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">Feladat
                                 indítása
                             </button>
                         </div>
@@ -220,13 +230,12 @@ export const Task = memo(({ id, title, activeTab }) => {
                         <div>
                             <div className="mb-8">
                                 <h3 className="text-2xl font-bold mb-4">{currentTask.title}</h3>
-                                <p className="text-lg text-gray-300 mb-4">Eltelt
-                                    idő: {new Date(timePassed * 1000).toISOString().substring(11, 19)}</p>
+                                <p className="text-lg text-gray-300 mb-4">Eltelt idő: {new Date(timePassed * 1000).toISOString().substring(11, 19)}</p>
                             </div>
                             {renderTaskContent(currentTask)}
                             <div className="text-center mt-8">
                                 <button onClick={handleNextTask}
-                                        className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900">
+                                        className="px-6 py-2 bg-purple-800 text-white rounded-lg hover:bg-purple-900 transition duration-300">
                                     {currentTaskIndex < tasks.length - 1 ? 'Következő feladat' : 'Feladat beküldése'}
                                 </button>
                             </div>
@@ -234,7 +243,7 @@ export const Task = memo(({ id, title, activeTab }) => {
                     )}
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 });
