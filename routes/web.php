@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 // Routes that require the inertia middleware
 Route::middleware('inertia')->group(function () {
     // Routes that require the user to be authenticated
-    Route::middleware(['auth', 'snoop'])->group(function () {
+    Route::middleware(['auth', 'snoop', 'verified'])->group(function () {
         // Routes for the application's main pages
         Route::get('/app/profile', [PageController::class, 'showProfile'])->name('profile');
 
@@ -153,7 +153,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Routes that require the user to be authenticated
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     /**
      * Route to update password.
      */
