@@ -1,0 +1,126 @@
+/* Import Tailwind CSS base, components, and utilities */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Customize the scrollbar for all elements */
+* {
+    scrollbar-color: #6d28d9 #1a202c; /* thumb color #6d28d9 (purple), track color #1a202c (dark gray) */
+    scrollbar-width: auto; /* Use the default width for the scrollbar */
+}
+
+*::-webkit-scrollbar {
+    width: 12px; /* Set the width of the scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+    background: #1a202c; /* Set the background color of the scrollbar track to dark gray */
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #6d28d9; /* Set the color of the scrollbar thumb to purple */
+    border-radius: 20px; /* Round the corners of the scrollbar thumb */
+    border: 3px solid #1a202c; /* Add a border around the scrollbar thumb with the same color as the track */
+}
+
+/* Define a utility class for setting a 1px border width */
+.border-1 {
+    border-width: 1px;
+}
+
+/* General body styling */
+body {
+    background-color: #4c1d95; /* Tailwind's purple-800 */
+    color: white;
+}
+
+/* Styling for headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #9f7aea; /* Tailwind's purple-400 */
+}
+
+/* Styling for links */
+a, a:visited {
+    color: #9f7aea; /* Tailwind's purple-400 */
+}
+
+a:hover, a:focus {
+    color: #6b46c1; /* Tailwind's purple-600 */
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: #6b46c1; /* Tailwind's purple-600 */
+    color: white;
+}
+
+/* Footer styling */
+.footer {
+    background-color: #4c1d95; /* Tailwind's purple-800 */
+    color: white;
+}
+
+/* Content section styling */
+.content {
+    background-color: #1a202c; /* Tailwind's gray-900 */
+    color: white;
+    padding: 2rem;
+    border-radius: 0.5rem; /* Tailwind's rounded-lg */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind's shadow-lg */
+}
+
+/* Task progress bar styling */
+.progress-bar {
+    background-color: #38a169; /* Tailwind's green-500 */
+    height: 0.5rem; /* Tailwind's h-2 */
+}
+
+.progress-bar-background {
+    background-color: #a0aec0; /* Tailwind's gray-400 */
+}
+
+/* Task card styling */
+.task-card {
+    background-color: #2d3748; /* Tailwind's gray-800 */
+    color: white;
+    padding: 1rem; /* Tailwind's p-4 */
+    border-radius: 0.5rem; /* Tailwind's rounded-lg */
+    margin-bottom: 1rem; /* Tailwind's mb-4 */
+}
+
+/* Button styling */
+button {
+    background-color: #6b46c1; /* Tailwind's purple-600 */
+    color: white;
+    padding: 0.5rem 1rem; /* Tailwind's px-4 py-2 */
+    border-radius: 0.375rem; /* Tailwind's rounded-md */
+    transition: background-color 0.3s ease; /* Tailwind's transition duration-300 */
+}
+
+button:hover {
+    background-color: #553c9a; /* Tailwind's purple-700 */
+}
+
+/* Styling for form inputs */
+input[type="text"], input[type="radio"], input[type="checkbox"] {
+    background-color: #2d3748; /* Tailwind's gray-800 */
+    color: white;
+    border: 1px solid #4a5568; /* Tailwind's gray-700 */
+    padding: 0.5rem; /* Tailwind's p-2 */
+    border-radius: 0.375rem; /* Tailwind's rounded-md */
+    margin-bottom: 0.5rem; /* Tailwind's mb-2 */
+}
+
+input[type="text"]:focus {
+    border-color: #9f7aea; /* Tailwind's purple-400 */
+    outline: none;
+}
+
+label {
+    margin-bottom: 0.5rem; /* Tailwind's mb-2 */
+}
+
+/* Markdown content styling */
+.markdown {
+    word-break: break-all; /* Tailwind's break-all */
+}

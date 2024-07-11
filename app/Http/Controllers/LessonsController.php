@@ -6,7 +6,6 @@ use App\Models\Assignment;
 use App\Models\Attempt;
 use App\Models\AttemptAnswer;
 use App\Models\AttemptQuestion;
-use App\Models\HourlyAlgorithm;
 use App\Models\Lesson;
 use App\Models\Question;
 use App\Models\Sublesson;
@@ -57,7 +56,7 @@ class LessonsController extends Controller
      * The lesson includes information about the sublessons associated with it.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @param int $id  The ID of the lesson.
+     * @param  int  $id  The ID of the lesson.
      * @return JsonResponse The lesson.
      */
     public function getAssignmentAndTasks(Request $request, int $id): JsonResponse
@@ -230,7 +229,7 @@ class LessonsController extends Controller
      *
      * This method returns an attempt with the user's answers.
      *
-     * @param int $id  The ID of the attempt.
+     * @param  int  $id  The ID of the attempt.
      * @return JsonResponse The attempt.
      */
     public function getAttempt(int $id): JsonResponse
@@ -287,6 +286,7 @@ class LessonsController extends Controller
             'max_score' => $attempt->max_score,
             'time' => $attempt->time,
             'passed' => $attempt->passed,
+            'created_at' => $attempt->created_at,
         ];
 
         return response()->json($data);
@@ -361,7 +361,7 @@ class LessonsController extends Controller
      * This method returns all successful attempts of the user.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @param int $id  The ID of the user.
+     * @param  int  $id  The ID of the user.
      * @return JsonResponse The successful attempts of the user.
      */
     public function getSuccessfulAttempts(Request $request, int $id): JsonResponse
@@ -389,23 +389,25 @@ class LessonsController extends Controller
     }
 
     /**
-     * Get the hourly algorithm.
+     * Get the hourly lesson.
      *
-     * This method returns the algorithm for the current hour.
+     * This method returns the lesson for the current hour.
      *
      * @param  Request  $request  The incoming HTTP request.
-     * @return JsonResponse The hourly algorithm.
+     * @return JsonResponse The hourly lesson.
      */
-    public function getHourlyAlgorithm(Request $request): JsonResponse
+    public function getHourlyLesson(Request $request): JsonResponse
     {
-        //$hour = date('H');
-        $hour = 1;
-        $algorithm = HourlyAlgorithm::where('id', $hour)->first();
+        $hour = date('H') + 1;
+        if ($hour > 21) {
+            $hour -= 20;
+        }
+        $lesson = Sublesson::where('id', $hour)->first();
 
         return response()->json([
-            'id' => $algorithm->id,
-            'title' => $algorithm->title,
-            'markdown' => $algorithm->markdown,
+            'id' => $lesson->id,
+            'title' => $lesson->title,
+            'markdown' => $lesson->markdown,
         ]);
     }
 }

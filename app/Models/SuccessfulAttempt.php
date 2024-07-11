@@ -31,6 +31,8 @@ class SuccessfulAttempt extends Model
 
     /**
      * Get the user who successfully completed the assignment.
+     *
+     * @return BelongsTo The user who completed the assignment.
      */
     public function user(): BelongsTo
     {
@@ -39,6 +41,8 @@ class SuccessfulAttempt extends Model
 
     /**
      * Get the assignment that was successfully completed.
+     *
+     * @return BelongsTo The assignment that was completed.
      */
     public function assignment(): BelongsTo
     {
@@ -47,6 +51,8 @@ class SuccessfulAttempt extends Model
 
     /**
      * Get the attempt that was successfully completed.
+     *
+     * @return BelongsTo The attempt that was completed.
      */
     public function attempt(): BelongsTo
     {

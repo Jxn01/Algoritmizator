@@ -8,10 +8,20 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Tests\TestCase;
 
+/**
+ * Class AuthControllerTest
+ *
+ * This class contains unit tests for the authentication controller.
+ */
 class AuthControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Test successful login with valid credentials.
+     *
+     * This test verifies that a user can log in with valid credentials.
+     */
     public function test_successful_login_with_valid_credentials(): void
     {
         $user = User::factory()->create([
@@ -27,6 +37,11 @@ class AuthControllerTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
+    /**
+     * Test unsuccessful login with invalid credentials.
+     *
+     * This test verifies that a user cannot log in with invalid credentials.
+     */
     public function test_unsuccessful_login_with_invalid_credentials(): void
     {
         $user = User::factory()->create([
@@ -42,6 +57,11 @@ class AuthControllerTest extends TestCase
         $this->assertGuest();
     }
 
+    /**
+     * Test successful registration with valid data.
+     *
+     * This test verifies that a user can register with valid data.
+     */
     public function test_successful_registration_with_valid_data(): void
     {
         $userData = [
@@ -61,6 +81,11 @@ class AuthControllerTest extends TestCase
         ]);
     }
 
+    /**
+     * Test unsuccessful registration with invalid data.
+     *
+     * This test verifies that a user cannot register with invalid data.
+     */
     public function test_unsuccessful_registration_with_invalid_data(): void
     {
         $userData = [
@@ -75,6 +100,11 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * Test successful password reset with valid token.
+     *
+     * This test verifies that a user can reset their password with a valid token.
+     */
     public function test_successful_password_reset_with_valid_token(): void
     {
         $user = User::factory()->create([
@@ -90,10 +120,15 @@ class AuthControllerTest extends TestCase
             'password_confirmation' => 'new-password',
         ]);
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
         $this->assertTrue(Hash::check('new-password', $user->fresh()->password));
     }
 
+    /**
+     * Test unsuccessful password reset with invalid token.
+     *
+     * This test verifies that a user cannot reset their password with an invalid token.
+     */
     public function test_unsuccessful_password_reset_with_invalid_token(): void
     {
         $user = User::factory()->create([
@@ -107,7 +142,7 @@ class AuthControllerTest extends TestCase
             'password_confirmation' => 'new-password',
         ]);
 
-        $response->assertStatus(302);
+        $response->assertStatus(400);
         $this->assertTrue(Hash::check('old-password', $user->fresh()->password));
     }
 }

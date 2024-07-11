@@ -36,8 +36,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_online',
         'last_online',
         'avatar',
+        'last_seen_at',
+        'last_activity',
     ];
 
+    /**
+     * The attributes that should be appended to the model's array form.
+     *
+     * @var array<string>
+     */
     protected $appends = ['level'];
 
     /**
@@ -65,6 +72,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Get the level of the user.
+     *
+     * @return int The level of the user.
      */
     public function getLevelAttribute(): int
     {
@@ -82,7 +91,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param  string  $token  The password reset token.
      */
     public function sendPasswordResetNotification($token): void
     {
@@ -91,14 +100,19 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Find a user by their ID.
+     *
+     * @param  int  $id  The ID of the user.
+     * @return User|null The user, or null if not found.
      */
-    public static function findById(int $id): User
+    public static function findById(int $id): ?User
     {
         return self::where('id', $id)->first();
     }
 
     /**
      * Get the friend requests sent by the user.
+     *
+     * @return HasMany The friend requests sent by the user.
      */
     public function senders(): HasMany
     {
@@ -107,6 +121,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Get the friend requests received by the user.
+     *
+     * @return HasMany The friend requests received by the user.
      */
     public function receivers(): HasMany
     {
@@ -115,6 +131,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Get the friendships where the user is the first party.
+     *
+     * @return HasMany The friendships where the user is the first party.
      */
     public function friendTo(): HasMany
     {
@@ -123,6 +141,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Get the friendships where the user is the second party.
+     *
+     * @return HasMany The friendships where the user is the second party.
      */
     public function friends(): HasMany
     {
@@ -131,6 +151,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Get the attempts made by the user.
+     *
+     * @return HasMany The attempts made by the user.
      */
     public function attempts(): HasMany
     {
@@ -139,6 +161,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Get the successful attempts made by the user.
+     *
+     * @return HasMany The successful attempts made by the user.
      */
     public function successfulAttempts(): HasMany
     {

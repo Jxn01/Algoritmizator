@@ -30,6 +30,9 @@ class Level extends Model
 
     /**
      * Find the level that corresponds to the given XP value.
+     *
+     * @param  int  $xp  The XP value to find the corresponding level for.
+     * @return int|null The level that corresponds to the given XP value, or null if no level is found.
      */
     public static function findLevelByXp(int $xp): ?int
     {

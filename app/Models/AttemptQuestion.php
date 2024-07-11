@@ -31,6 +31,8 @@ class AttemptQuestion extends Model
 
     /**
      * Get the task attempt that the question is associated with.
+     *
+     * @return BelongsTo The task attempt that the question is associated with.
      */
     public function taskAttempt(): BelongsTo
     {
@@ -39,6 +41,8 @@ class AttemptQuestion extends Model
 
     /**
      * Get the question that the user is attempting to answer.
+     *
+     * @return BelongsTo The question that the user is attempting to answer.
      */
     public function question(): BelongsTo
     {
@@ -47,6 +51,8 @@ class AttemptQuestion extends Model
 
     /**
      * Get the answers that the user has provided for the question.
+     *
+     * @return HasMany The answers that the user has provided for the question.
      */
     public function attemptAnswers(): HasMany
     {

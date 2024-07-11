@@ -1,28 +1,38 @@
-import React, {memo, useEffect, useRef, useState} from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 import ReactMarkdown from "react-markdown";
-import injectCodeEditors from "@/CodeEditorInjector.js";
+import injectCodeEditors from "@/CodeEditorInjector";
+import axios from 'axios';
 
 /**
  * Dashboard component
+ *
+ * Displays the dashboard with sections for completed tasks, lesson of the hour, and online friends.
+ * @param {Object} props - Component properties
+ * @param {string} props.title - Title of the current page
+ * @param {string} props.activeTab - Active tab of the navigation bar
+ * @returns {JSX.Element} Dashboard component
  */
-const Dashboard = memo(({ title, activeTab}) => {
+const Dashboard = memo(({ title, activeTab }) => {
     const [friends, setFriends] = useState([]);
     const [successfulAttempts, setSuccessfulAttempts] = useState([]);
-    const [algorithm, setAlgorithm] = useState({});
+    const [lesson, setLesson] = useState({});
     const isFirstRun = useRef(true);
 
+    // Fetch data on component mount
     useEffect(() => {
+        // Fetch online friends
         axios.get(`/algoritmizator/api/socials/online-friends`)
             .then(response => {
                 setFriends(response.data);
             })
             .catch(error => {
-                alert(error);
+                alert("Hiba történt a barátok lekérdezése során. :(");
                 setFriends([]);
             });
 
+        // Fetch user details and their successful task attempts
         axios.get('/algoritmizator/api/user')
             .then(r => {
                 const id = r.data.id;
@@ -31,24 +41,26 @@ const Dashboard = memo(({ title, activeTab}) => {
                         setSuccessfulAttempts(response.data);
                     })
                     .catch(error => {
-                        alert(error);
+                        alert("Hiba történt a feladatok lekérdezése során. :(");
                         setSuccessfulAttempts([]);
                     });
             })
             .catch(e => {
-                alert(e);
+                alert("Hiba történt a feladatok lekérdezése során. :(");
             });
 
-        axios.get('/algoritmizator/api/algorithm-of-the-hour')
+        // Fetch the lesson of the hour
+        axios.get('/algoritmizator/api/lesson-of-the-hour')
             .then(response => {
-                setAlgorithm(response.data);
+                setLesson(response.data);
             })
             .catch(error => {
-                alert(error);
-                setAlgorithm({});
+                alert("Hiba történt a lecke lekérdezése során. :(");
+                setLesson({});
             });
     }, []);
 
+    // Inject code editors after the lesson content is loaded or updated
     useEffect(() => {
         if (isFirstRun.current) {
             isFirstRun.current = false;
@@ -57,20 +69,21 @@ const Dashboard = memo(({ title, activeTab}) => {
 
         injectCodeEditors();
 
-    }, [algorithm]);
+    }, [lesson]);
 
     return (
         <div>
-            <Navbar title={title} activeTab={activeTab}/>
+            <Navbar title={title} activeTab={activeTab} />
             <div className="flex items-stretch min-h-screen bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 p-5">
-                <div className="w-1/4 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{maxHeight: 'calc(80vh)'}}>
-                    <h3 className="text-xl font-bold mb-3">Teljesített Feladatok</h3>
-                    <hr className="border-2 border-purple-700 mb-3"/>
-                    <div className="overflow-auto" style={{maxHeight: 'calc(80vh)'}}>
-                        {successfulAttempts.length === 0 && <p>Még nem teljesítettél feladatot. :(</p>}
+                {/* Successful Attempts Section */}
+                <div className="w-1/3 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{ maxHeight: 'calc(85vh)', position: 'sticky', top: '20px' }}>
+                    <h3 className="text-xl font-bold mb-3 text-center">Teljesített feladatok</h3>
+                    <hr className="border-2 border-purple-700 mb-3" />
+                    <div className="overflow-auto" style={{ maxHeight: 'calc(80vh)' }}>
+                        {successfulAttempts.length === 0 && <p className="text-center">Még nem teljesítettél feladatot. :(</p>}
                         {successfulAttempts.map(attempt => (
                             <a key={attempt.id} href={`/algoritmizator/lessons/task/attempt/${attempt.id}`}
-                                 className="flex items-center justify-between mx-4 p-3 border-b border-purple-500">
+                               className="flex items-center justify-between mx-4 p-3 border-b border-purple-500 hover:bg-gray-900 transition duration-300 rounded-lg">
                                 <div className="flex items-center flex-1">
                                     <div>
                                         <h3 className="text-lg">{attempt.title}</h3>
@@ -92,36 +105,39 @@ const Dashboard = memo(({ title, activeTab}) => {
                         ))}
                     </div>
                 </div>
+
+                {/* Main Dashboard Section */}
                 <div className="w-full m-5">
                     <div className="flex flex-col items-center text-center mb-8">
                         <h2 className="text-3xl font-bold text-white mb-2">Vezérlőpult</h2>
-                        <p className="text-lg text-gray-300">Üdvözlünk újra! Készen állsz a mai tanulásra?</p>
+                        <p className="text-lg font-bold text-gray-300">Üdvözlünk újra! Készen állsz a mai tanulásra?</p>
                     </div>
                     <div className="flex flex-col items-center m-10">
                         <div className="px-8 py-6 bg-gray-800 shadow-lg rounded-xl">
-                            <h1 className="text-2xl font-bold text-center text-white mb-4">Az óra algoritmusa</h1>
-                            <hr className="border-2 border-purple-700 mb-4"/>
+                            <h1 className="text-2xl font-bold text-center text-white mb-4">Az óra leckéje</h1>
+                            <hr className="border-2 border-purple-700 mb-4" />
                             <div className="markdown">
-                                <h1 className="text-xl font-bold text-center text-white mb-2">{algorithm.title}</h1>
+                                <h1 className="text-xl font-bold text-center text-white mb-2">{lesson.title}</h1>
                                 <div className="markdown">
-                                    {algorithm ? <ReactMarkdown
-                                        children={algorithm.markdown}/> : 'Nincs megjeleníthető tartalom. :('}
+                                    {lesson ? <ReactMarkdown children={lesson.markdown} /> : 'Nincs megjeleníthető tartalom. :('}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="w-1/4 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{maxHeight: 'calc(80vh)'}}>
-                    <h3 className="text-xl font-bold mb-3">Online Barátok</h3>
-                    <hr className="border-2 border-purple-700 mb-3"/>
-                    <div className="overflow-auto" style={{maxHeight: 'calc(80vh)'}}>
-                        {friends.length === 0 && <p>Nincsenek online barátok. :(</p>}
+
+                {/* Online Friends Section */}
+                <div className="w-1/3 p-4 bg-gray-800 text-white rounded-xl shadow-lg m-2 flex flex-col" style={{ maxHeight: 'calc(85vh)', position: 'sticky', top: '20px' }}>
+                    <h3 className="text-xl font-bold mb-3 text-center">Online barátok</h3>
+                    <hr className="border-2 border-purple-700 mb-3" />
+                    <div className="overflow-auto" style={{ maxHeight: 'calc(80vh)' }}>
+                        {friends.length === 0 && <p className="text-center">Nincsenek online barátok. :(</p>}
                         {friends.map(friend => (
                             <a key={friend.id} href={"/algoritmizator/app/socials/profile/" + friend.id}
-                                 className="flex items-center justify-between mx-4 p-3 border-b border-purple-500">
+                               className="flex items-center justify-between mx-4 p-3 border-b border-purple-500 hover:bg-gray-900 transition duration-300 rounded-lg">
                                 <div className="flex items-center flex-1">
                                     <img src={"/algoritmizator/storage/" + friend.avatar} alt={friend.name}
-                                         className={`w-12 h-12 rounded-full mr-4 border-2 border-green-500`}/>
+                                         className={`w-12 h-12 rounded-full mr-4 border-2 border-green-500`} />
                                     <div>
                                         <h3 className="text-lg">{friend.name}</h3>
                                         <p className="text-gray-400">{friend.username}</p>
@@ -133,7 +149,7 @@ const Dashboard = memo(({ title, activeTab}) => {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 });
