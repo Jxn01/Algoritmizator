@@ -9,8 +9,12 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
 /**
- * Group of routes with Inertia middleware.
+ * This file defines the routes for the web application.
+ * It uses Laravel's routing system to map URLs to controller actions.
+ * It also uses middleware to restrict access to certain routes based on the user's authentication status.
  */
+
+// Routes that require the inertia middleware
 Route::middleware('inertia')->group(function () {
 
     /**

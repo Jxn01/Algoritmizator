@@ -42,7 +42,7 @@ const PasswordReset = memo(({ title, activeTab, token }) => {
         }
         setPasswordsMatch(true);
 
-        const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             setEmailIsValid(false);
             return;

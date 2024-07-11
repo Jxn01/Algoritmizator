@@ -29,7 +29,7 @@ const ForgotPassword = memo(({ title, activeTab }) => {
      */
     const handleSubmit = (event) => {
         event.preventDefault();
-        const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i; // Regular expression to validate ELTE email address
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (emailRegex.test(email)) {
             setEmailIsValid(true);
             axios.post('/algoritmizator/api/forgot-password', { email })
