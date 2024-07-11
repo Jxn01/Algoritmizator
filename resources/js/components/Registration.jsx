@@ -57,7 +57,7 @@ const Registration = memo(({ title, activeTab }) => {
             axios.post('/algoritmizator/api/register', data)
                 .then(response => {
                     alert("Sikeres regisztráció!");
-                    window.location.href = '/algoritmizator/app';
+                    window.location.href = '/algoritmizator/auth/confirm-email';
                 })
                 .catch(error => {
                     if (error.response.status === 422) {
