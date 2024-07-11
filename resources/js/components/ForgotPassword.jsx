@@ -25,6 +25,7 @@ const ForgotPassword = memo(({title, activeTab}) => {
     const [emailIsValid, setEmailIsValid] = useState(true);
 
     const handleSubmit = (event) => {
+        /*
         event.preventDefault();
         const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
         if (emailRegex.test(email)) {
@@ -35,6 +36,8 @@ const ForgotPassword = memo(({title, activeTab}) => {
         } else {
             setEmailIsValid(false);
         }
+        */
+        alert("Ez a funkció jelenleg nem működik.");
     };
 
     return (

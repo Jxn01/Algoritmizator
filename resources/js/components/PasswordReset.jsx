@@ -31,6 +31,7 @@ const PasswordReset = memo(({title, activeTab, token}) => {
     const [resetSuccess, setResetSuccess] = useState(false);
 
     const handleSubmit = (event) => {
+        /*
         event.preventDefault();
         if (password !== confirmPassword) {
             setPasswordsMatch(false);
@@ -53,6 +54,23 @@ const PasswordReset = memo(({title, activeTab, token}) => {
             axios.post('/algoritmizator/api/reset-password', formData)
             setResetSuccess(true);
         }
+        setPasswordStrong(true);
+
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('password_confirmation', confirmPassword);
+        formData.append('token', token);
+
+        axios.post('/algoritmizator/api/reset-password', formData)
+            .then(response => {
+                setResetSuccess(true);
+            })
+            .catch(error => {
+                alert("Hiba történt a jelszó-visszaállítás közben. Lehetséges, hogy a jelszó-visszaállítási link lejárt vagy rossz e-mail címet adtál meg.");
+            });
+        */
+        alert("Ez a funkció jelenleg nem működik.");
     };
 
     return (

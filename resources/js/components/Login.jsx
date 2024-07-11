@@ -29,8 +29,7 @@ const Login = memo(({ title, activeTab}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        /*
-        const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             setEmailIsValid(false);
             return;
@@ -72,20 +71,24 @@ const Login = memo(({ title, activeTab}) => {
                         <form onSubmit={handleSubmit}>
                             <div className="mt-4">
                                 <div className="relative">
-                                    <label className="block text-gray-300" htmlFor="email">E-mail
-                                        <span className="ml-2 cursor-pointer">
-                                            <FontAwesomeIcon icon={faQuestionCircle} data-tip data-for="emailTip"/>
-                                            <ReactTooltip id="emailTip" place="right" effect="solid">
-                                                Csak inf.elte.hu e-maileket fogadunk el.
-                                            </ReactTooltip>
-                                        </span>
+                                    <label className="block text-gray-300" htmlFor="email">
+                                        E-mail cím
+                                        <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2" id="emailTip" />
+                                        <ReactTooltip anchorSelect={'#emailTip'} place="right" effect="solid">
+                                            Add meg az e-mail címed.
+                                        </ReactTooltip>
                                     </label>
-                                    <input type="text" placeholder="Email"
-                                           autoComplete="email"
-                                           onChange={e => setEmail(e.target.value)}
-                                           className={`w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white ${!emailIsValid ? 'border-red-500' : 'border-gray-600'}`}
-                                           id="email"/>
-                                    {!emailIsValid && <p className="text-xs text-red-500 mt-1">Kérjük, adj meg egy érvényes inf.elte.hu e-mail címet.</p>}
+                                    <input
+                                        type="text"
+                                        placeholder="E-mail cím"
+                                        autoComplete="email"
+                                        onChange={e => setEmail(e.target.value)}
+                                        className={`w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white ${!emailIsValid ? 'border-red-500' : 'border-gray-600'}`}
+                                        id="email"
+                                    />
+                                    {!emailIsValid && (
+                                        <p className="text-xs text-red-500 mt-1">Kérjük, adj meg egy érvényes e-mail címet.</p>
+                                    )}
                                 </div>
                                 <div className="mt-4">
                                     <label className="block text-gray-300" htmlFor="password">Jelszó</label>

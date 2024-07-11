@@ -28,7 +28,6 @@ const Registration = memo(({title, activeTab}) => {
         password: '',
         confirmPassword: ''
     });
-    const [emailIsValid, setEmailIsValid] = useState(true);
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [formErrors, setFormErrors] = useState({});
 
@@ -49,7 +48,7 @@ const Registration = memo(({title, activeTab}) => {
             axios.post('/algoritmizator/api/register', data)
                 .then(response => {
                     alert("Sikeres regisztráció!");
-                    window.location.href = '/algoritmizator/auth/confirm-email';
+                    window.location.href = '/algoritmizator/app';
                 })
                 .catch(error => {
                     if (error.response.status === 422) {
@@ -63,14 +62,14 @@ const Registration = memo(({title, activeTab}) => {
 
     const validateForm = () => {
         const errors = {};
-        const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!formData.name) errors.name = "A név megadása kötelező.";
         if (!formData.username) errors.username = "A felhasználónév megadása kötelező.";
         if (!formData.email) {
             errors.email = "Az e-mail cím megadása kötelező.";
         } else if (!emailRegex.test(formData.email)) {
-            errors.email = "Az e-mail érvénytelen. Csak inf.elte.hu e-maileket fogadunk el.";
+            errors.email = "Az e-mail érvénytelen.";
         }
         if (!formData.password) errors.password = "A jelszó megadása kötelező.";
         if (!formData.confirmPassword) errors.confirmPassword = "A jelszó megerősítése kötelező.";
@@ -139,7 +138,7 @@ const Registration = memo(({title, activeTab}) => {
                                     Email
                                     <FontAwesomeIcon icon={faQuestionCircle} className="ml-2" id="emailTip"/>
                                     <ReactTooltip anchorSelect={'#emailTip'} place="right" effect="solid">
-                                        Add meg az e-mail címed. Csak inf.elte.hu e-maileket fogadunk el.
+                                        Add meg az e-mail címed.
                                     </ReactTooltip>
                                 </label>
                                 <input
