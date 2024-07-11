@@ -44,7 +44,7 @@ Route::middleware(['auth', 'web'])->group(function () {
 
 
 // Routes that require the user to be authenticated
-Route::middleware(['auth', 'web'])->group(function () {
+Route::middleware(['auth', 'web', 'verified'])->group(function () {
     // Routes for the application's user profile actions
     Route::post('algoritmizator/api/update-password', [AuthController::class, 'updatePassword']);
     /**
