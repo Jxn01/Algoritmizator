@@ -31,8 +31,7 @@ const Login = memo(({ title, activeTab }) => {
      */
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        const emailRegex = /^[^\s@]+@inf\.elte\.hu$/i; // Regular expression to validate ELTE email address
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             setEmailIsValid(false);
             return;
@@ -88,7 +87,7 @@ const Login = memo(({ title, activeTab }) => {
                                         E-mail cím
                                         <FontAwesomeIcon tabIndex="-1" icon={faQuestionCircle} className="ml-2" id="emailTip" />
                                         <ReactTooltip anchorSelect={'#emailTip'} place="right" effect="solid">
-                                            Add meg az inf.elte.hu-s e-mail címed.
+                                            Add meg az e-mail címed.
                                         </ReactTooltip>
                                     </label>
                                     <input
@@ -100,7 +99,7 @@ const Login = memo(({ title, activeTab }) => {
                                         id="email"
                                     />
                                     {!emailIsValid && (
-                                        <p className="text-xs text-red-500 mt-1">Kérjük, adj meg egy érvényes inf.elte.hu e-mail címet.</p>
+                                        <p className="text-xs text-red-500 mt-1">Kérjük, adj meg egy érvényes e-mail címet.</p>
                                     )}
                                 </div>
                                 <div className="mt-4">

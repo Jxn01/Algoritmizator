@@ -28,6 +28,7 @@ const ForgotPassword = memo(({ title, activeTab }) => {
      * @returns {void}
      */
     const handleSubmit = (event) => {
+        /*
         event.preventDefault();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (emailRegex.test(email)) {
@@ -44,6 +45,8 @@ const ForgotPassword = memo(({ title, activeTab }) => {
         } else {
             setEmailIsValid(false);
         }
+        */
+        alert("Ez a funkció jelenleg nem működik.");
     };
 
     return (

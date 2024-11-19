@@ -42,13 +42,10 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::post('algoritmizator/api/email-verification-notification', [AuthController::class, 'emailVerificationNotification'])->middleware('throttle:6,1')->name('verification.send');
 });
 
-/**
- * Group of routes for authenticated and verified users.
- */
-Route::middleware(['auth', 'verified', 'web'])->group(function () {
-    /**
-     * Route to update password.
-     */
+
+// Routes that require the user to be authenticated
+Route::middleware(['auth', 'web', 'verified'])->group(function () {
+    // Routes for the application's user profile actions
     Route::post('algoritmizator/api/update-password', [AuthController::class, 'updatePassword']);
     /**
      * Route to update email.
